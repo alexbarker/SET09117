@@ -6,12 +6,7 @@ using System.Threading.Tasks;
 
 namespace Checkers
 {
-    class Program
+    class AI
     {
-        static void Main(string[] args)
-        {
-            Console.Write("Checkers");
-            Console.ReadLine();
-        }
     }
 }
