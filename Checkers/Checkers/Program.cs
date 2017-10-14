@@ -11,7 +11,7 @@ namespace Checkers
         static void Main(string[] args)
         {
             Console.Write("Checkers\n");
-            Console.Write("Alexander Barker");
+            Console.Write("Alexander Barkkfbnflber");
             Console.ReadLine();
         }
     }
