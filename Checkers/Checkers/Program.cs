@@ -10,7 +10,8 @@ namespace Checkers
     {
         static void Main(string[] args)
         {
-            Console.Write("Checkers");
+            Console.Write("Checkers\n");
+            Console.Write("Alexander Barker");
             Console.ReadLine();
         }
     }
