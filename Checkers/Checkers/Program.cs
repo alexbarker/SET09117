@@ -6,17 +6,24 @@ using System.Threading.Tasks;
 
 namespace Checkers
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            Console.Write("Checkers\n");
-            Console.Write("Alexander Barker\n\n");
+            Console.Title = "ConsoleCheckers";
+            Console.BackgroundColor = ConsoleColor.Gray;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.Clear();
+            Console.SetWindowSize(160, 40);
 
-           // Console.WriteLine("  ╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗");
+            Board board = new Board();
+            board.DrawBoard();
 
-            Console.WriteLine();
-            Console.ReadLine();
+            // Menu menu = new menu();
+            // menu.begin();
+
+            //Console.WriteLine();
+            //Console.ReadLine();
         }
     }
 }
