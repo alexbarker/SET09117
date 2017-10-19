@@ -14,16 +14,15 @@ namespace Checkers
             Console.BackgroundColor = ConsoleColor.Gray;
             Console.ForegroundColor = ConsoleColor.Black;
             Console.Clear();
-            Console.SetWindowSize(160, 40);
+            Console.SetWindowSize(136, 38);
 
-            Board board = new Board();
-            board.DrawBoard();
+            Menu menu = new Menu();
+            menu.DrawTitle();
+        }
 
-            // Menu menu = new menu();
-            // menu.begin();
-
-            //Console.WriteLine();
-            //Console.ReadLine();
+        public void Delay(int wait)
+        {
+            System.Threading.Thread.Sleep(wait * 1000);
         }
     }
 }

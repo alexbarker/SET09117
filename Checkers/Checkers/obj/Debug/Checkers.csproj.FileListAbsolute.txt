@@ -5,10 +5,10 @@ C:\Users\alexb\source\repos\SET09117-master\Checkers\Checkers\obj\Debug\Checkers
 C:\Users\alexb\source\repos\SET09117-master\Checkers\Checkers\obj\Debug\Checkers.csproj.CoreCompileInputs.cache
 C:\Users\alexb\source\repos\SET09117-master\Checkers\Checkers\obj\Debug\Checkers.exe
 C:\Users\alexb\source\repos\SET09117-master\Checkers\Checkers\obj\Debug\Checkers.pdb
+C:\Users\alexb\source\repos\SET09117\Checkers\Checkers\obj\Debug\Checkers.csproj.CoreCompileInputs.cache
 C:\Users\alexb\source\repos\SET09117\Checkers\Checkers\bin\Debug\Checkers.exe.config
 C:\Users\alexb\source\repos\SET09117\Checkers\Checkers\bin\Debug\Checkers.exe
 C:\Users\alexb\source\repos\SET09117\Checkers\Checkers\bin\Debug\Checkers.pdb
-C:\Users\alexb\source\repos\SET09117\Checkers\Checkers\obj\Debug\Checkers.csprojResolveAssemblyReference.cache
-C:\Users\alexb\source\repos\SET09117\Checkers\Checkers\obj\Debug\Checkers.csproj.CoreCompileInputs.cache
 C:\Users\alexb\source\repos\SET09117\Checkers\Checkers\obj\Debug\Checkers.exe
 C:\Users\alexb\source\repos\SET09117\Checkers\Checkers\obj\Debug\Checkers.pdb
+C:\Users\alexb\source\repos\SET09117\Checkers\Checkers\obj\Debug\Checkers.csprojResolveAssemblyReference.cache

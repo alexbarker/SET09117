@@ -10,215 +10,93 @@ namespace Checkers
     {
         public void DrawBoard()
         {
-            Console.WriteLine("                         ╔════════════════════════════════════════════════╗                            ");
-            Console.WriteLine("                         ║██████      ██████      ██████      ██████      ║                            ");
-            Console.WriteLine("                         ║██████      ██████      ██████      ██████      ║                            ");
-            Console.WriteLine("                         ║██████      ██████      ██████      ██████      ║                            ");
-            Console.WriteLine("                         ║      ██████      ██████      ██████      ██████║                            ");
-            Console.WriteLine("                         ║      ██████      ██████      ██████      ██████║                            ");
-            Console.WriteLine("                         ║      ██████      ██████      ██████      ██████║                            ");
-            Console.WriteLine("                         ║██████      ██████      ██████      ██████      ║                            ");
-            Console.WriteLine("                         ║██████      ██████      ██████      ██████      ║                            ");
-            Console.WriteLine("                         ║██████      ██████      ██████      ██████      ║                            ");
-            Console.WriteLine("                         ║      ██████      ██████      ██████      ██████║                            ");
-            Console.WriteLine("                         ║      ██████      ██████      ██████      ██████║                            ");
-            Console.WriteLine("                         ║      ██████      ██████      ██████      ██████║                            ");
-            Console.WriteLine("                         ║██████      ██████      ██████      ██████      ║                            ");
-            Console.WriteLine("                         ║██████      ██████      ██████      ██████      ║                            ");
-            Console.WriteLine("                         ║██████      ██████      ██████      ██████      ║                            ");
-            Console.WriteLine("                         ║      ██████      ██████      ██████      ██████║                            ");
-            Console.WriteLine("                         ║      ██████      ██████      ██████      ██████║                            ");
-            Console.WriteLine("                         ║      ██████      ██████      ██████      ██████║                            ");
-            Console.WriteLine("                         ║██████      ██████      ██████      ██████      ║                            ");
-            Console.WriteLine("                         ║██████      ██████      ██████      ██████      ║                            ");
-            Console.WriteLine("                         ║██████      ██████      ██████      ██████      ║                            ");
-            Console.WriteLine("                         ║      ██████      ██████      ██████      ██████║                            ");
-            Console.WriteLine("                         ║      ██████      ██████      ██████      ██████║                            ");
-            Console.WriteLine("                         ║      ██████      ██████      ██████      ██████║                            ");
-            Console.WriteLine("                         ╚════════════════════════════════════════════════╝                            ");
+            Console.Clear();
 
-
-            // TO BE MOVED TO PIECE CLASS LATER
-            // LONG-FORM-HARD-CODED VERSION
-            Console.SetCursorPosition(28, 2);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("█");
-            Console.SetCursorPosition(29, 2);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("K");
-
-            Console.SetCursorPosition(40, 2);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("█");
-            Console.SetCursorPosition(41, 2);
-            Console.ForegroundColor = ConsoleColor.Black;
-            Console.Write("K");
-
-            Console.SetCursorPosition(52, 2);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("█");
-            Console.SetCursorPosition(53, 2);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("█");
-
-            Console.SetCursorPosition(64, 2);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("█");
-            Console.SetCursorPosition(65, 2);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("█");
-
-            Console.SetCursorPosition(34, 5);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("█");
-            Console.SetCursorPosition(35, 5);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("█");
-
-            Console.SetCursorPosition(46, 5);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("█");
-            Console.SetCursorPosition(47, 5);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("█");
-
-            Console.SetCursorPosition(58, 5);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("█");
-            Console.SetCursorPosition(59, 5);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("█");
-
-            Console.SetCursorPosition(70, 5);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("█");
-            Console.SetCursorPosition(71, 5);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("█");
-
-            Console.SetCursorPosition(28, 8);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("█");
-            Console.SetCursorPosition(29, 8);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("█");
-
-            Console.SetCursorPosition(40, 8);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("█");
-            Console.SetCursorPosition(41, 8);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("█");
-
-            Console.SetCursorPosition(52, 8);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("█");
-            Console.SetCursorPosition(53, 8);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("█");
-
-            Console.SetCursorPosition(64, 8);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("█");
-            Console.SetCursorPosition(65, 8);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("█");
+            Console.WriteLine("                                                                                                                              ");
+            Console.WriteLine("          ╔═════════════════════╗         ╔══════════════════════════════════════════════════╗         ╔═════════════════════╗");
+            Console.WriteLine("          ║       LEGEND        ║         ║       ██████      ██████      ██████      ██████ ║         ║        SCORE        ║");
+            Console.WriteLine("          ╚═════════════════════╝         ║       ██████      ██████      ██████      ██████ ║         ╚═════════════════════╝");
+            Console.WriteLine("                                          ║       ██████      ██████      ██████      ██████ ║                                ");
+            Console.WriteLine("        (spacebar) - Pickup & Drop        ║ ██████      ██████      ██████      ██████       ║                PLAYER ONE      ");
+            Console.WriteLine("        (u) - Undo Move                   ║ ██████      ██████      ██████      ██████       ║         ╔═════════════════════╗");
+            Console.WriteLine("        (p) - Pause                       ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
+            Console.WriteLine("        (q) - Quit                        ║       ██████      ██████      ██████      ██████ ║         ║                     ║");
+            Console.WriteLine("                                          ║       ██████      ██████      ██████      ██████ ║         ║                     ║");
+            Console.WriteLine("                                          ║       ██████      ██████      ██████      ██████ ║         ║                     ║");
+            Console.WriteLine("                                          ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
+            Console.WriteLine("                                          ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
+            Console.WriteLine("          ╔═════════════════════╗         ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
+            Console.WriteLine("          ║    INSTRUCTIONS     ║         ║       ██████      ██████      ██████      ██████ ║         ╚═════════════════════╝");
+            Console.WriteLine("          ╚═════════════════════╝         ║       ██████      ██████      ██████      ██████ ║                                ");
+            Console.WriteLine("                                          ║       ██████      ██████      ██████      ██████ ║                PLAYER TWO      ");
+            Console.WriteLine("        No game logic implemented yet     ║ ██████      ██████      ██████      ██████       ║         ╔═════════════════════╗");
+            Console.WriteLine("        No user input implemented yet     ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
+            Console.WriteLine("                                          ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
+            Console.WriteLine("                                          ║       ██████      ██████      ██████      ██████ ║         ║                     ║");
+            Console.WriteLine("                                          ║       ██████      ██████      ██████      ██████ ║         ║                     ║");
+            Console.WriteLine("                                          ║       ██████      ██████      ██████      ██████ ║         ║                     ║");
+            Console.WriteLine("                                          ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
+            Console.WriteLine("                                          ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
+            Console.WriteLine("                                          ║ ██████      ██████      ██████      ██████       ║         ╚═════════════════════╝");
+            Console.WriteLine("                                          ╚══════════════════════════════════════════════════╝                                ");
+            Console.WriteLine("                                                                                                                              ");
 
             //-----------------------------------------------------------------------//
 
-            Console.SetCursorPosition(34, 17);
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.Write("█");
-            Console.SetCursorPosition(35, 17);
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.Write("█");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.SetCursorPosition(104, 5);
+            Console.Write("██    PLAYER ONE");
 
-            Console.SetCursorPosition(46, 17);
-            Console.ForegroundColor = ConsoleColor.DarkBlue;
-            Console.Write("█");
-            Console.SetCursorPosition(47, 17);
-            Console.ForegroundColor = ConsoleColor.DarkBlue;
-            Console.Write("█");
-
-            Console.SetCursorPosition(58, 17);
-            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-            Console.Write("█");
-            Console.SetCursorPosition(59, 17);
-            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-            Console.Write("█");
-
-            Console.SetCursorPosition(70, 17);
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.Write("█");
-            Console.SetCursorPosition(71, 17);
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.Write("█");
-
-            Console.SetCursorPosition(28, 20);
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("█");
-            Console.SetCursorPosition(29, 20);
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("█");
-
-            Console.SetCursorPosition(40, 20);
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.Write("█");
-            Console.SetCursorPosition(41, 20);
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.Write("█");
-
-            Console.SetCursorPosition(52, 20);
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.Write("█");
-            Console.SetCursorPosition(53, 20);
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.Write("█");
-
-            Console.SetCursorPosition(64, 20);
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("█");
-            Console.SetCursorPosition(65, 20);
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("█");
-
-            Console.SetCursorPosition(34, 23);
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.Write("█");
-            Console.SetCursorPosition(35, 23);
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.Write("█");
-
-            Console.SetCursorPosition(46, 23);
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write("█");
-            Console.SetCursorPosition(47, 23);
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("K");
-
-            Console.SetCursorPosition(58, 23);
             Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.Write("█");
-            Console.SetCursorPosition(59, 23);
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.Write("K");
-
-            Console.SetCursorPosition(70, 23);
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write("█");
-            Console.SetCursorPosition(71, 23);
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write("█");
+            Console.SetCursorPosition(104, 16);
+            Console.Write("██    PLAYER TWO");
 
             //-----------------------------------------------------------------------//
-            Console.SetCursorPosition(1, 27);
-            Console.ForegroundColor = ConsoleColor.Black;
-            Console.Write("");
-            Console.ReadLine();
+
+            int[] whiteLocationsX = { 44, 56, 68, 80 };
+            int[] whiteLocationsY = { 2, 3, 4 };
+
+            for (int x = 0; x < 4; x++)
+            {
+                for (int y = 0; y < 3; y++)
+                {
+                    Console.SetCursorPosition((whiteLocationsX[x]), (whiteLocationsY[y]));
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write("██████");
+
+                    int temp1 = whiteLocationsX[x] + 6;
+                    int temp2 = whiteLocationsY[y] + 3;
+                    Console.SetCursorPosition((temp1), (temp2));
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write("██████");
+
+                    Console.SetCursorPosition((whiteLocationsX[x]), (temp2+3));
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write("██████");
+
+                    Console.SetCursorPosition((temp1), (temp2+6));
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write("██████");
+
+                    Console.SetCursorPosition((whiteLocationsX[x]), (temp2 + 9));
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write("██████");
+
+                    Console.SetCursorPosition((temp1), (temp2 + 12));
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write("██████");
+
+                    Console.SetCursorPosition((whiteLocationsX[x]), (temp2 + 15));
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write("██████");
+
+                    Console.SetCursorPosition((temp1), (temp2 + 18));
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write("██████");
+                }
+            }
             return;
         }
     }
-        
-
 }
 
