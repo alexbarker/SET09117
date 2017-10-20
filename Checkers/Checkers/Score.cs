@@ -67,6 +67,77 @@ namespace Checkers
                                                "`88b  d88' o.   .88P ",
                                                " `Y8bd8P'  `8bd88P'  "};
 
+            string[] zerofour = new string[]  {"  .oooo.     .oooo.  ",
+                                               " d8P'`Y8b   d8P'`Y8b ",
+                                               "888    888 888    888",
+                                               "888    888 888    888",
+                                               "888    888 888    888",
+                                               "`88b  d88' `88b  d88'",
+                                               " `Y8bd8P'   `Y8bd8P' "};
+
+            string[] zerofive = new string[]  {"  .oooo.     .oooo.  ",
+                                               " d8P'`Y8b   d8P'`Y8b ",
+                                               "888    888 888    888",
+                                               "888    888 888    888",
+                                               "888    888 888    888",
+                                               "`88b  d88' `88b  d88'",
+                                               " `Y8bd8P'   `Y8bd8P' "};
+
+            string[] zerosix = new string[]   {"  .oooo.     .oooo.  ",
+                                               " d8P'`Y8b   d8P'`Y8b ",
+                                               "888    888 888    888",
+                                               "888    888 888    888",
+                                               "888    888 888    888",
+                                               "`88b  d88' `88b  d88'",
+                                               " `Y8bd8P'   `Y8bd8P' "};
+
+            string[] zeroseven = new string[] {"  .oooo.     .oooo.  ",
+                                               " d8P'`Y8b   d8P'`Y8b ",
+                                               "888    888 888    888",
+                                               "888    888 888    888",
+                                               "888    888 888    888",
+                                               "`88b  d88' `88b  d88'",
+                                               " `Y8bd8P'   `Y8bd8P' "};
+
+            string[] zeroeight = new string[] {"  .oooo.     .oooo.  ",
+                                               " d8P'`Y8b   d8P'`Y8b ",
+                                               "888    888 888    888",
+                                               "888    888 888    888",
+                                               "888    888 888    888",
+                                               "`88b  d88' `88b  d88'",
+                                               " `Y8bd8P'   `Y8bd8P' "};
+
+            string[] zeronine = new string[]  {"  .oooo.     .oooo.  ",
+                                               " d8P'`Y8b   d8P'`Y8b ",
+                                               "888    888 888    888",
+                                               "888    888 888    888",
+                                               "888    888 888    888",
+                                               "`88b  d88' `88b  d88'",
+                                               " `Y8bd8P'   `Y8bd8P' "};
+
+            string[] ten = new string[]       {"  .oooo.     .oooo.  ",
+                                               " d8P'`Y8b   d8P'`Y8b ",
+                                               "888    888 888    888",
+                                               "888    888 888    888",
+                                               "888    888 888    888",
+                                               "`88b  d88' `88b  d88'",
+                                               " `Y8bd8P'   `Y8bd8P' "};
+
+            string[] eleven = new string[]    {"  .oooo.     .oooo.  ",
+                                               " d8P'`Y8b   d8P'`Y8b ",
+                                               "888    888 888    888",
+                                               "888    888 888    888",
+                                               "888    888 888    888",
+                                               "`88b  d88' `88b  d88'",
+                                               " `Y8bd8P'   `Y8bd8P' "};
+
+            string[] twelve = new string[]    {"  .oooo.     .oooo.  ",
+                                               " d8P'`Y8b   d8P'`Y8b ",
+                                               "888    888 888    888",
+                                               "888    888 888    888",
+                                               "888    888 888    888",
+                                               "`88b  d88' `88b  d88'",
+                                               " `Y8bd8P'   `Y8bd8P' "};
 
                 for (int i = 0; i < 7; i++)
                 {
