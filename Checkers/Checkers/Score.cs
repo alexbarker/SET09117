@@ -10,53 +10,79 @@ namespace Checkers
     {
         public void SetScores()
         {
-            Console.SetCursorPosition(104, 7);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("  .oooo.     .oooo.  ");
-            Console.SetCursorPosition(104, 8);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(" d8P'`Y8b   d8P'`Y8b ");
-            Console.SetCursorPosition(104, 9);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("888    888 888    888");
-            Console.SetCursorPosition(104, 10);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("888    888 888    888");
-            Console.SetCursorPosition(104, 11);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("888    888 888    888");
-            Console.SetCursorPosition(104, 12);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("`88b  d88' `88b  d88'");
-            Console.SetCursorPosition(104, 13);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(" `Y8bd8P'   `Y8bd8P' ");
+            string[] zerozero = new string[] {"  .oooo.     .oooo.  ",
+                                              " d8P'`Y8b   d8P'`Y8b ",
+                                              "888    888 888    888",
+                                              "888    888 888    888",
+                                              "888    888 888    888",
+                                              "`88b  d88' `88b  d88'",
+                                              " `Y8bd8P'   `Y8bd8P' "};
 
-            Console.SetCursorPosition(104, 18);
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.Write("  .oooo.     .oooo.  ");
-            Console.SetCursorPosition(104, 19);
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.Write(" d8P'`Y8b   d8P'`Y8b ");
-            Console.SetCursorPosition(104, 20);
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.Write("888    888 888    888");
-            Console.SetCursorPosition(104, 21);
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.Write("888    888 888    888");
-            Console.SetCursorPosition(104, 22);
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.Write("888    888 888    888");
-            Console.SetCursorPosition(104, 23);
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.Write("`88b  d88' `88b  d88'");
-            Console.SetCursorPosition(104, 24);
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.Write(" `Y8bd8P'   `Y8bd8P' ");
+            for (int i = 0; i < 7; i++)
+            {
+                Console.SetCursorPosition(104, (i+7));
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(zerozero[i]);
+            }
+
+            for (int i = 0; i < 7; i++)
+            {
+                Console.SetCursorPosition(104, (i + 18));
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.Write(zerozero[i]);
+            }
         }
 
-        public void SetScores2()
+        public void ScoreDisplayer(int player, int score)
         {
+            string[] zerozero = new string[]  {"  .oooo.     .oooo.  ",
+                                               " d8P'`Y8b   d8P'`Y8b ",
+                                               "888    888 888    888",
+                                               "888    888 888    888",
+                                               "888    888 888    888",
+                                               "`88b  d88' `88b  d88'",
+                                               " `Y8bd8P'   `Y8bd8P' "};
+
+            string[] zeroone = new string[]   {"  .oooo.       .o    ",
+                                               " d8P'`Y8b    o888    ",
+                                               "888    888    888    ",
+                                               "888    888    888    ",
+                                               "888    888    888    ",
+                                               "`88b  d88'    888    ",
+                                               " `Y8bd8P'    o888o   "};
+
+            string[] zerotwo = new string[]   {"  .oooo.     .oooo.  ",
+                                               " d8P'`Y8b  .dP\"\"Y88b ",
+                                               "888    888       ]8P'",
+                                               "888    888     .d8P' ",
+                                               "888    888   .dP'    ",
+                                               "`88b  d88' .oP     .o",
+                                               " `Y8bd8P'  8888888888"};
+
+            string[] zerothree = new string[] {"  .oooo.     .oooo.  ",
+                                               " d8P'`Y8b  .dP\"\"Y88b ",
+                                               "888    888       ]8P'",
+                                               "888    888     <88b. ",
+                                               "888    888      `88b.",
+                                               "`88b  d88' o.   .88P ",
+                                               " `Y8bd8P'  `8bd88P'  "};
+
+
+                for (int i = 0; i < 7; i++)
+                {
+                    Console.SetCursorPosition(104, (i + 7));
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write(zerotwo[i]);
+                }
+
+                for (int i = 0; i < 7; i++)
+                {
+                    Console.SetCursorPosition(104, (i + 18));
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.Write(zerothree[i]);
+                }
+
+            /*
             Console.SetCursorPosition(104, 7);
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write("     .o     .oooo.   ");
@@ -100,42 +126,24 @@ namespace Checkers
             Console.SetCursorPosition(104, 24);
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.Write(" `Y8bd8P'    .8'     ");
+            */
         }
 
-        public void ClearPlayerOneScores()
+        public void ClearScores()
         {
-            Console.SetCursorPosition(104, 7);
-            Console.Write("                     ");
-            Console.SetCursorPosition(104, 8);
-            Console.Write("                     ");
-            Console.SetCursorPosition(104, 9);
-            Console.Write("                     ");
-            Console.SetCursorPosition(104, 10);
-            Console.Write("                     ");
-            Console.SetCursorPosition(104, 11);
-            Console.Write("                     ");
-            Console.SetCursorPosition(104, 12);
-            Console.Write("                     ");
-            Console.SetCursorPosition(104, 13);
-            Console.Write("                     ");
-        }
+            for (int i = 0; i < 7; i++)
+            {
+                Console.SetCursorPosition(104, (i + 7));
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write("                     ");
+            }
 
-        public void ClearPlayerTwoScores()
-        {
-            Console.SetCursorPosition(104, 18);
-            Console.Write("                     ");
-            Console.SetCursorPosition(104, 19);
-            Console.Write("                     ");
-            Console.SetCursorPosition(104, 20);
-            Console.Write("                     ");
-            Console.SetCursorPosition(104, 21);
-            Console.Write("                     ");
-            Console.SetCursorPosition(104, 22);
-            Console.Write("                     ");
-            Console.SetCursorPosition(104, 23);
-            Console.Write("                     ");
-            Console.SetCursorPosition(104, 24);
-            Console.Write("                     ");
+            for (int i = 0; i < 7; i++)
+            {
+                Console.SetCursorPosition(104, (i + 18));
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.Write("                     ");
+            }
         }
 
         /*

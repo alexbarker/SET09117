@@ -22,11 +22,7 @@ namespace Checkers
             Program delay = new Program();
             delay.Delay(5);
 
-            //scores.ClearPlayerOneScores();
-            //scores.ClearPlayerTwoScores();
-
-            //delay.Delay(5);
-            scores.SetScores2();
+            scores.ScoreDisplayer(2,1);
 
             Console.SetCursorPosition(1, 27);
             Console.ForegroundColor = ConsoleColor.Black;
