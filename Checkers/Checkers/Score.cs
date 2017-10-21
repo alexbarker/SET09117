@@ -67,13 +67,13 @@ namespace Checkers
                                                "`88b  d88' o.   .88P ",
                                                " `Y8bd8P'  `8bd88P'  "};
 
-            string[] zerofour = new string[]  {"  .oooo.     .oooo.  ",
-                                               " d8P'`Y8b   d8P'`Y8b ",
-                                               "888    888 888    888",
-                                               "888    888 888    888",
-                                               "888    888 888    888",
-                                               "`88b  d88' `88b  d88'",
-                                               " `Y8bd8P'   `Y8bd8P' "};
+            string[] zerofour = new string[]  {"  .oooo.         .o  ",
+                                               " d8P'`Y8b      .d88  ",
+                                               "888    888   .d'888  ",
+                                               "888    888 .d'  888  ",
+                                               "888    888 88ooo888oo",
+                                               "`88b  d88'      888  ",
+                                               " `Y8bd8P'      o888o "};
 
             string[] zerofive = new string[]  {"  .oooo.     .oooo.  ",
                                                " d8P'`Y8b   d8P'`Y8b ",
@@ -152,52 +152,6 @@ namespace Checkers
                     Console.ForegroundColor = ConsoleColor.DarkCyan;
                     Console.Write(zerothree[i]);
                 }
-
-            /*
-            Console.SetCursorPosition(104, 7);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("     .o     .oooo.   ");
-            Console.SetCursorPosition(104, 8);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("   o888   .dP\"\"Y88b  ");
-            Console.SetCursorPosition(104, 9);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("    888         ]8P' ");
-            Console.SetCursorPosition(104, 10);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("    888       .d8P'  ");
-            Console.SetCursorPosition(104, 11);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("    888     .dP'     ");
-            Console.SetCursorPosition(104, 12);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("    888   .oP     .o ");
-            Console.SetCursorPosition(104, 13);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("   o888o  8888888888 ");
-
-            Console.SetCursorPosition(104, 18);
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.Write("  .oooo.    ooooooooo");
-            Console.SetCursorPosition(104, 19);
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.Write(" d8P'`Y8b  d\"\"\"\"\"\"\"8'");
-            Console.SetCursorPosition(104, 20);
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.Write("888    888       .8' ");
-            Console.SetCursorPosition(104, 21);
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.Write("888    888      .8'  ");
-            Console.SetCursorPosition(104, 22);
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.Write("888    888     .8'   ");
-            Console.SetCursorPosition(104, 23);
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.Write("`88b  d88'    .8'    ");
-            Console.SetCursorPosition(104, 24);
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.Write(" `Y8bd8P'    .8'     ");
-            */
         }
 
         public void ClearScores()
