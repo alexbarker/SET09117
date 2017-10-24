@@ -10,11 +10,12 @@ namespace Checkers
     {
         public static void Main(string[] args)
         {
+            Console.Clear();
             Console.Title = "ConsoleCheckers";
             Console.BackgroundColor = ConsoleColor.Gray;
             Console.ForegroundColor = ConsoleColor.Black;
-            Console.Clear();
             Console.SetWindowSize(136, 38);
+            Console.Clear();
 
             Menu menu = new Menu();
             menu.DrawTitle();

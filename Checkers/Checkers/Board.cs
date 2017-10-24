@@ -6,8 +6,22 @@ using System.Threading.Tasks;
 
 namespace Checkers
 {
-    class Board
-    {
+    public class Board
+    {     
+        public int[,] whiteSquares = new int[8, 8];
+
+        public Board()
+        {
+            whiteSquares = new int[,]{ { 0, 1, 0, 1, 0, 1, 0, 1 },
+                                       { 1, 0, 1, 0, 1, 0, 1, 0 },
+                                       { 0, 1, 0, 1, 0, 1, 0, 1 },
+                                       { 1, 0, 1, 0, 1, 0, 1, 0 },
+                                       { 0, 1, 0, 1, 0, 1, 0, 1 },
+                                       { 1, 0, 1, 0, 1, 0, 1, 0 },
+                                       { 0, 1, 0, 1, 0, 1, 0, 1 },
+                                       { 1, 0, 1, 0, 1, 0, 1, 0 } };
+        }
+
         public void DrawBoard()
         {
             Console.Clear();
@@ -53,49 +67,28 @@ namespace Checkers
 
             //-----------------------------------------------------------------------//
 
-            int[] whiteLocationsX = { 44, 56, 68, 80 };
-            int[] whiteLocationsY = { 2, 3, 4 };
+            Piece piece = new Piece();
 
-            for (int x = 0; x < 4; x++)
+            for (int z = 0; z < 8; z++)
             {
-                for (int y = 0; y < 3; y++)
+                for (int y = 0; y < 8; y++)
                 {
-                    Console.SetCursorPosition((whiteLocationsX[x]), (whiteLocationsY[y]));
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write("██████");
-
-                    int temp1 = whiteLocationsX[x] + 6;
-                    int temp2 = whiteLocationsY[y] + 3;
-                    Console.SetCursorPosition((temp1), (temp2));
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write("██████");
-
-                    Console.SetCursorPosition((whiteLocationsX[x]), (temp2+3));
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write("██████");
-
-                    Console.SetCursorPosition((temp1), (temp2+6));
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write("██████");
-
-                    Console.SetCursorPosition((whiteLocationsX[x]), (temp2 + 9));
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write("██████");
-
-                    Console.SetCursorPosition((temp1), (temp2 + 12));
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write("██████");
-
-                    Console.SetCursorPosition((whiteLocationsX[x]), (temp2 + 15));
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write("██████");
-
-                    Console.SetCursorPosition((temp1), (temp2 + 18));
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write("██████");
+                    switch (whiteSquares[z,y])
+                    {
+                        case 0:
+                            for (int x = 0; x < 3; x++)
+                            {
+                                Console.SetCursorPosition((piece.piecePositionsX[z]-2), ((piece.piecePositionsY[y]-1)+x));
+                                Console.ForegroundColor = ConsoleColor.White;
+                                Console.Write("██████");
+                            }
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
-            return;
+         return;
         }
     }
 }

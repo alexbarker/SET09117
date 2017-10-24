@@ -8,5 +8,10 @@ namespace Checkers
 {
     class Move
     {
+        public void PickUpPiece()
+        {
+
+
+        }
     }
 }

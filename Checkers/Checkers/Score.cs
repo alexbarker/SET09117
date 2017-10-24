@@ -75,71 +75,71 @@ namespace Checkers
                                                "`88b  d88'      888  ",
                                                " `Y8bd8P'      o888o "};
 
-            string[] zerofive = new string[]  {"  .oooo.     .oooo.  ",
-                                               " d8P'`Y8b   d8P'`Y8b ",
-                                               "888    888 888    888",
-                                               "888    888 888    888",
-                                               "888    888 888    888",
-                                               "`88b  d88' `88b  d88'",
-                                               " `Y8bd8P'   `Y8bd8P' "};
+            string[] zerofive = new string[]  {"  .oooo.     oooooooo",
+                                               " d8P'`Y8b   dP\"\"\"\"\"\"\"",
+                                               "888    888 d88888b.  ",
+                                               "888    888     `Y88b ",
+                                               "888    888       ]88 ",
+                                               "`88b  d88' o.   .88P ",
+                                               " `Y8bd8P'  `8bd88P'  " };
 
-            string[] zerosix = new string[]   {"  .oooo.     .oooo.  ",
-                                               " d8P'`Y8b   d8P'`Y8b ",
-                                               "888    888 888    888",
-                                               "888    888 888    888",
-                                               "888    888 888    888",
-                                               "`88b  d88' `88b  d88'",
-                                               " `Y8bd8P'   `Y8bd8P' "};
+            string[] zerosix = new string[]   {"  .oooo.       .ooo  ",
+                                               " d8P'`Y8b    .88'    ",
+                                               "888    888  d88'     ",
+                                               "888    888 d888P\"Ybo.",
+                                               "888    888 Y88[   ]88",
+                                               "`88b  d88' `Y88   88P",
+                                               " `Y8bd8P'   `88bod8' "};
 
-            string[] zeroseven = new string[] {"  .oooo.     .oooo.  ",
-                                               " d8P'`Y8b   d8P'`Y8b ",
-                                               "888    888 888    888",
-                                               "888    888 888    888",
-                                               "888    888 888    888",
-                                               "`88b  d88' `88b  d88'",
-                                               " `Y8bd8P'   `Y8bd8P' "};
+            string[] zeroseven = new string[] {"  .oooo.    ooooooooo",
+                                               " d8P'`Y8b  d\"\"\"\"\"\"\"8'",
+                                               "888    888       .8' ",
+                                               "888    888      .8'  ",
+                                               "888    888     .8'   ",
+                                               "`88b  d88'    .8'    ",
+                                               " `Y8bd8P'    .8'     "};
 
-            string[] zeroeight = new string[] {"  .oooo.     .oooo.  ",
-                                               " d8P'`Y8b   d8P'`Y8b ",
-                                               "888    888 888    888",
-                                               "888    888 888    888",
-                                               "888    888 888    888",
-                                               "`88b  d88' `88b  d88'",
-                                               " `Y8bd8P'   `Y8bd8P' "};
+            string[] zeroeight = new string[] {"  .oooo.    .ooooo.  ",
+                                               " d8P'`Y8b  d88'   `8.",
+                                               "888    888 Y88..  .8'",
+                                               "888    888  `88888b. ",
+                                               "888    888 .8'  ``88b",
+                                               "`88b  d88' `8.   .88P",
+                                               " `Y8bd8P'   `boood8' " };
 
-            string[] zeronine = new string[]  {"  .oooo.     .oooo.  ",
-                                               " d8P'`Y8b   d8P'`Y8b ",
+            string[] zeronine = new string[]  {"  .oooo.    .ooooo.  ",
+                                               " d8P'`Y8b  888' `Y88.",
                                                "888    888 888    888",
-                                               "888    888 888    888",
-                                               "888    888 888    888",
-                                               "`88b  d88' `88b  d88'",
-                                               " `Y8bd8P'   `Y8bd8P' "};
+                                               "888    888  `Vbood888",
+                                               "888    888       888'",
+                                               "`88b  d88'     .88P' ",
+                                               " `Y8bd8P'    .oP'    " };
 
-            string[] ten = new string[]       {"  .oooo.     .oooo.  ",
-                                               " d8P'`Y8b   d8P'`Y8b ",
-                                               "888    888 888    888",
-                                               "888    888 888    888",
-                                               "888    888 888    888",
-                                               "`88b  d88' `88b  d88'",
-                                               " `Y8bd8P'   `Y8bd8P' "};
+            string[] ten = new string[]       {"     .o     .oooo.   ",
+                                               "   o888    d8P'`Y8b  ",
+                                               "    888   888    888 ",
+                                               "    888   888    888 ",
+                                               "    888   888    888 ",
+                                               "    888   `88b  d88' ",
+                                               "   o888o   `Y8bd8P'  " };
 
-            string[] eleven = new string[]    {"  .oooo.     .oooo.  ",
-                                               " d8P'`Y8b   d8P'`Y8b ",
-                                               "888    888 888    888",
-                                               "888    888 888    888",
-                                               "888    888 888    888",
-                                               "`88b  d88' `88b  d88'",
-                                               " `Y8bd8P'   `Y8bd8P' "};
+            string[] eleven = new string[]    {"     .o       .o     ",
+                                               "   o888     o888     ",
+                                               "    888      888     ",
+                                               "    888      888     ",
+                                               "    888      888     ",
+                                               "    888      888     ",
+                                               "   o888o    o888o    " };
 
-            string[] twelve = new string[]    {"  .oooo.     .oooo.  ",
-                                               " d8P'`Y8b   d8P'`Y8b ",
-                                               "888    888 888    888",
-                                               "888    888 888    888",
-                                               "888    888 888    888",
-                                               "`88b  d88' `88b  d88'",
-                                               " `Y8bd8P'   `Y8bd8P' "};
+            string[] twelve = new string[]    {"     .o     .oooo.   ",
+                                               "   o888   .dP\"\"Y88b  ",
+                                               "    888         ]8P' ",
+                                               "    888       .d8P'  ",
+                                               "    888     .dP'     ",
+                                               "    888   .oP     .o ",
+                                               "   o888o  8888888888 " };
 
-                for (int i = 0; i < 7; i++)
+            for (int i = 0; i < 7; i++)
                 {
                     Console.SetCursorPosition(104, (i + 7));
                     Console.ForegroundColor = ConsoleColor.White;
@@ -171,217 +171,302 @@ namespace Checkers
             }
         }
 
-        /*
-            "  .oooo.     .oooo.  ");
-            " d8P'`Y8b   d8P'`Y8b ");
-            "888    888 888    888");
-            "888    888 888    888");
-            "888    888 888    888");
-            "`88b  d88' `88b  d88'");
-            " `Y8bd8P'   `Y8bd8P' ");
+        public void SimulateScores()
+        {
+            string[] zerozero = new string[]  {"  .oooo.     .oooo.  ",
+                                               " d8P'`Y8b   d8P'`Y8b ",
+                                               "888    888 888    888",
+                                               "888    888 888    888",
+                                               "888    888 888    888",
+                                               "`88b  d88' `88b  d88'",
+                                               " `Y8bd8P'   `Y8bd8P' "};
 
-            "  .oooo.       .o    ");
-            " d8P'`Y8b    o888    ");
-            "888    888    888    ");
-            "888    888    888    ");
-            "888    888    888    ");
-            "`88b  d88'    888    ");
-            " `Y8bd8P'    o888o   ");
+            string[] zeroone = new string[]   {"  .oooo.       .o    ",
+                                               " d8P'`Y8b    o888    ",
+                                               "888    888    888    ",
+                                               "888    888    888    ",
+                                               "888    888    888    ",
+                                               "`88b  d88'    888    ",
+                                               " `Y8bd8P'    o888o   "};
 
-            "  .oooo.     .oooo.  ");
-            " d8P'`Y8b  .dP\"\"Y88b ");
-            "888    888       ]8P'");
-            "888    888     .d8P' ");
-            "888    888   .dP'    ");
-            "`88b  d88' .oP     .o");
-            " `Y8bd8P'  8888888888");
+            string[] zerotwo = new string[]   {"  .oooo.     .oooo.  ",
+                                               " d8P'`Y8b  .dP\"\"Y88b ",
+                                               "888    888       ]8P'",
+                                               "888    888     .d8P' ",
+                                               "888    888   .dP'    ",
+                                               "`88b  d88' .oP     .o",
+                                               " `Y8bd8P'  8888888888"};
 
-            "  .oooo.     .oooo.  ");
-            " d8P'`Y8b  .dP\"\"Y88b ");
-            "888    888       ]8P'");
-            "888    888     <88b. ");
-            "888    888      `88b.");
-            "`88b  d88' o.   .88P ");
-            " `Y8bd8P'  `8bd88P'  ");
+            string[] zerothree = new string[] {"  .oooo.     .oooo.  ",
+                                               " d8P'`Y8b  .dP\"\"Y88b ",
+                                               "888    888       ]8P'",
+                                               "888    888     <88b. ",
+                                               "888    888      `88b.",
+                                               "`88b  d88' o.   .88P ",
+                                               " `Y8bd8P'  `8bd88P'  "};
 
-            "  .oooo.         .o  ");
-            " d8P'`Y8b      .d88  ");
-            "888    888   .d'888  ");
-            "888    888 .d'  888  ");
-            "888    888 88ooo888oo");
-            "`88b  d88'      888  ");
-            " `Y8bd8P'      o888o ");
+            string[] zerofour = new string[]  {"  .oooo.         .o  ",
+                                               " d8P'`Y8b      .d88  ",
+                                               "888    888   .d'888  ",
+                                               "888    888 .d'  888  ",
+                                               "888    888 88ooo888oo",
+                                               "`88b  d88'      888  ",
+                                               " `Y8bd8P'      o888o "};
 
-            "  .oooo.     oooooooo");
-            " d8P'`Y8b   dP\"\"\"\"\"\"\"");
-            "888    888 d88888b.  ");
-            "888    888     `Y88b ");
-            "888    888       ]88 ");
-            "`88b  d88' o.   .88P ");
-            " `Y8bd8P'  `8bd88P'  ");
+            string[] zerofive = new string[]  {"  .oooo.     oooooooo",
+                                               " d8P'`Y8b   dP\"\"\"\"\"\"\"",
+                                               "888    888 d88888b.  ",
+                                               "888    888     `Y88b ",
+                                               "888    888       ]88 ",
+                                               "`88b  d88' o.   .88P ",
+                                               " `Y8bd8P'  `8bd88P'  " };
 
-            "  .oooo.       .ooo  ");
-            " d8P'`Y8b    .88'    ");
-            "888    888  d88'     ");
-            "888    888 d888P\"Ybo.");
-            "888    888 Y88[   ]88");
-            "`88b  d88' `Y88   88P");
-            " `Y8bd8P'   `88bod8' ");
+            string[] zerosix = new string[]   {"  .oooo.       .ooo  ",
+                                               " d8P'`Y8b    .88'    ",
+                                               "888    888  d88'     ",
+                                               "888    888 d888P\"Ybo.",
+                                               "888    888 Y88[   ]88",
+                                               "`88b  d88' `Y88   88P",
+                                               " `Y8bd8P'   `88bod8' "};
 
-            "  .oooo.    ooooooooo");
-            " d8P'`Y8b  d\"\"\"\"\"\"\"8'");
-            "888    888       .8' ");
-            "888    888      .8'  ");
-            "888    888     .8'   ");
-            "`88b  d88'    .8'    ");
-            " `Y8bd8P'    .8'     ");
+            string[] zeroseven = new string[] {"  .oooo.    ooooooooo",
+                                               " d8P'`Y8b  d\"\"\"\"\"\"\"8'",
+                                               "888    888       .8' ",
+                                               "888    888      .8'  ",
+                                               "888    888     .8'   ",
+                                               "`88b  d88'    .8'    ",
+                                               " `Y8bd8P'    .8'     "};
 
-            "  .oooo.    .ooooo.  ");
-            " d8P'`Y8b  d88'   `8.");
-            "888    888 Y88..  .8'");
-            "888    888  `88888b. ");
-            "888    888 .8'  ``88b");
-            "`88b  d88' `8.   .88P");
-            " `Y8bd8P'   `boood8' ");
+            string[] zeroeight = new string[] {"  .oooo.    .ooooo.  ",
+                                               " d8P'`Y8b  d88'   `8.",
+                                               "888    888 Y88..  .8'",
+                                               "888    888  `88888b. ",
+                                               "888    888 .8'  ``88b",
+                                               "`88b  d88' `8.   .88P",
+                                               " `Y8bd8P'   `boood8' " };
 
-            "  .oooo.    .ooooo.  ");
-            " d8P'`Y8b  888' `Y88.");
-            "888    888 888    888");
-            "888    888  `Vbood888");
-            "888    888       888'");
-            "`88b  d88'     .88P' ");
-            " `Y8bd8P'    .oP'    ");
+            string[] zeronine = new string[]  {"  .oooo.    .ooooo.  ",
+                                               " d8P'`Y8b  888' `Y88.",
+                                               "888    888 888    888",
+                                               "888    888  `Vbood888",
+                                               "888    888       888'",
+                                               "`88b  d88'     .88P' ",
+                                               " `Y8bd8P'    .oP'    " };
 
-            "     .o     .oooo.   ");
-            "   o888    d8P'`Y8b  ");
-            "    888   888    888 ");
-            "    888   888    888 ");
-            "    888   888    888 ");
-            "    888   `88b  d88' ");
-            "   o888o   `Y8bd8P'  ");
+            string[] ten = new string[]       {"     .o     .oooo.   ",
+                                               "   o888    d8P'`Y8b  ",
+                                               "    888   888    888 ",
+                                               "    888   888    888 ",
+                                               "    888   888    888 ",
+                                               "    888   `88b  d88' ",
+                                               "   o888o   `Y8bd8P'  " };
 
-            "     .o       .o     ");
-            "   o888     o888     ");
-            "    888      888     ");
-            "    888      888     ");
-            "    888      888     ");
-            "    888      888     ");
-            "   o888o    o888o    ");
+            string[] eleven = new string[]    {"     .o       .o     ",
+                                               "   o888     o888     ",
+                                               "    888      888     ",
+                                               "    888      888     ",
+                                               "    888      888     ",
+                                               "    888      888     ",
+                                               "   o888o    o888o    " };
 
-            "     .o     .oooo.   ");
-            "   o888   .dP\"\"Y88b  ");
-            "    888         ]8P' ");
-            "    888       .d8P'  ");
-            "    888     .dP'     ");
-            "    888   .oP     .o ");
-            "   o888o  8888888888 ");
-        
-        */
+            string[] twelve = new string[]    {"     .o     .oooo.   ",
+                                               "   o888   .dP\"\"Y88b  ",
+                                               "    888         ]8P' ",
+                                               "    888       .d8P'  ",
+                                               "    888     .dP'     ",
+                                               "    888   .oP     .o ",
+                                               "   o888o  8888888888 " };
 
-        /*
-        #    .oooo.         
-        #   d8P'`Y8b        
-        #  888    888       
-        #  888    888       
-        #  888    888       
-        #  `88b  d88'       
-        #   `Y8bd8P'        
+            for (int i = 0; i < 7; i++)
+            {
+                Console.SetCursorPosition(104, (i + 7));
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(zeroone[i]);
+            }
 
-        #    .o             
-        #  o888             
-        #   888             
-        #   888             
-        #   888             
-        #   888             
-        #  o888o            
+            for (int i = 0; i < 7; i++)
+            {
+                Console.SetCursorPosition(104, (i + 18));
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.Write(zeroone[i]);
+            }
 
-        #    .oooo.         
-        #  .dP""Y88b        
-        #        ]8P'       
-        #      .d8P'        
-        #    .dP'           
-        #  .oP     .o       
-        #  8888888888    
-        
-        #    .oooo.         
-        #  .dP""Y88b        
-        #        ]8P'       
-        #      <88b.        
-        #       `88b.       
-        #  o.   .88P        
-        #  `8bd88P'         
+            Program delay = new Program();
+            delay.Delay(1);
 
-        #        .o         
-        #      .d88         
-        #    .d'888         
-        #  .d'  888         
-        #  88ooo888oo       
-        #       888         
-        #      o888o        
-        
-        #    oooooooo       
-        #   dP"""""""       
-        #  d88888b.         
-        #      `Y88b        
-        #        ]88        
-        #  o.   .88P        
-        #  `8bd88P'          
+            for (int i = 0; i < 7; i++)
+            {
+                Console.SetCursorPosition(104, (i + 7));
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(zerotwo[i]);
+            }
 
-        #      .ooo         
-        #    .88'           
-        #   d88'            
-        #  d888P"Ybo.       
-        #  Y88[   ]88       
-        #  `Y88   88P       
-        #   `88bod8'        
+            for (int i = 0; i < 7; i++)
+            {
+                Console.SetCursorPosition(104, (i + 18));
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.Write(zerotwo[i]);
+            }
 
-        #   ooooooooo       
-        #  d"""""""8'       
-        #        .8'        
-        #       .8'         
-        #      .8'          
-        #     .8'           
-        #    .8'            
+            delay.Delay(1);
 
-        #   .ooooo.         
-        #  d88'   `8.       
-        #  Y88..  .8'       
-        #   `88888b.        
-        #  .8'  ``88b       
-        #  `8.   .88P       
-        #   `boood8'        
+            for (int i = 0; i < 7; i++)
+            {
+                Console.SetCursorPosition(104, (i + 7));
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(zerothree[i]);
+            }
 
-        #   .ooooo.         
-        #  888' `Y88.       
-        #  888    888       
-        #   `Vbood888       
-        #        888'       
-        #      .88P'        
-        #    .oP'           
+            for (int i = 0; i < 7; i++)
+            {
+                Console.SetCursorPosition(104, (i + 18));
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.Write(zerothree[i]);
+            }
 
-        #    .o    .oooo.   
-        #  o888   d8P'`Y8b  
-        #   888  888    888 
-        #   888  888    888 
-        #   888  888    888 
-        #   888  `88b  d88' 
-        #  o888o  `Y8bd8P'  
-         
-        #    .o    .o       
-        #  o888  o888       
-        #   888   888       
-        #   888   888       
-        #   888   888       
-        #   888   888       
-        #  o888o o888o      
-         
-        #    .o    .oooo.   
-        #  o888  .dP""Y88b  
-        #   888        ]8P' 
-        #   888      .d8P'  
-        #   888    .dP'     
-        #   888  .oP     .o 
-        #  o888o 8888888888  
-        */
+            delay.Delay(1);
+
+            for (int i = 0; i < 7; i++)
+            {
+                Console.SetCursorPosition(104, (i + 7));
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(zerofour[i]);
+            }
+
+            for (int i = 0; i < 7; i++)
+            {
+                Console.SetCursorPosition(104, (i + 18));
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.Write(zerofour[i]);
+            }
+
+            delay.Delay(1);
+
+            for (int i = 0; i < 7; i++)
+            {
+                Console.SetCursorPosition(104, (i + 7));
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(zerofive[i]);
+            }
+
+            for (int i = 0; i < 7; i++)
+            {
+                Console.SetCursorPosition(104, (i + 18));
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.Write(zerofive[i]);
+            }
+
+            delay.Delay(1);
+
+            for (int i = 0; i < 7; i++)
+            {
+                Console.SetCursorPosition(104, (i + 7));
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(zerosix[i]);
+            }
+
+            for (int i = 0; i < 7; i++)
+            {
+                Console.SetCursorPosition(104, (i + 18));
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.Write(zerosix[i]);
+            }
+
+            delay.Delay(1);
+
+            for (int i = 0; i < 7; i++)
+            {
+                Console.SetCursorPosition(104, (i + 7));
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(zeroseven[i]);
+            }
+
+            for (int i = 0; i < 7; i++)
+            {
+                Console.SetCursorPosition(104, (i + 18));
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.Write(zeroseven[i]);
+            }
+
+            delay.Delay(1);
+
+            for (int i = 0; i < 7; i++)
+            {
+                Console.SetCursorPosition(104, (i + 7));
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(zeroeight[i]);
+            }
+
+            for (int i = 0; i < 7; i++)
+            {
+                Console.SetCursorPosition(104, (i + 18));
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.Write(zeroeight[i]);
+            }
+
+            delay.Delay(1);
+
+            for (int i = 0; i < 7; i++)
+            {
+                Console.SetCursorPosition(104, (i + 7));
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(zeronine[i]);
+            }
+
+            for (int i = 0; i < 7; i++)
+            {
+                Console.SetCursorPosition(104, (i + 18));
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.Write(zeronine[i]);
+            }
+
+            delay.Delay(1);
+
+            for (int i = 0; i < 7; i++)
+            {
+                Console.SetCursorPosition(104, (i + 7));
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(ten[i]);
+            }
+
+            for (int i = 0; i < 7; i++)
+            {
+                Console.SetCursorPosition(104, (i + 18));
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.Write(ten[i]);
+            }
+
+            delay.Delay(1);
+
+            for (int i = 0; i < 7; i++)
+            {
+                Console.SetCursorPosition(104, (i + 7));
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(eleven[i]);
+            }
+
+            for (int i = 0; i < 7; i++)
+            {
+                Console.SetCursorPosition(104, (i + 18));
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.Write(eleven[i]);
+            }
+
+            delay.Delay(1);
+
+            for (int i = 0; i < 7; i++)
+            {
+                Console.SetCursorPosition(104, (i + 7));
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(twelve[i]);
+            }
+
+            for (int i = 0; i < 7; i++)
+            {
+                Console.SetCursorPosition(104, (i + 18));
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.Write(twelve[i]);
+            }
+        }
     }
 }
