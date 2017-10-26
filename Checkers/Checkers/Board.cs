@@ -33,9 +33,9 @@ namespace Checkers
             Console.WriteLine("                                          ║       ██████      ██████      ██████      ██████ ║                                ");
             Console.WriteLine("        (spacebar) - Pickup & Drop        ║ ██████      ██████      ██████      ██████       ║                PLAYER ONE      ");
             Console.WriteLine("        (u) - Undo Move                   ║ ██████      ██████      ██████      ██████       ║         ╔═════════════════════╗");
-            Console.WriteLine("        (p) - Pause                       ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
+            Console.WriteLine("        (h) - Hint                        ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
+            Console.WriteLine("        (s) - Save                        ║       ██████      ██████      ██████      ██████ ║         ║                     ║");
             Console.WriteLine("        (q) - Quit                        ║       ██████      ██████      ██████      ██████ ║         ║                     ║");
-            Console.WriteLine("                                          ║       ██████      ██████      ██████      ██████ ║         ║                     ║");
             Console.WriteLine("                                          ║       ██████      ██████      ██████      ██████ ║         ║                     ║");
             Console.WriteLine("                                          ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
             Console.WriteLine("                                          ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
@@ -43,9 +43,9 @@ namespace Checkers
             Console.WriteLine("          ║    INSTRUCTIONS     ║         ║       ██████      ██████      ██████      ██████ ║         ╚═════════════════════╝");
             Console.WriteLine("          ╚═════════════════════╝         ║       ██████      ██████      ██████      ██████ ║                                ");
             Console.WriteLine("                                          ║       ██████      ██████      ██████      ██████ ║                PLAYER TWO      ");
-            Console.WriteLine("        No game logic implemented yet     ║ ██████      ██████      ██████      ██████       ║         ╔═════════════════════╗");
-            Console.WriteLine("        No user input implemented yet     ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
-            Console.WriteLine("                                          ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
+            Console.WriteLine("        Use the Spacebar to pick up       ║ ██████      ██████      ██████      ██████       ║         ╔═════════════════════╗");
+            Console.WriteLine("        a piece.                          ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
+            Console.WriteLine("        Navigate using the arrow keys.    ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
             Console.WriteLine("                                          ║       ██████      ██████      ██████      ██████ ║         ║                     ║");
             Console.WriteLine("                                          ║       ██████      ██████      ██████      ██████ ║         ║                     ║");
             Console.WriteLine("                                          ║       ██████      ██████      ██████      ██████ ║         ║                     ║");
@@ -89,6 +89,39 @@ namespace Checkers
                 }
             }
          return;
+        }
+
+        public void ReDrawBoard()
+        {
+            Piece piece = new Piece();
+
+            for (int z = 0; z < 8; z++)
+            {
+                for (int y = 0; y < 8; y++)
+                {
+                    switch (whiteSquares[z, y])
+                    {
+                        case 0:
+                            for (int x = 0; x < 3; x++)
+                            {
+                                Console.SetCursorPosition((piece.piecePositionsX[z] - 2), ((piece.piecePositionsY[y] - 1) + x));
+                                Console.ForegroundColor = ConsoleColor.White;
+                                Console.Write("██████");
+                            }
+                            break;
+                        case 1:
+                            for (int x = 0; x < 3; x++)
+                            {
+                                Console.SetCursorPosition((piece.piecePositionsX[z] - 2), ((piece.piecePositionsY[y] - 1) + x));
+                                Console.ForegroundColor = ConsoleColor.Black;
+                                Console.Write("██████");
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
         }
     }
 }

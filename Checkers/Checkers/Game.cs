@@ -52,7 +52,7 @@ namespace Checkers
             // Display game state (for testing only)
             Console.SetCursorPosition(0, 24);
             Console.ForegroundColor = ConsoleColor.Black;
-
+            /*
             for (int i = 0; i < 8; i++)
             {
                 Console.Write(piece.piecePositionsX[i] + " ");
@@ -95,9 +95,38 @@ namespace Checkers
                 }
                 Console.Write("\n");
             }
-            scores.SimulateScores();
-            Console.SetCursorPosition(46, 3);
+            */
+            //scores.SimulateScores();
+            // board.ReDrawBoard();
+            Console.SetCursorPosition(46, 18);
             Console.ForegroundColor = ConsoleColor.Black;
+
+            /*
+            int upArrow = 0;
+            int downArrow = 0;
+            int leftArrow = 0;
+            int rightArrow = 0;
+            int whitePiece = 1;
+            int blackPiece = 2;
+            int whiteKingPiece = 3;
+            int blackKingPiece = 4;
+            int movementPositionX = 0;
+            int movementPositionY = 0;
+
+            movementPositionX = upArrow - downArrow;
+            movementPositionY = rightArrow - leftArrow;
+            */
+            //restrict movement to array positions x,y
+            //get new location by counting arrows
+            //get piece colour by counting player turn
+            //update board
+            //
+            //OR update array every key stroke
+
+            Move move = new Move();
+            move.AllowMovement();
+            //move.overWritePiece();
+
             Console.ReadLine();
         }
     }
