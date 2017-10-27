@@ -8,25 +8,23 @@ namespace Checkers
 {
     class Move
     {
+        Score score = new Score();
         Piece piece = new Piece();
         Board board = new Board();
-        
-        public void Changes(int [,] pieceValues, int movementPositionX, int movementPositionY, int holding, int piecetype1)
+        public int movementPositionX = 2;
+        public int movementPositionY = 5;
+        public int holding = 0;
+        public int pieceType = 0;
+        public int player = 2;
+        public int playerOneScore = 0;
+        public int playerTwoScore = 0;
+
+        public void Changes(int [,] pieceValues, int movementPositionX, int movementPositionY, int holding, int pieceType)
         {
             Console.SetCursorPosition(0, 24);
             Console.ForegroundColor = ConsoleColor.Black;
-
-            for (int i = 0; i < 8; i++)
-            {
-                Console.Write(piece.piecePositionsX[i] + " ");
-            }
-            Console.WriteLine("");
-            for (int i = 0; i < 8; i++)
-            {
-                Console.Write(piece.piecePositionsY[i] + " ");
-            }
-            Console.WriteLine("");
-            Console.WriteLine("x" + movementPositionX + " y" + movementPositionY + " Holding:" + holding + " PieceType:" + piecetype1);
+            Console.WriteLine("\n\n");
+            Console.WriteLine("x" + movementPositionX + " y" + movementPositionY + " Holding:" + holding + " PieceType:" + pieceType + " Player:" + player + " s1:" + playerOneScore + " s2:" + playerTwoScore + "  ");
 
             for (int x = 0; x < 8; x++)
             {
@@ -61,14 +59,9 @@ namespace Checkers
                 Console.Write("\n");
             }
         }
-
+        
         public void AllowMovement()
         {
-            int movementPositionX = 2;
-            int movementPositionY = 5;
-            int holding = 0;
-            int piecetype1 = 0;
-
             Console.SetCursorPosition(piece.piecePositionsX[2], piece.piecePositionsY[5]);
 
                 while (true)
@@ -82,7 +75,7 @@ namespace Checkers
                         movementPositionX = movementPositionX - 1;
                         movementPositionY--;
                         board.ReDrawBoard();
-                        piece.UpdatedPieces();
+                        piece.SetPieces();
                         if (movementPositionX == -1 || movementPositionX == -2 || movementPositionX == 8 || movementPositionY == -1 || movementPositionY == 8)
                         {
                             movementPositionX = movementPositionX + 1;
@@ -100,7 +93,7 @@ namespace Checkers
                         movementPositionX = movementPositionX + 1;
                         movementPositionY++;
                         board.ReDrawBoard();
-                        piece.UpdatedPieces();
+                        piece.SetPieces();
                         if (movementPositionX == -1 || movementPositionX == -2 || movementPositionX == 8 || movementPositionY == -1 || movementPositionY == 8)
                         {
                             movementPositionX = movementPositionX - 1;
@@ -116,7 +109,7 @@ namespace Checkers
                         
                         movementPositionX = movementPositionX + 2;                    
                         board.ReDrawBoard();
-                        piece.UpdatedPieces();
+                        piece.SetPieces();
                         if (movementPositionX == -1 || movementPositionX == -2 || movementPositionX == 8 || movementPositionX == 9 || movementPositionY == -1 || movementPositionY == 8)
                         {
                             movementPositionX = movementPositionX - 2;
@@ -131,7 +124,7 @@ namespace Checkers
                         
                         movementPositionX = movementPositionX - 2;
                         board.ReDrawBoard();
-                        piece.UpdatedPieces();
+                        piece.SetPieces();
                         if (movementPositionX == -1 || movementPositionX == -2 || movementPositionX == 8 || movementPositionX == 9 || movementPositionY == -1 || movementPositionY == 8)
                         {
                             movementPositionX = movementPositionX + 2;
@@ -144,7 +137,7 @@ namespace Checkers
                         break;
                     case ConsoleKey.Escape:
 
-                        Changes(piece.pieceValues, movementPositionX, movementPositionY, holding, piecetype1);
+                        Changes(piece.pieceValues, movementPositionX, movementPositionY, holding, pieceType);
                         Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
                         break;
                     case ConsoleKey.Q:
@@ -153,7 +146,7 @@ namespace Checkers
                         menu.DrawTitle();
                         break;
                     case ConsoleKey.U:
-                        //call pieceValues minus 1, remove all other stuff
+                        //call pieceValues[current - 1], check score, turn -1, check player and piece type
                         break;
                     case ConsoleKey.H:
                         //use the AI to pick a move, update turn etc
@@ -162,36 +155,50 @@ namespace Checkers
                         //save to txt file
                         break;
                     case ConsoleKey.Spacebar:
-
+                        // INSERT VALID PICKUP CHECKER HERE
                         if (holding == 0)
                         {
-                            piecetype1 = piece.pieceValues[movementPositionY, movementPositionX];
+                            // INSERT VALID PICKUP CHECKER HERE
+                            pieceType = piece.pieceValues[movementPositionY, movementPositionX];
                             holding++;
-                            //piece.PickUpPiece(movementPositionX, movementPositionY);
                             piece.pieceValues[movementPositionY, movementPositionX] = 0;
                             board.ReDrawBoard();
-                            piece.UpdatedPieces();
+                            piece.SetPieces();
                             Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
                         }
-                        else if (piecetype1 == piece.pieceValues[movementPositionY, movementPositionX])
+                        else if (pieceType == piece.pieceValues[movementPositionY, movementPositionX])
                         {
-                            //holding--;
-                            //piece.DropPiece(movementPositionX, movementPositionY, piecetype1, holding);
-                            //piece.pieceValues[movementPositionY, movementPositionX] = piecetype1;
                             board.ReDrawBoard();
-                            piece.UpdatedPieces();
+                            piece.SetPieces();
                             Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
-                            //piecetype1 = 0;
                         }
                         else
                         {
-                            holding--;
-                            // piece.DropPiece(movementPositionX, movementPositionY, piecetype1, holding);
-                            piece.pieceValues[movementPositionY, movementPositionX] = piecetype1;
+                            if (player == 2)
+                            {  
+                                // INSERT VALID MOVE CHECKER HERE
+                                playerTwoScore++;
+                                score.ScoreUpdater(player, playerOneScore, playerTwoScore);
+                                // INSERT WIN CHECKER HERE
+                                player--;
+                            }
+                            else
+                            {   // INSERT VALID MOVE CHECKER HERE                             
+                                playerOneScore++;
+                                score.ScoreUpdater(player, playerOneScore, playerTwoScore);
+                                // INSERT WIN CHECKER HERE 
+                                player++;
+                            }
+
+                            // INSERT VALID MOVE CHECKER HERE
+                            holding--;  
+                            piece.pieceValues[movementPositionY, movementPositionX] = pieceType;
                             board.ReDrawBoard();
-                            piece.UpdatedPieces();
+                            piece.SetPieces();                            
                             Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
-                            piecetype1 = 0;
+                            pieceType = 0;
+                            // INSERT PLAYER TURN UPDATE HERE
+                            // INSERT SAVE MOVE HERE
                         }
                         break;
                 }
