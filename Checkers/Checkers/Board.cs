@@ -47,7 +47,7 @@ namespace Checkers
             Console.WriteLine("        a piece.                          ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
             Console.WriteLine("        Navigate using the arrow keys.    ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
             Console.WriteLine("                                          ║       ██████      ██████      ██████      ██████ ║         ║                     ║");
-            Console.WriteLine("                                          ║       ██████      ██████      ██████      ██████ ║         ║                     ║");
+            Console.WriteLine("                                          ║       ██████      ██████      ██████      ██████ ║    <██> ║                     ║");
             Console.WriteLine("                                          ║       ██████      ██████      ██████      ██████ ║         ║                     ║");
             Console.WriteLine("                                          ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
             Console.WriteLine("                                          ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
