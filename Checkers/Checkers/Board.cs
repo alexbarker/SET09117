@@ -8,18 +8,19 @@ namespace Checkers
 {
     public class Board
     {     
-        public int[,] whiteSquares = new int[8, 8];
+        public int[,] squares = new int[8, 8];
+        Piece piece = new Piece();
 
         public Board()
         {
-            whiteSquares = new int[,]{ { 0, 1, 0, 1, 0, 1, 0, 1 },
-                                       { 1, 0, 1, 0, 1, 0, 1, 0 },
-                                       { 0, 1, 0, 1, 0, 1, 0, 1 },
-                                       { 1, 0, 1, 0, 1, 0, 1, 0 },
-                                       { 0, 1, 0, 1, 0, 1, 0, 1 },
-                                       { 1, 0, 1, 0, 1, 0, 1, 0 },
-                                       { 0, 1, 0, 1, 0, 1, 0, 1 },
-                                       { 1, 0, 1, 0, 1, 0, 1, 0 } };
+            squares = new int[,]{ { 0, 1, 0, 1, 0, 1, 0, 1 },
+                                  { 1, 0, 1, 0, 1, 0, 1, 0 },
+                                  { 0, 1, 0, 1, 0, 1, 0, 1 },
+                                  { 1, 0, 1, 0, 1, 0, 1, 0 },
+                                  { 0, 1, 0, 1, 0, 1, 0, 1 },
+                                  { 1, 0, 1, 0, 1, 0, 1, 0 },
+                                  { 0, 1, 0, 1, 0, 1, 0, 1 },
+                                  { 1, 0, 1, 0, 1, 0, 1, 0 } };
         }
 
         public void DrawBoard()
@@ -33,10 +34,10 @@ namespace Checkers
             Console.WriteLine("                                          ║       ██████      ██████      ██████      ██████ ║                                ");
             Console.WriteLine("        (spacebar) - Pickup & Drop        ║ ██████      ██████      ██████      ██████       ║                PLAYER ONE      ");
             Console.WriteLine("        (u) - Undo Move                   ║ ██████      ██████      ██████      ██████       ║         ╔═════════════════════╗");
-            Console.WriteLine("        (h) - Hint                        ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
-            Console.WriteLine("        (s) - Save                        ║       ██████      ██████      ██████      ██████ ║         ║                     ║");
+            Console.WriteLine("        (r) - Redo Move                   ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
+            Console.WriteLine("        (s) - Save to File                ║       ██████      ██████      ██████      ██████ ║         ║                     ║");
+            Console.WriteLine("        (i) - Instant Replay              ║       ██████      ██████      ██████      ██████ ║         ║                     ║");
             Console.WriteLine("        (q) - Quit                        ║       ██████      ██████      ██████      ██████ ║         ║                     ║");
-            Console.WriteLine("                                          ║       ██████      ██████      ██████      ██████ ║         ║                     ║");
             Console.WriteLine("                                          ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
             Console.WriteLine("                                          ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
             Console.WriteLine("          ╔═════════════════════╗         ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
@@ -44,7 +45,7 @@ namespace Checkers
             Console.WriteLine("          ╚═════════════════════╝         ║       ██████      ██████      ██████      ██████ ║                                ");
             Console.WriteLine("                                          ║       ██████      ██████      ██████      ██████ ║                PLAYER TWO      ");
             Console.WriteLine("        Use the Spacebar to pick up       ║ ██████      ██████      ██████      ██████       ║         ╔═════════════════════╗");
-            Console.WriteLine("        a piece.                          ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
+            Console.WriteLine("        and drop a piece.                 ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
             Console.WriteLine("        Navigate using the arrow keys.    ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
             Console.WriteLine("                                          ║       ██████      ██████      ██████      ██████ ║         ║                     ║");
             Console.WriteLine("                                          ║       ██████      ██████      ██████      ██████ ║    <██> ║                     ║");
@@ -67,13 +68,11 @@ namespace Checkers
 
             //-----------------------------------------------------------------------//
 
-            Piece piece = new Piece();
-
             for (int z = 0; z < 8; z++)
             {
                 for (int y = 0; y < 8; y++)
                 {
-                    switch (whiteSquares[z,y])
+                    switch (squares[z,y])
                     {
                         case 0:
                             for (int x = 0; x < 3; x++)
@@ -93,13 +92,11 @@ namespace Checkers
 
         public void ReDrawBoard()
         {
-            Piece piece = new Piece();
-
             for (int z = 0; z < 8; z++)
             {
                 for (int y = 0; y < 8; y++)
                 {
-                    switch (whiteSquares[z, y])
+                    switch (squares[z, y])
                     {
                         case 0:
                             for (int x = 0; x < 3; x++)

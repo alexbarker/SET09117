@@ -10,7 +10,7 @@ namespace Checkers
     {
         public void ScoreUpdater(int player, int playerOneScore, int playerTwoScore)
         {
-            string[] zero     = new string[]  {"  .oooo.     .oooo.  ",
+            string[] zero = new string[]  {"  .oooo.     .oooo.  ",
                                                " d8P'`Y8b   d8P'`Y8b ",
                                                "888    888 888    888",
                                                "888    888 888    888",
@@ -18,7 +18,7 @@ namespace Checkers
                                                "`88b  d88' `88b  d88'",
                                                " `Y8bd8P'   `Y8bd8P' "};
 
-            string[] one     = new string[]   {"  .oooo.       .o    ",
+            string[] one = new string[]   {"  .oooo.       .o    ",
                                                " d8P'`Y8b    o888    ",
                                                "888    888    888    ",
                                                "888    888    888    ",
@@ -26,7 +26,7 @@ namespace Checkers
                                                "`88b  d88'    888    ",
                                                " `Y8bd8P'    o888o   "};
 
-            string[] two     = new string[]   {"  .oooo.     .oooo.  ",
+            string[] two = new string[]   {"  .oooo.     .oooo.  ",
                                                " d8P'`Y8b  .dP\"\"Y88b ",
                                                "888    888       ]8P'",
                                                "888    888     .d8P' ",
@@ -34,7 +34,7 @@ namespace Checkers
                                                "`88b  d88' .oP     .o",
                                                " `Y8bd8P'  8888888888"};
 
-            string[] three     = new string[] {"  .oooo.     .oooo.  ",
+            string[] three = new string[] {"  .oooo.     .oooo.  ",
                                                " d8P'`Y8b  .dP\"\"Y88b ",
                                                "888    888       ]8P'",
                                                "888    888     <88b. ",
@@ -42,7 +42,7 @@ namespace Checkers
                                                "`88b  d88' o.   .88P ",
                                                " `Y8bd8P'  `8bd88P'  "};
 
-            string[] four     = new string[]  {"  .oooo.         .o  ",
+            string[] four = new string[]  {"  .oooo.         .o  ",
                                                " d8P'`Y8b      .d88  ",
                                                "888    888   .d'888  ",
                                                "888    888 .d'  888  ",
@@ -50,7 +50,7 @@ namespace Checkers
                                                "`88b  d88'      888  ",
                                                " `Y8bd8P'      o888o "};
 
-            string[] five     = new string[]  {"  .oooo.     oooooooo",
+            string[] five = new string[]  {"  .oooo.     oooooooo",
                                                " d8P'`Y8b   dP\"\"\"\"\"\"\"",
                                                "888    888 d88888b.  ",
                                                "888    888     `Y88b ",
@@ -58,7 +58,7 @@ namespace Checkers
                                                "`88b  d88' o.   .88P ",
                                                " `Y8bd8P'  `8bd88P'  " };
 
-            string[] six     = new string[]   {"  .oooo.       .ooo  ",
+            string[] six = new string[]   {"  .oooo.       .ooo  ",
                                                " d8P'`Y8b    .88'    ",
                                                "888    888  d88'     ",
                                                "888    888 d888P\"Ybo.",
@@ -66,7 +66,7 @@ namespace Checkers
                                                "`88b  d88' `Y88   88P",
                                                " `Y8bd8P'   `88bod8' "};
 
-            string[] seven     = new string[] {"  .oooo.    ooooooooo",
+            string[] seven = new string[] {"  .oooo.    ooooooooo",
                                                " d8P'`Y8b  d\"\"\"\"\"\"\"8'",
                                                "888    888       .8' ",
                                                "888    888      .8'  ",
@@ -74,7 +74,7 @@ namespace Checkers
                                                "`88b  d88'    .8'    ",
                                                " `Y8bd8P'    .8'     "};
 
-            string[] eight     = new string[] {"  .oooo.    .ooooo.  ",
+            string[] eight = new string[] {"  .oooo.    .ooooo.  ",
                                                " d8P'`Y8b  d88'   `8.",
                                                "888    888 Y88..  .8'",
                                                "888    888  `88888b. ",
@@ -82,7 +82,7 @@ namespace Checkers
                                                "`88b  d88' `8.   .88P",
                                                " `Y8bd8P'   `boood8' " };
 
-            string[] nine     = new string[]  {"  .oooo.    .ooooo.  ",
+            string[] nine = new string[]  {"  .oooo.    .ooooo.  ",
                                                " d8P'`Y8b  888' `Y88.",
                                                "888    888 888    888",
                                                "888    888  `Vbood888",
@@ -333,7 +333,7 @@ namespace Checkers
                         break;
                 }
             }
-        } 
+        }
 
         public void SetScores()
         {

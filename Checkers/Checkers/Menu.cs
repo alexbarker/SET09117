@@ -12,7 +12,7 @@ namespace Checkers
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("                                                                                                               40333139 Alex Barker 2017");
-            Console.WriteLine("\n");
+            Console.WriteLine("                                                                                                                                  ");
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine("                            .oooooo.   oooo                            oooo                                                       ");
             Console.WriteLine("                           d8P'  `Y8b  `888                            `888                                                       ");
@@ -21,7 +21,8 @@ namespace Checkers
             Console.WriteLine("                          888           888   888  888ooo888 888        888888.    888ooo888  888     `\"Y88b.                    ");
             Console.WriteLine("                          `88b    ooo   888   888  888    .o 888   .o8  888 `88b.  888    .o  888     o.  )88b                    ");
             Console.WriteLine("                           `Y8bood8P'  o888o o888o `Y8bod8P' `Y8bod8P' o888o o888o `Y8bod8P' d888b    8\"\"888P'                  ");
-            Console.WriteLine("\n\n");
+            Console.WriteLine("                                                                                                                                  ");
+            Console.WriteLine("                                                                                                                                  ");
             Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine("                                           ╔════════════════════════════════════════════════╗                   ");
             Console.WriteLine("                                           ║                   Main Menu                    ║                   ");
@@ -30,13 +31,15 @@ namespace Checkers
             Console.WriteLine("                                           ╠═════╬══════════════════════════════════════════╣                   ");
             Console.WriteLine("                                           ║  2  ║  Load Game                               ║                   ");
             Console.WriteLine("                                           ╠═════╬══════════════════════════════════════════╣                   ");
-            Console.WriteLine("                                           ║  3  ║  Tutorial                                ║                   ");
+            Console.WriteLine("                                           ║  3  ║  Replay Game                             ║                   ");
             Console.WriteLine("                                           ╠═════╬══════════════════════════════════════════╣                   ");
-            Console.WriteLine("                                           ║  4  ║  Quit                                    ║                   ");
+            Console.WriteLine("                                           ║  4  ║  Tutorial                                ║                   ");
+            Console.WriteLine("                                           ╠═════╬══════════════════════════════════════════╣                   ");
+            Console.WriteLine("                                           ║  5  ║  Quit                                    ║                   ");
             Console.WriteLine("                                           ╚═════╩══════════════════════════════════════════╝                   ");
 
             Program delay = new Program();
-            delay.Delay(2);
+            delay.Delay(1);
             NewGameSelection();
         }
 
@@ -49,8 +52,8 @@ namespace Checkers
         public void NewGameSelection()
         {
             Console.SetCursorPosition(0, 11);
-            Console.WriteLine("\n\n");
             Console.ForegroundColor = ConsoleColor.Black;
+            Console.WriteLine("                                                                                                                ");
             Console.WriteLine("                                           ╔════════════════════════════════════════════════╗                   ");
             Console.WriteLine("                                           ║                   New Game                     ║                   ");
             Console.WriteLine("                                           ╠═════╦══════════════════════════════════════════╣                   ");
@@ -66,7 +69,7 @@ namespace Checkers
             Console.WriteLine("                                           ╚═════╩══════════════════════════════════════════╝                   ");
 
             Program delay = new Program();
-            delay.Delay(2);
+            delay.Delay(1);
             MenuSelection();
         }
     }

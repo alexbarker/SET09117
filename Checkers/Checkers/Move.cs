@@ -24,81 +24,6 @@ namespace Checkers
         bool valid = false;
         bool validJump = false;
 
-        public void Changes(int[,] undoPieceValues, int [,] pieceValues, int movementPositionX, int movementPositionY, int holding, int pieceType, int turn)
-        {
-            Console.SetCursorPosition(0, 24);
-            Console.ForegroundColor = ConsoleColor.Black;
-            Console.WriteLine("\n\n");
-            Console.WriteLine("x" + movementPositionX + " y" + movementPositionY + " Holding:" + holding + " PieceType:" + pieceType + " Player:" + player + " s1:" + playerOneScore + " s2:" + playerTwoScore + "  " + "Turn: " + turn);
-
-            for (int x = 0; x < 8; x++)
-            {
-                for (int y = 0; y < 8; y++)
-                {
-                    switch (pieceValues[x, y])
-                    {
-                        case 0:
-                            Console.ForegroundColor = ConsoleColor.DarkYellow;
-                            Console.Write("0 ");
-                            break;
-                        case 1:
-                            Console.ForegroundColor = ConsoleColor.White;
-                            Console.Write("1 ");
-                            break;
-                        case 2:
-                            Console.ForegroundColor = ConsoleColor.DarkCyan;
-                            Console.Write("2 ");
-                            break;
-                        case 3:
-                            Console.ForegroundColor = ConsoleColor.White;
-                            Console.Write("K ");
-                            break;
-                        case 4:
-                            Console.ForegroundColor = ConsoleColor.DarkCyan;
-                            Console.Write("K ");
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                Console.Write("\n");
-            }
-            /*
-            for (int x = 0; x < 8; x++)
-            {
-                for (int y = 0; y < 8; y++)
-                {
-                    switch (undoPieceValues[x, y])
-                    {
-                        case 0:
-                            Console.ForegroundColor = ConsoleColor.DarkYellow;
-                            Console.Write("0 ");
-                            break;
-                        case 1:
-                            Console.ForegroundColor = ConsoleColor.White;
-                            Console.Write("1 ");
-                            break;
-                        case 2:
-                            Console.ForegroundColor = ConsoleColor.DarkCyan;
-                            Console.Write("2 ");
-                            break;
-                        case 3:
-                            Console.ForegroundColor = ConsoleColor.White;
-                            Console.Write("K ");
-                            break;
-                        case 4:
-                            Console.ForegroundColor = ConsoleColor.DarkCyan;
-                            Console.Write("K ");
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                Console.Write("\n");
-            }
-            */
-        }
-
         public bool ValidateNormalMove(int[,] pieceValues, int player, int pieceType, int holding, int playerOneScore, int playerTwoScore, int turn, int movementPositionX, int movementPositionY, int startingPositionX, int startingPositionY)
         {
             switch (pieceType)
@@ -397,13 +322,13 @@ namespace Checkers
                 {
                     case ConsoleKey.UpArrow:
 
-                        movementPositionX = movementPositionX - 1;
+                        movementPositionX--;
                         movementPositionY--;
                         board.ReDrawBoard();
                         piece.SetPieces();
                         if (movementPositionX == -1 || movementPositionX == -2 || movementPositionX == 8 || movementPositionY == -1 || movementPositionY == 8)
                         {
-                            movementPositionX = movementPositionX + 1;
+                            movementPositionX++;
                             movementPositionY++;
                             Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
                         }
@@ -411,17 +336,17 @@ namespace Checkers
                         {
                             Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
                         }
-
                         break;
+
                     case ConsoleKey.DownArrow:
 
-                        movementPositionX = movementPositionX + 1;
+                        movementPositionX++;
                         movementPositionY++;
                         board.ReDrawBoard();
                         piece.SetPieces();
                         if (movementPositionX == -1 || movementPositionX == -2 || movementPositionX == 8 || movementPositionY == -1 || movementPositionY == 8)
                         {
-                            movementPositionX = movementPositionX - 1;
+                            movementPositionX--;
                             movementPositionY--;
                             Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
                         }
@@ -430,6 +355,7 @@ namespace Checkers
                             Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
                         }
                         break;
+
                     case ConsoleKey.RightArrow:
 
                         movementPositionX = movementPositionX + 2;
@@ -445,6 +371,7 @@ namespace Checkers
                             Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
                         }
                         break;
+
                     case ConsoleKey.LeftArrow:
 
                         movementPositionX = movementPositionX - 2;
@@ -462,26 +389,37 @@ namespace Checkers
                         break;
                     case ConsoleKey.Escape:
 
-                        Changes(piece.undoPieceValues, piece.pieceValues, movementPositionX, movementPositionY, holding, pieceType, turn);
+                        Changes(piece.pieceValues, movementPositionX, movementPositionY, holding, pieceType, turn);
                         Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
                         break;
+
                     case ConsoleKey.Q:
+
                         Console.Clear();
                         Menu menu = new Menu();
                         menu.DrawTitle();
                         break;
+
                     case ConsoleKey.U:
-                        //call pieceValues[current - 1], check score, turn -1, check player and piece type
-                        //board.ReDrawBoard();
-                        //piece.UndoPieces();
-                        //Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
+
+                        // undo move
                         break;
-                    case ConsoleKey.H:
-                        //use the AI to pick a move, update turn etc
+
+                    case ConsoleKey.R:
+
+                        // use the AI to pick a move, update turn etc
                         break;
+
+                    case ConsoleKey.I:
+
+                        // instant replay
+                        break;
+
                     case ConsoleKey.S:
-                        //save to txt file
+
+                        // save to txt file
                         break;
+
                     case ConsoleKey.Spacebar:
 
                         if (holding == 0)
@@ -631,6 +569,47 @@ namespace Checkers
                         }               
                 }
             }
+
+        public void Changes(int[,] pieceValues, int movementPositionX, int movementPositionY, int holding, int pieceType, int turn)
+        {
+            Console.SetCursorPosition(0, 24);
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.WriteLine("\n\n");
+            Console.WriteLine("x" + movementPositionX + " y" + movementPositionY + " Holding:" + holding + " PieceType:" + pieceType + " Player:" + player + " s1:" + playerOneScore + " s2:" + playerTwoScore + "  " + "Turn: " + turn);
+
+            for (int x = 0; x < 8; x++)
+            {
+                for (int y = 0; y < 8; y++)
+                {
+                    switch (pieceValues[x, y])
+                    {
+                        case 0:
+                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                            Console.Write("0 ");
+                            break;
+                        case 1:
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.Write("1 ");
+                            break;
+                        case 2:
+                            Console.ForegroundColor = ConsoleColor.DarkCyan;
+                            Console.Write("2 ");
+                            break;
+                        case 3:
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.Write("K ");
+                            break;
+                        case 4:
+                            Console.ForegroundColor = ConsoleColor.DarkCyan;
+                            Console.Write("K ");
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                Console.Write("\n");
+            }
         }
     }
+}
 
