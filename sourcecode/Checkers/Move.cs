@@ -23,8 +23,10 @@ namespace Checkers
         public int playerTwoScore = 0;
         bool valid = false;
         bool validJump = false;
+        public int[] gameData = new int[8];
+        public int dictionaryIndex = 1;
 
-        public bool ValidateNormalMove(int[,] pieceValues, int player, int pieceType, int holding, int playerOneScore, int playerTwoScore, int turn, int movementPositionX, int movementPositionY, int startingPositionX, int startingPositionY)
+    public bool ValidateNormalMove(int[,] pieceValues, int player, int pieceType, int holding, int playerOneScore, int playerTwoScore, int turn, int movementPositionX, int movementPositionY, int startingPositionX, int startingPositionY)
         {
             switch (pieceType)
             {
@@ -313,8 +315,20 @@ namespace Checkers
         public void AllowMovement()
         {
             Console.SetCursorPosition(piece.piecePositionsX[2], piece.piecePositionsY[5]);
+            piece.moveList.Add(0, (int[,])piece.pieceValues.Clone());
+            //piece.moveList.Add(1, (int[,])piece.pieceValues.Clone());
+            gameData[0] = playerOneScore;
+            gameData[1] = playerTwoScore;
+            gameData[2] = turn;
+            gameData[3] = player;
+            gameData[4] = movementPositionX;
+            gameData[5] = movementPositionY;
+            gameData[6] = pieceType;
+            gameData[7] = holding;
+            piece.gameState.Add(0, (int[])gameData.Clone());
+            piece.gameState.Add(1, (int[])gameData.Clone());
 
-                while (true)
+            while (true)
                 {
 
                 var keyPress = Console.ReadKey(false).Key;
@@ -402,12 +416,62 @@ namespace Checkers
 
                     case ConsoleKey.U:
 
-                        // undo move
+                        foreach (KeyValuePair<int, int[,]> pair in piece.moveList)
+                        {
+                            if(piece.moveList.ContainsKey((dictionaryIndex-1)) == true)
+                            {
+                                piece.pieceValues = (int[,])piece.moveList[(dictionaryIndex-1)].Clone();
+                                gameData = (int[])piece.gameState[(dictionaryIndex-1)].Clone();
+                                playerOneScore = gameData[0];
+                                playerTwoScore = gameData[1];
+                                turn = gameData[2];
+                                player = gameData[3];
+                                movementPositionX = gameData[4];
+                                movementPositionY = gameData[5];
+                                pieceType = gameData[6];
+                                holding = gameData[7];
+                                score.ScoreUpdater(player, playerOneScore, playerTwoScore);
+                                board.ReDrawBoard();
+                                piece.SetPieces();
+                                Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
+                            }
+                        }
+
+
+                        //dictionaryIndex++;
                         break;
 
                     case ConsoleKey.R:
 
-                        // use the AI to pick a move, update turn etc
+                        foreach (KeyValuePair<int, int[,]> pair in piece.moveList)
+                        {
+                            if (piece.moveList.ContainsKey(dictionaryIndex) == true)
+                            {
+                                piece.pieceValues = (int[,])piece.moveList[(dictionaryIndex)].Clone();
+
+                            }
+                        }
+
+                        foreach (KeyValuePair<int, int[]> pair in piece.gameState)
+                        {
+                            if (piece.gameState.ContainsKey(dictionaryIndex+1) == true)
+                            {
+                                gameData = (int[])piece.gameState[(dictionaryIndex+1)].Clone();
+                                playerOneScore = gameData[0];
+                                playerTwoScore = gameData[1];
+                                turn = gameData[2];
+                                player = gameData[3];
+                                movementPositionX = gameData[4];
+                                movementPositionY = gameData[5];
+                                pieceType = gameData[6];
+                                holding = gameData[7];
+                                score.ScoreUpdater(player, playerOneScore, playerTwoScore);
+                                board.ReDrawBoard();
+                                piece.SetPieces();
+                                Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
+                            }
+                        }
+                        //dictionaryIndex++;
                         break;
 
                     case ConsoleKey.I:
@@ -478,6 +542,7 @@ namespace Checkers
 
                                 if (player == 2 && validJump == true)
                                 {
+                                    dictionaryIndex++;
                                     playerTwoScore++;
                                     score.ScoreUpdater(player, playerOneScore, playerTwoScore);
                                     if (playerTwoScore == 12)
@@ -487,6 +552,7 @@ namespace Checkers
                                         Console.Write("PLAYER TWO WINS!");
                                         break;
                                     }
+                                    
                                     player--;
                                     holding--;
                                     turn++;
@@ -499,9 +565,21 @@ namespace Checkers
                                     pieceType = 0;
                                     validJump = false;
                                     valid = false;
+                                    piece.moveList.Add(dictionaryIndex, (int[,])piece.pieceValues.Clone());
+                                    gameData[0] = playerOneScore;
+                                    gameData[1] = playerTwoScore;
+                                    gameData[2] = turn;
+                                    gameData[3] = player;
+                                    gameData[4] = movementPositionX;
+                                    gameData[5] = movementPositionY;
+                                    gameData[6] = pieceType;
+                                    gameData[7] = holding;
+                                    piece.gameState.Add(dictionaryIndex, (int[])gameData.Clone());
+                                    
                                 }
                                 else if (player == 1 && validJump == true)
-                                {     
+                                {
+                                    dictionaryIndex++;
                                     playerOneScore++;
                                     score.ScoreUpdater(player, playerOneScore, playerTwoScore);
                                     if (playerOneScore == 12)
@@ -511,6 +589,7 @@ namespace Checkers
                                         Console.Write("PLAYER ONE WINS!");
                                         break;
                                     }
+                                    
                                     player++;
                                     holding--;
                                     turn++;
@@ -523,10 +602,22 @@ namespace Checkers
                                     pieceType = 0;
                                     validJump = false;
                                     valid = false;
+                                    piece.moveList.Add(dictionaryIndex, (int[,])piece.pieceValues.Clone());
+                                    gameData[0] = playerOneScore;
+                                    gameData[1] = playerTwoScore;
+                                    gameData[2] = turn;
+                                    gameData[3] = player;
+                                    gameData[4] = movementPositionX;
+                                    gameData[5] = movementPositionY;
+                                    gameData[6] = pieceType;
+                                    gameData[7] = holding;
+                                    piece.gameState.Add(dictionaryIndex, (int[])gameData.Clone());
+                                    
                                 }
                                 
                                 else if (player == 2 && valid == true && validJump == false)
                                 {
+                                    dictionaryIndex++;
                                     player--;
                                     holding--;
                                     turn++;
@@ -539,9 +630,21 @@ namespace Checkers
                                     pieceType = 0;
                                     valid = false;
                                     validJump = false;
+                                    piece.moveList.Add(dictionaryIndex, (int[,])piece.pieceValues.Clone());
+                                    gameData[0] = playerOneScore;
+                                    gameData[1] = playerTwoScore;
+                                    gameData[2] = turn;
+                                    gameData[3] = player;
+                                    gameData[4] = movementPositionX;
+                                    gameData[5] = movementPositionY;
+                                    gameData[6] = pieceType;
+                                    gameData[7] = holding;
+                                    piece.gameState.Add(dictionaryIndex, (int[])gameData.Clone());
+                                    
                                 }
                                 else if (player == 1 && valid == true && validJump == false)
                                 {
+                                    dictionaryIndex++;
                                     player++;
                                     holding--;
                                     turn++;
@@ -554,6 +657,17 @@ namespace Checkers
                                     pieceType = 0;
                                     valid = false;
                                     validJump = false;
+                                    piece.moveList.Add(dictionaryIndex, (int[,])piece.pieceValues.Clone());
+                                    gameData[0] = playerOneScore;
+                                    gameData[1] = playerTwoScore;
+                                    gameData[2] = turn;
+                                    gameData[3] = player;
+                                    gameData[4] = movementPositionX;
+                                    gameData[5] = movementPositionY;
+                                    gameData[6] = pieceType;
+                                    gameData[7] = holding;
+                                    piece.gameState.Add(dictionaryIndex, (int[])gameData.Clone());
+                                    
                                 }
                                 board.ReDrawBoard();
                                 piece.SetPieces();

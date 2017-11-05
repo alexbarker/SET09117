@@ -12,6 +12,9 @@ namespace Checkers
         public int[] piecePositionsX = { 46, 52, 58, 64, 70, 76, 82, 88 };
         public int[] piecePositionsY = { 3, 6, 9, 12, 15, 18, 21, 24 };
 
+        public Dictionary<int, int[,]> moveList = new Dictionary<int, int[,]>();
+        public Dictionary<int, int[]> gameState = new Dictionary<int, int[]>();
+
         public Piece()
         {
             pieceValues = new int[,]{ { 0, 1, 0, 1, 0, 1, 0, 1 },
