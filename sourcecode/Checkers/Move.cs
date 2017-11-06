@@ -519,7 +519,7 @@ namespace Checkers
 
                     case ConsoleKey.I:
 
-                        // instant replay
+                        // instant replay, all moves from all dictionary indexes
                         break;
 
                     case ConsoleKey.S:
