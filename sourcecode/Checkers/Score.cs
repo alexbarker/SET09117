@@ -10,6 +10,7 @@ namespace Checkers
     {
         public void ScoreUpdater(int player, int playerOneScore, int playerTwoScore)
         {
+
             string[] zero = new string[]  {"  .oooo.     .oooo.  ",
                                            " d8P'`Y8b   d8P'`Y8b ",
                                            "888    888 888    888",
