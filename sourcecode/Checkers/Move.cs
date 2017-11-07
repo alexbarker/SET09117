@@ -1,5 +1,6 @@
 ﻿// SET09117 2017-8 TR1 001 - Algorithms and Data Structures
 // Console Checkers
+// Version 0.6.0
 // Alexander Barker 
 // 40333139
 // Created on 14th October 2017
@@ -528,7 +529,6 @@ namespace Checkers
 
                     case ConsoleKey.I:
 
-<<<<<<< HEAD
                         // instant replay, all moves from all dictionary indexes
 
                         foreach (KeyValuePair<int, int[,]> pair in piece.moveList)
@@ -555,9 +555,6 @@ namespace Checkers
                         board.ReDrawBoard();
                         piece.SetPieces();
                         Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
-=======
-                        // instant replay, all moves from all dictionary indexes...
->>>>>>> Developing_new_data_structures
                         break;
 
                     case ConsoleKey.S:

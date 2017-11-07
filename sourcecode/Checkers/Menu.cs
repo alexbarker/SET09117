@@ -1,5 +1,6 @@
 ﻿// SET09117 2017-8 TR1 001 - Algorithms and Data Structures
 // Console Checkers
+// Version 0.6.0
 // Alexander Barker 
 // 40333139
 // Created on 14th October 2017
@@ -34,26 +35,14 @@ namespace Checkers
             Console.WriteLine("                                           ╔════════════════════════════════════════════════╗                   ");
             Console.WriteLine("                                           ║                   Main Menu                    ║                   ");
             Console.WriteLine("                                           ╠═════╦══════════════════════════════════════════╣                   ");
-            Console.WriteLine("                                           ║  1  ║  New Game                                ║                   ");
+            Console.WriteLine("                                           ║  a  ║  New Game                                ║                   ");
             Console.WriteLine("                                           ╠═════╬══════════════════════════════════════════╣                   ");
-            Console.WriteLine("                                           ║  2  ║  Load Game                               ║                   ");
+            Console.WriteLine("                                           ║  b  ║  Load Game                               ║                   ");
             Console.WriteLine("                                           ╠═════╬══════════════════════════════════════════╣                   ");
-            Console.WriteLine("                                           ║  3  ║  Replay Game                             ║                   ");
-            Console.WriteLine("                                           ╠═════╬══════════════════════════════════════════╣                   ");
-            Console.WriteLine("                                           ║  4  ║  Tutorial                                ║                   ");
-            Console.WriteLine("                                           ╠═════╬══════════════════════════════════════════╣                   ");
-            Console.WriteLine("                                           ║  5  ║  Quit                                    ║                   ");
+            Console.WriteLine("                                           ║  q  ║  Quit                                    ║                   ");
             Console.WriteLine("                                           ╚═════╩══════════════════════════════════════════╝                   ");
 
-            Program delay = new Program();
-            delay.Delay(1);
-            NewGameSelection();
-        }
-
-        public void MenuSelection()
-        {
-            Game startGame = new Game();
-            startGame.NewGame();
+            MenuSelection();
         }
 
         public void NewGameSelection()
@@ -64,20 +53,58 @@ namespace Checkers
             Console.WriteLine("                                           ╔════════════════════════════════════════════════╗                   ");
             Console.WriteLine("                                           ║                   New Game                     ║                   ");
             Console.WriteLine("                                           ╠═════╦══════════════════════════════════════════╣                   ");
-            Console.WriteLine("                                           ║  1  ║  Player Vs. Player                       ║                   ");
+            Console.WriteLine("                                           ║  c  ║  Player Vs Player                        ║                   ");
             Console.WriteLine("                                           ╠═════╬══════════════════════════════════════════╣                   ");
-            Console.WriteLine("                                           ║  2  ║  Player Vs. Computer (Easy)              ║                   ");
+            Console.WriteLine("                                           ║  d  ║  Player Vs Computer                      ║                   ");
             Console.WriteLine("                                           ╠═════╬══════════════════════════════════════════╣                   ");
-            Console.WriteLine("                                           ║  3  ║  Player Vs. Computer (Hard)              ║                   ");
+            Console.WriteLine("                                           ║  e  ║  Computer Vs Computer                    ║                   ");
             Console.WriteLine("                                           ╠═════╬══════════════════════════════════════════╣                   ");
-            Console.WriteLine("                                           ║  4  ║  Computer Vs. Computer                   ║                   ");
-            Console.WriteLine("                                           ╠═════╬══════════════════════════════════════════╣                   ");
-            Console.WriteLine("                                           ║  5  ║  Quit                                    ║                   ");
+            Console.WriteLine("                                           ║  f  ║  Back                                    ║                   ");
             Console.WriteLine("                                           ╚═════╩══════════════════════════════════════════╝                   ");
 
-            Program delay = new Program();
-            delay.Delay(1);
             MenuSelection();
+        }
+
+        public void MenuSelection()
+        {
+            while (true)
+            {
+                var keyPress = Console.ReadKey(false).Key;
+                switch (keyPress)
+                {
+                    case ConsoleKey.A:
+                        NewGameSelection();
+                        break;
+                    case ConsoleKey.B:
+
+
+                        break;
+
+                    case ConsoleKey.C:
+                        Game startGame = new Game();
+                        startGame.NewPVPGame();
+                        break;
+                    case ConsoleKey.D:
+
+
+                        break;
+
+                    case ConsoleKey.E:
+
+
+                        break;
+
+                    case ConsoleKey.F:
+                        Console.Clear();
+                        Menu menu = new Menu();
+                        menu.DrawTitle();
+                        break;
+
+                    case ConsoleKey.Q:
+                        Environment.Exit(0);
+                        break;
+                }
+            }
         }
     }
 }
