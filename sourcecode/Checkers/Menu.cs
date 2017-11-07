@@ -1,6 +1,6 @@
 ﻿// SET09117 2017-8 TR1 001 - Algorithms and Data Structures
 // Console Checkers
-// Version 0.6.0
+// Version 0.6.2
 // Alexander Barker 
 // 40333139
 // Created on 14th October 2017
@@ -76,22 +76,22 @@ namespace Checkers
                         NewGameSelection();
                         break;
                     case ConsoleKey.B:
-
-
+                        Game loadGame = new Game();
+                        loadGame.LoadGame();
                         break;
 
                     case ConsoleKey.C:
-                        Game startGame = new Game();
-                        startGame.NewPVPGame();
+                        Game startPVPGame = new Game();
+                        startPVPGame.NewPVPGame();
                         break;
                     case ConsoleKey.D:
-
-
+                        Game startPVCGame = new Game();
+                        startPVCGame.NewPVCGame();
                         break;
 
                     case ConsoleKey.E:
-
-
+                        Game startCVCGame = new Game();
+                        startCVCGame.NewCVCGame();
                         break;
 
                     case ConsoleKey.F:

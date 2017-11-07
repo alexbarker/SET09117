@@ -1,6 +1,6 @@
 ﻿// SET09117 2017-8 TR1 001 - Algorithms and Data Structures
 // Console Checkers
-// Version 0.6.0
+// Version 0.6.2
 // Alexander Barker 
 // 40333139
 // Created on 14th October 2017
@@ -31,9 +31,68 @@ namespace Checkers
             Console.ForegroundColor = ConsoleColor.Black;
 
             Move move = new Move();
-            move.AllowMovement();
+            move.AllowPVPMovement();
 
             Console.ReadLine();
+        }
+
+        public void NewPVCGame()
+        {
+            Board board = new Board();
+            board.DrawBoard();
+
+            Piece piece = new Piece();
+            piece.SetPieces();
+
+            Score scores = new Score();
+            scores.SetScores();
+
+            Console.SetCursorPosition(46, 18);
+            Console.ForegroundColor = ConsoleColor.Black;
+
+            Move move = new Move();
+            move.AllowPVCMovement();
+
+            Console.ReadLine();
+        }
+
+        public void NewCVCGame()
+        {
+            Board board = new Board();
+            board.DrawBoard();
+
+            Piece piece = new Piece();
+            piece.SetPieces();
+
+            Score scores = new Score();
+            scores.SetScores();
+
+            Console.SetCursorPosition(46, 18);
+            Console.ForegroundColor = ConsoleColor.Black;
+
+            // Insert AI calls stuff here
+
+            Console.ReadLine();
+        }
+
+        public void LoadGame()
+        {
+            Board board = new Board();
+            board.DrawBoard();
+
+            Piece piece = new Piece();
+            piece.SetPieces();
+
+            Score scores = new Score();
+            scores.SetScores();
+
+            Console.SetCursorPosition(46, 18);
+            Console.ForegroundColor = ConsoleColor.Black;
+
+            // insert load file code here
+            // Move move = new Move();
+            // move.LoadGameData();
+            // Ask user about game mode at some point
         }
     }
 }
