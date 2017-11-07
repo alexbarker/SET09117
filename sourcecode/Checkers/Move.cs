@@ -15,6 +15,7 @@ namespace Checkers
         Score score = new Score();
         Piece piece = new Piece();
         Board board = new Board();
+        Program delay = new Program();
         public int movementPositionX = 2;
         public int movementPositionY = 5;
         public int startingPositionX = 0;
@@ -28,6 +29,7 @@ namespace Checkers
         bool valid = false;
         bool validJump = false;
         public int[] gameData = new int[6];
+        public int[] replayGameData = new int[6];
         public int dictionaryIndex = 1;
 
         public bool ValidateNormalMove(int[,] pieceValues, int player, int pieceType, int holding, int playerOneScore, int playerTwoScore, int turn, int movementPositionX, int movementPositionY, int startingPositionX, int startingPositionY)
@@ -514,7 +516,7 @@ namespace Checkers
                         dictionaryIndex++;
                         piece.moveList.Add(dictionaryIndex, (int[,])piece.pieceValues.Clone());
                         piece.gameState.Add((dictionaryIndex), (int[])gameData.Clone());
-                        score.ScoreUpdater((player+1), playerOneScore, playerTwoScore);
+                        score.ScoreUpdater((player + 1), playerOneScore, playerTwoScore);
                         score.ScoreUpdater((player - 1), playerOneScore, playerTwoScore);
                         board.ReDrawBoard();
                         piece.SetPieces();
@@ -524,6 +526,31 @@ namespace Checkers
                     case ConsoleKey.I:
 
                         // instant replay, all moves from all dictionary indexes
+
+                        foreach (KeyValuePair<int, int[,]> pair in piece.moveList)
+                        {
+                            piece.replayPieceValues = (int[,])piece.moveList[pair.Key].Clone();
+                            board.ReDrawBoard();
+                            piece.ReplaySetPieces();
+
+                            replayGameData = (int[])piece.gameState[pair.Key].Clone();
+                            playerOneScore = replayGameData[0];
+                            playerTwoScore = replayGameData[1];
+                            turn = replayGameData[2];
+                            player = replayGameData[3];
+                            movementPositionX = replayGameData[4];
+                            movementPositionY = replayGameData[5];
+                            score.ScoreUpdater((player + 1), playerOneScore, playerTwoScore);
+                            score.ScoreUpdater((player - 1), playerOneScore, playerTwoScore);
+
+                            delay.Delay(1);
+                        }
+
+                        score.ScoreUpdater((player + 1), playerOneScore, playerTwoScore);
+                        score.ScoreUpdater((player - 1), playerOneScore, playerTwoScore);
+                        board.ReDrawBoard();
+                        piece.SetPieces();
+                        Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
                         break;
 
                     case ConsoleKey.S:
@@ -594,9 +621,18 @@ namespace Checkers
                                     score.ScoreUpdater(player, playerOneScore, playerTwoScore);
                                     if (playerTwoScore == 12)
                                     {
-                                        Console.SetCursorPosition(58, 28);
+                                        Console.SetCursorPosition(64, 28);
                                         Console.ForegroundColor = ConsoleColor.DarkCyan;
                                         Console.Write("PLAYER TWO WINS!");
+                                        piece.moveList.Add(dictionaryIndex, (int[,])piece.pieceValues.Clone());
+                                        gameData[0] = playerOneScore;
+                                        gameData[1] = playerTwoScore;
+                                        gameData[2] = turn;
+                                        gameData[3] = player;
+                                        gameData[4] = movementPositionX;
+                                        gameData[5] = movementPositionY;
+                                        piece.gameState.Add(dictionaryIndex, (int[])gameData.Clone());
+                                        Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
                                         break;
                                     }
 
@@ -629,9 +665,18 @@ namespace Checkers
                                     score.ScoreUpdater(player, playerOneScore, playerTwoScore);
                                     if (playerOneScore == 12)
                                     {
-                                        Console.SetCursorPosition(58, 28);
+                                        Console.SetCursorPosition(64, 28);
                                         Console.ForegroundColor = ConsoleColor.White;
                                         Console.Write("PLAYER ONE WINS!");
+                                        piece.moveList.Add(dictionaryIndex, (int[,])piece.pieceValues.Clone());
+                                        gameData[0] = playerOneScore;
+                                        gameData[1] = playerTwoScore;
+                                        gameData[2] = turn;
+                                        gameData[3] = player;
+                                        gameData[4] = movementPositionX;
+                                        gameData[5] = movementPositionY;
+                                        piece.gameState.Add(dictionaryIndex, (int[])gameData.Clone());
+                                        Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
                                         break;
                                     }
 
