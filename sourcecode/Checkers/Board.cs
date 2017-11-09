@@ -1,10 +1,10 @@
 ﻿// SET09117 2017-8 TR1 001 - Algorithms and Data Structures
 // Console Checkers
-// Version 0.6.2
+// Version 0.7.0
 // Alexander Barker 
 // 40333139
 // Created on 14th October 2017
-// Last Updated on 7th Novemeber 2017
+// Last Updated on 9th Novemeber 2017
 
 using System;
 using System.Collections.Generic;
@@ -55,7 +55,7 @@ namespace Checkers
             Console.WriteLine("        - Use the Spacebar to pick up     ║ ██████      ██████      ██████      ██████       ║         ╔═════════════════════╗");
             Console.WriteLine("          and drop a piece.               ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
             Console.WriteLine("        - Navigate using arrow keys.      ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
-            Console.WriteLine("        - No double-jump rule.            ║       ██████      ██████      ██████      ██████ ║         ║                     ║");
+            Console.WriteLine("        - No multi-jump rule.             ║       ██████      ██████      ██████      ██████ ║         ║                     ║");
             Console.WriteLine("        - No force take rule.             ║       ██████      ██████      ██████      ██████ ║    <██> ║                     ║");
             Console.WriteLine("        - Score 12 to win!                ║       ██████      ██████      ██████      ██████ ║         ║                     ║");
             Console.WriteLine("                                          ║ ██████      ██████      ██████      ██████       ║         ║                     ║");

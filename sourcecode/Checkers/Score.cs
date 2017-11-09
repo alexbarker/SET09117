@@ -1,10 +1,10 @@
 ﻿// SET09117 2017-8 TR1 001 - Algorithms and Data Structures
 // Console Checkers
-// Version 0.6.2
+// Version 0.7.0
 // Alexander Barker 
 // 40333139
 // Created on 14th October 2017
-// Last Updated on 7th Novemeber 2017
+// Last Updated on 9th Novemeber 2017
 
 using System;
 using System.Collections.Generic;
@@ -366,23 +366,6 @@ namespace Checkers
                 Console.SetCursorPosition(104, (i + 18));
                 Console.ForegroundColor = ConsoleColor.DarkCyan;
                 Console.Write(zerozero[i]);
-            }
-        }
-
-        public void ClearScores()
-        {
-            for (int i = 0; i < 7; i++)
-            {
-                Console.SetCursorPosition(104, (i + 7));
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.Write("                     ");
-            }
-
-            for (int i = 0; i < 7; i++)
-            {
-                Console.SetCursorPosition(104, (i + 18));
-                Console.ForegroundColor = ConsoleColor.DarkCyan;
-                Console.Write("                     ");
             }
         }
     }

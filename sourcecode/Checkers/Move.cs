@@ -1,16 +1,18 @@
 ﻿// SET09117 2017-8 TR1 001 - Algorithms and Data Structures
 // Console Checkers
-// Version 0.6.2
+// Version 0.7.0
 // Alexander Barker 
 // 40333139
 // Created on 14th October 2017
-// Last Updated on 7th Novemeber 2017
+// Last Updated on 9th Novemeber 2017
 
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Checkers
 {
@@ -19,9 +21,12 @@ namespace Checkers
         Score score = new Score();
         Piece piece = new Piece();
         Board board = new Board();
+        Game game = new Game();
         Program delay = new Program();
+
         public int[] gameData = new int[6];
         public int[] replayGameData = new int[6];
+
         public int movementPositionX = 2;
         public int movementPositionY = 5;
         public int startingPositionX = 0;
@@ -33,9 +38,9 @@ namespace Checkers
         public int playerOneScore = 0;
         public int playerTwoScore = 0;
         public int dictionaryIndex = 1;
+
         bool valid = false;
         bool validJump = false;
-        //bool mustTake = false;
 
         public bool ValidateNormalMove(int[,] pieceValues, int player, int pieceType, int holding, int playerOneScore, int playerTwoScore, int turn, int movementPositionX, int movementPositionY, int startingPositionX, int startingPositionY)
         {
@@ -326,36 +331,6 @@ namespace Checkers
             }
         }
 
-        /*
-        public bool MustTakeCheck(int[,] pieceValues, int player, int pieceType, int holding, int playerOneScore, int playerTwoScore, int turn, int movementPositionX, int movementPositionY, int startingPositionX, int startingPositionY)
-        {
-
-            switch (pieceType)
-            {
-                case 1:
-                        if ((piece.pieceValues[movementPositionY+2, movementPositionX-2] == 2 && piece.pieceValues[movementPositionY+3, movementPositionX-3] == 0) ||  (piece.pieceValues[movementPositionY+2, movementPositionX+2] == 2 && piece.pieceValues[movementPositionY+3, movementPositionX+3] == 0))
-                        {
-                            mustTake = true;
-                        }
-
-                    break;
-
-                case 2:
-
-                    break;
-
-                case 3:
-
-                    break;
-
-                case 4:
-
-                    break;
-            }
-                    return mustTake;
-        }
-        */
-
         public void AllowPVPMovement()
         {
             Console.SetCursorPosition(piece.piecePositionsX[2], piece.piecePositionsY[5]);
@@ -385,11 +360,11 @@ namespace Checkers
                         {
                             movementPositionX++;
                             movementPositionY++;
-                            Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
+                            Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                         }
                         else
                         {
-                            Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
+                            Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                         }
                         break;
 
@@ -403,11 +378,11 @@ namespace Checkers
                         {
                             movementPositionX--;
                             movementPositionY--;
-                            Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
+                            Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                         }
                         else
                         {
-                            Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
+                            Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                         }
                         break;
 
@@ -419,11 +394,11 @@ namespace Checkers
                         if (movementPositionX == -1 || movementPositionX == -2 || movementPositionX == 8 || movementPositionX == 9 || movementPositionY == -1 || movementPositionY == 8)
                         {
                             movementPositionX = movementPositionX - 2;
-                            Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
+                            Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                         }
                         else
                         {
-                            Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
+                            Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                         }
                         break;
 
@@ -435,18 +410,18 @@ namespace Checkers
                         if (movementPositionX == -1 || movementPositionX == -2 || movementPositionX == 8 || movementPositionX == 9 || movementPositionY == -1 || movementPositionY == 8)
                         {
                             movementPositionX = movementPositionX + 2;
-                            Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
+                            Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                         }
                         else
                         {
-                            Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
+                            Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                         }
                         break;
 
                     case ConsoleKey.Escape:
 
                         Changes(piece.pieceValues, movementPositionX, movementPositionY, holding, pieceType, turn);
-                        Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
+                        Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                         break;
 
                     case ConsoleKey.Q:
@@ -507,7 +482,7 @@ namespace Checkers
                         score.ScoreUpdater((player - 1), playerOneScore, playerTwoScore);
                         board.ReDrawBoard();
                         piece.SetPieces();
-                        Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
+                        Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                         break;                       
                         
                     case ConsoleKey.R:
@@ -561,16 +536,16 @@ namespace Checkers
                         score.ScoreUpdater((player - 1), playerOneScore, playerTwoScore);
                         board.ReDrawBoard();
                         piece.SetPieces();
-                        Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
+                        Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                         break;
 
                     case ConsoleKey.I:
 
                         foreach (KeyValuePair<int, int[,]> pair in piece.moveList)
                         {
-                            piece.replayPieceValues = (int[,])piece.moveList[pair.Key].Clone();
+                            piece.pieceValues = (int[,])piece.moveList[pair.Key].Clone();
                             board.ReDrawBoard();
-                            piece.ReplaySetPieces();
+                            piece.SetPieces();
 
                             replayGameData = (int[])piece.gameState[pair.Key].Clone();
                             playerOneScore = replayGameData[0];
@@ -591,12 +566,11 @@ namespace Checkers
                         score.ScoreUpdater((player - 1), playerOneScore, playerTwoScore);
                         board.ReDrawBoard();
                         piece.SetPieces();
-                        Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
+                        Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                         break;
 
                     case ConsoleKey.S:
 
-                        // save to txt file
                         break;
 
                     case ConsoleKey.Spacebar:
@@ -607,7 +581,7 @@ namespace Checkers
                             {
                                 board.ReDrawBoard();
                                 piece.SetPieces();
-                                Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
+                                Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                             }
                             else if ((turn % 2 == 0) && (piece.pieceValues[movementPositionY, movementPositionX] % 2 == 0))
                             {
@@ -618,7 +592,7 @@ namespace Checkers
                                 startingPositionY = movementPositionY;
                                 board.ReDrawBoard();
                                 piece.SetPieces();
-                                Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
+                                Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                             }
                             else if ((turn % 2 != 0) && (piece.pieceValues[movementPositionY, movementPositionX] % 2 != 0))
                             {
@@ -629,7 +603,7 @@ namespace Checkers
                                 startingPositionY = movementPositionY;
                                 board.ReDrawBoard();
                                 piece.SetPieces();
-                                Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
+                                Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                             }
                         }
                         else if (holding == 1)
@@ -639,7 +613,7 @@ namespace Checkers
                                 piece.pieceValues[movementPositionY, movementPositionX] = pieceType;
                                 board.ReDrawBoard();
                                 piece.SetPieces();
-                                Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
+                                Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                                 pieceType = 0;
                                 holding--;
                                 break;
@@ -648,13 +622,12 @@ namespace Checkers
                             {
                                 board.ReDrawBoard();
                                 piece.SetPieces();
-                                Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
+                                Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                             }
                             else if ((pieceType != piece.pieceValues[movementPositionY, movementPositionX]) && (piece.pieceValues[movementPositionY, movementPositionX] != pieceType + 2))
                             {
                                 valid = ValidateNormalMove(piece.pieceValues, player, pieceType, holding, playerOneScore, playerTwoScore, turn, movementPositionX, movementPositionY, startingPositionX, startingPositionY);
                                 validJump = ValidateJumpMove(piece.pieceValues, player, pieceType, holding, playerOneScore, playerTwoScore, turn, movementPositionX, movementPositionY, startingPositionX, startingPositionY);
-                                //mustTake = MustTakeCheck(piece.pieceValues, player, pieceType, holding, playerOneScore, playerTwoScore, turn, movementPositionX, movementPositionY, startingPositionX, startingPositionY);
 
                                 if (player == 2 && validJump == true)
                                 {
@@ -718,7 +691,7 @@ namespace Checkers
                                         gameData[4] = movementPositionX;
                                         gameData[5] = movementPositionY;
                                         piece.gameState.Add(dictionaryIndex, (int[])gameData.Clone());
-                                        Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
+                                        Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                                         break;
                                     }
 
@@ -795,12 +768,12 @@ namespace Checkers
                                 }
                                 board.ReDrawBoard();
                                 piece.SetPieces();
-                                Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
+                                Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                             }
                         }
                         board.ReDrawBoard();
                         piece.SetPieces();
-                        Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
+                        Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                         break;
                 }
             }
@@ -808,10 +781,519 @@ namespace Checkers
 
         public void AllowPVCMovement()
         {
+            Console.SetCursorPosition(piece.piecePositionsX[2], piece.piecePositionsY[5]);
+            piece.moveList.Add(0, (int[,])piece.pieceValues.Clone());
+            piece.moveList.Add(1, (int[,])piece.pieceValues.Clone());
+            gameData[0] = playerOneScore;
+            gameData[1] = playerTwoScore;
+            gameData[2] = turn;
+            gameData[3] = player;
+            gameData[4] = movementPositionX;
+            gameData[5] = movementPositionY;
+            piece.gameState.Add(0, (int[])gameData.Clone());
+            piece.gameState.Add(1, (int[])gameData.Clone());
 
+            while (true)
+            {
+                if (player == 2)
+                {
+                    var keyPress = Console.ReadKey(false).Key;
+                    switch (keyPress)
+                    {
+                        case ConsoleKey.UpArrow:
+
+                            movementPositionX--;
+                            movementPositionY--;
+                            board.ReDrawBoard();
+                            piece.SetPieces();
+                            if (movementPositionX == -1 || movementPositionX == -2 || movementPositionX == 8 || movementPositionY == -1 || movementPositionY == 8)
+                            {
+                                movementPositionX++;
+                                movementPositionY++;
+                                Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
+                            }
+                            else
+                            {
+                                Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
+                            }
+                            break;
+
+                        case ConsoleKey.DownArrow:
+
+                            movementPositionX++;
+                            movementPositionY++;
+                            board.ReDrawBoard();
+                            piece.SetPieces();
+                            if (movementPositionX == -1 || movementPositionX == -2 || movementPositionX == 8 || movementPositionY == -1 || movementPositionY == 8)
+                            {
+                                movementPositionX--;
+                                movementPositionY--;
+                                Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
+                            }
+                            else
+                            {
+                                Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
+                            }
+                            break;
+
+                        case ConsoleKey.RightArrow:
+
+                            movementPositionX = movementPositionX + 2;
+                            board.ReDrawBoard();
+                            piece.SetPieces();
+                            if (movementPositionX == -1 || movementPositionX == -2 || movementPositionX == 8 || movementPositionX == 9 || movementPositionY == -1 || movementPositionY == 8)
+                            {
+                                movementPositionX = movementPositionX - 2;
+                                Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
+                            }
+                            else
+                            {
+                                Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
+                            }
+                            break;
+
+                        case ConsoleKey.LeftArrow:
+
+                            movementPositionX = movementPositionX - 2;
+                            board.ReDrawBoard();
+                            piece.SetPieces();
+                            if (movementPositionX == -1 || movementPositionX == -2 || movementPositionX == 8 || movementPositionX == 9 || movementPositionY == -1 || movementPositionY == 8)
+                            {
+                                movementPositionX = movementPositionX + 2;
+                                Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
+                            }
+                            else
+                            {
+                                Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
+                            }
+                            break;
+
+                        case ConsoleKey.Escape:
+
+                            Changes(piece.pieceValues, movementPositionX, movementPositionY, holding, pieceType, turn);
+                            Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
+                            break;
+
+                        case ConsoleKey.Q:
+
+                            Console.Clear();
+                            Menu menu = new Menu();
+                            menu.DrawTitle();
+                            break;
+
+                        case ConsoleKey.U:
+
+                            foreach (KeyValuePair<int, int[,]> pair in piece.moveList)
+                            {
+                                if (piece.moveList.ContainsKey((dictionaryIndex - 1)) == true)
+                                {
+                                    piece.pieceValues = (int[,])piece.moveList[(dictionaryIndex - 1)].Clone();
+                                }
+                            }
+
+                            foreach (KeyValuePair<int, int[]> pair in piece.gameState)
+                            {
+                                if (piece.gameState.ContainsKey((dictionaryIndex - 1)) == true)
+                                {
+                                    gameData = (int[])piece.gameState[(dictionaryIndex - 1)].Clone();
+                                    playerOneScore = gameData[0];
+                                    playerTwoScore = gameData[1];
+                                    turn = gameData[2];
+                                    player = gameData[3];
+                                    movementPositionX = gameData[4];
+                                    movementPositionY = gameData[5];
+                                }
+                            }
+
+                            if (player == 2)
+                            {
+                                Console.SetCursorPosition(98, 21);
+                                Console.ForegroundColor = ConsoleColor.Black;
+                                Console.Write("<██>");
+                                Console.SetCursorPosition(98, 10);
+                                Console.ForegroundColor = ConsoleColor.Black;
+                                Console.Write("    ");
+                            }
+                            if (player == 1)
+                            {
+                                Console.SetCursorPosition(98, 21);
+                                Console.ForegroundColor = ConsoleColor.Black;
+                                Console.Write("    ");
+                                Console.SetCursorPosition(98, 10);
+                                Console.ForegroundColor = ConsoleColor.Black;
+                                Console.Write("<██>");
+                            }
+
+                            dictionaryIndex++;
+                            piece.moveList.Add(dictionaryIndex, (int[,])piece.pieceValues.Clone());
+                            piece.gameState.Add(dictionaryIndex, (int[])gameData.Clone());
+                            score.ScoreUpdater(player, playerOneScore, playerTwoScore);
+                            score.ScoreUpdater((player + 1), playerOneScore, playerTwoScore);
+                            score.ScoreUpdater((player - 1), playerOneScore, playerTwoScore);
+                            board.ReDrawBoard();
+                            piece.SetPieces();
+                            Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
+                            break;
+
+                        case ConsoleKey.R:
+
+                            foreach (KeyValuePair<int, int[,]> pair in piece.moveList)
+                            {
+                                if (piece.moveList.ContainsKey(dictionaryIndex - 1) == true)
+                                {
+                                    piece.pieceValues = (int[,])piece.moveList[dictionaryIndex - 1].Clone();
+                                }
+                            }
+
+                            foreach (KeyValuePair<int, int[]> pair in piece.gameState)
+                            {
+                                if (piece.gameState.ContainsKey(dictionaryIndex - 1) == true)
+                                {
+                                    gameData = (int[])piece.gameState[dictionaryIndex - 1].Clone();
+                                    playerOneScore = gameData[0];
+                                    playerTwoScore = gameData[1];
+                                    turn = gameData[2];
+                                    player = gameData[3];
+                                    movementPositionX = gameData[4];
+                                    movementPositionY = gameData[5];
+                                }
+                            }
+
+                            if (player == 2)
+                            {
+                                Console.SetCursorPosition(98, 21);
+                                Console.ForegroundColor = ConsoleColor.Black;
+                                Console.Write("<██>");
+                                Console.SetCursorPosition(98, 10);
+                                Console.ForegroundColor = ConsoleColor.Black;
+                                Console.Write("    ");
+                            }
+                            if (player == 1)
+                            {
+                                Console.SetCursorPosition(98, 21);
+                                Console.ForegroundColor = ConsoleColor.Black;
+                                Console.Write("    ");
+                                Console.SetCursorPosition(98, 10);
+                                Console.ForegroundColor = ConsoleColor.Black;
+                                Console.Write("<██>");
+                            }
+
+                            dictionaryIndex++;
+                            piece.moveList.Add(dictionaryIndex, (int[,])piece.pieceValues.Clone());
+                            piece.gameState.Add((dictionaryIndex), (int[])gameData.Clone());
+                            score.ScoreUpdater(player, playerOneScore, playerTwoScore);
+                            score.ScoreUpdater((player + 1), playerOneScore, playerTwoScore);
+                            score.ScoreUpdater((player - 1), playerOneScore, playerTwoScore);
+                            board.ReDrawBoard();
+                            piece.SetPieces();
+                            Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
+                            break;
+
+                        case ConsoleKey.I:
+
+                            foreach (KeyValuePair<int, int[,]> pair in piece.moveList)
+                            {
+                                piece.pieceValues = (int[,])piece.moveList[pair.Key].Clone();
+                                board.ReDrawBoard();
+                                piece.SetPieces();
+
+                                replayGameData = (int[])piece.gameState[pair.Key].Clone();
+                                playerOneScore = replayGameData[0];
+                                playerTwoScore = replayGameData[1];
+                                turn = replayGameData[2];
+                                player = replayGameData[3];
+                                movementPositionX = replayGameData[4];
+                                movementPositionY = replayGameData[5];
+                                score.ScoreUpdater(player, playerOneScore, playerTwoScore);
+                                score.ScoreUpdater((player + 1), playerOneScore, playerTwoScore);
+                                score.ScoreUpdater((player - 1), playerOneScore, playerTwoScore);
+
+                                delay.Delay(1);
+                            }
+
+                            score.ScoreUpdater(player, playerOneScore, playerTwoScore);
+                            score.ScoreUpdater((player + 1), playerOneScore, playerTwoScore);
+                            score.ScoreUpdater((player - 1), playerOneScore, playerTwoScore);
+                            board.ReDrawBoard();
+                            piece.SetPieces();
+                            Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
+                            break;
+
+                        case ConsoleKey.S:
+
+                            break;
+
+                        case ConsoleKey.Spacebar:
+
+                            if (holding == 0)
+                            {
+                                if (piece.pieceValues[movementPositionY, movementPositionX] == 0)
+                                {
+                                    board.ReDrawBoard();
+                                    piece.SetPieces();
+                                    Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
+                                }
+                                else if ((turn % 2 == 0) && (piece.pieceValues[movementPositionY, movementPositionX] % 2 == 0))
+                                {
+                                    holding++;
+                                    pieceType = piece.pieceValues[movementPositionY, movementPositionX];
+                                    piece.pieceValues[movementPositionY, movementPositionX] = 0;
+                                    startingPositionX = movementPositionX;
+                                    startingPositionY = movementPositionY;
+                                    board.ReDrawBoard();
+                                    piece.SetPieces();
+                                    Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
+                                }
+                            }
+                            else if (holding == 1)
+                            {
+                                if (startingPositionY == movementPositionY && startingPositionX == movementPositionX)
+                                {
+                                    piece.pieceValues[movementPositionY, movementPositionX] = pieceType;
+                                    board.ReDrawBoard();
+                                    piece.SetPieces();
+                                    Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
+                                    pieceType = 0;
+                                    holding--;
+                                    break;
+                                }
+                                if ((pieceType == piece.pieceValues[movementPositionY, movementPositionX]) || (pieceType == pieceType + 2))
+                                {
+                                    board.ReDrawBoard();
+                                    piece.SetPieces();
+                                    Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
+                                }
+                                else if ((pieceType != piece.pieceValues[movementPositionY, movementPositionX]) && (piece.pieceValues[movementPositionY, movementPositionX] != pieceType + 2))
+                                {
+                                    valid = ValidateNormalMove(piece.pieceValues, player, pieceType, holding, playerOneScore, playerTwoScore, turn, movementPositionX, movementPositionY, startingPositionX, startingPositionY);
+                                    validJump = ValidateJumpMove(piece.pieceValues, player, pieceType, holding, playerOneScore, playerTwoScore, turn, movementPositionX, movementPositionY, startingPositionX, startingPositionY);
+
+                                    if (player == 2 && validJump == true)
+                                    {
+                                        dictionaryIndex++;
+                                        playerTwoScore++;
+                                        score.ScoreUpdater(player, playerOneScore, playerTwoScore);
+                                        if (playerTwoScore == 12)
+                                        {
+                                            Console.SetCursorPosition(62, 28);
+                                            Console.ForegroundColor = ConsoleColor.DarkCyan;
+                                            Console.Write("PLAYER TWO WINS!");
+                                            piece.moveList.Add(dictionaryIndex, (int[,])piece.pieceValues.Clone());
+                                            gameData[0] = playerOneScore;
+                                            gameData[1] = playerTwoScore;
+                                            gameData[2] = turn;
+                                            gameData[3] = player;
+                                            gameData[4] = movementPositionX;
+                                            gameData[5] = movementPositionY;
+                                            piece.gameState.Add(dictionaryIndex, (int[])gameData.Clone());
+                                            Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
+                                            break;
+                                        }
+
+                                        player--;
+                                        holding--;
+                                        turn++;
+                                        Console.SetCursorPosition(98, 21);
+                                        Console.ForegroundColor = ConsoleColor.Black;
+                                        Console.Write("    ");
+                                        Console.SetCursorPosition(98, 10);
+                                        Console.ForegroundColor = ConsoleColor.Black;
+                                        Console.Write("<██>");
+                                        pieceType = 0;
+                                        validJump = false;
+                                        valid = false;
+                                        piece.moveList.Add(dictionaryIndex, (int[,])piece.pieceValues.Clone());
+                                        gameData[0] = playerOneScore;
+                                        gameData[1] = playerTwoScore;
+                                        gameData[2] = turn;
+                                        gameData[3] = player;
+                                        gameData[4] = movementPositionX;
+                                        gameData[5] = movementPositionY;
+                                        piece.gameState.Add(dictionaryIndex, (int[])gameData.Clone());
+                                    }
+
+                                    else if (player == 2 && valid == true && validJump == false)
+                                    {
+                                        dictionaryIndex++;
+                                        player--;
+                                        holding--;
+                                        turn++;
+                                        Console.SetCursorPosition(98, 21);
+                                        Console.ForegroundColor = ConsoleColor.Black;
+                                        Console.Write("    ");
+                                        Console.SetCursorPosition(98, 10);
+                                        Console.ForegroundColor = ConsoleColor.Black;
+                                        Console.Write("<██>");
+                                        pieceType = 0;
+                                        valid = false;
+                                        validJump = false;
+                                        piece.moveList.Add(dictionaryIndex, (int[,])piece.pieceValues.Clone());
+                                        gameData[0] = playerOneScore;
+                                        gameData[1] = playerTwoScore;
+                                        gameData[2] = turn;
+                                        gameData[3] = player;
+                                        gameData[4] = movementPositionX;
+                                        gameData[5] = movementPositionY;
+                                        piece.gameState.Add(dictionaryIndex, (int[])gameData.Clone());
+                                    }
+
+                                    board.ReDrawBoard();
+                                    piece.SetPieces();
+                                    Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
+                                }
+                            }
+                            board.ReDrawBoard();
+                            piece.SetPieces();
+                            Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
+                            break;
+                    }
+                }
+                else if (player == 1)
+                {
+                    PickAMove();
+                    
+                    player++;
+                    turn++;
+                    valid = false;
+                    validJump = false;
+                    gameData[0] = playerOneScore;
+                    gameData[1] = playerTwoScore;
+                    gameData[2] = turn;
+                    gameData[3] = player;
+                    gameData[4] = movementPositionX;
+                    gameData[5] = movementPositionY;
+                    piece.gameState.Add(dictionaryIndex, (int[])gameData.Clone());
+
+                    board.ReDrawBoard();
+                    piece.SetPieces();
+                    Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
+                    
+                }
+            }
         }
 
-            public void Changes(int[,] pieceValues, int movementPositionX, int movementPositionY, int holding, int pieceType, int turn)
+        public int[] aiPieceLocationsWhite = new int[2];
+        public List<int[]> aiPiecesWhite = new List<int[]>();
+        public List<int[]> aiValidMoves = new List<int[]>();
+
+        
+
+        public void PickAMove()
+        {
+            Random rnd = new Random();
+        
+            for (int x = 0; x < 8; x++)
+            {
+                for (int y = 0; y < 8; y++)
+                {
+                    switch (piece.pieceValues[y, x])
+                    {
+                        case 0:
+                            break;
+                        case 1:
+                            aiPieceLocationsWhite[0] = x;
+                            aiPieceLocationsWhite[1] = y;                          
+                            aiPiecesWhite.Add((int[])aiPieceLocationsWhite.Clone());
+                            //System.Console.WriteLine("----" + aiPieceLocationsWhite[0] + " " + aiPieceLocationsWhite[1]);
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                        case 4:
+                            break;
+                        default:
+                            break;
+
+                    }
+                }
+            }
+
+            foreach (int[] item in aiPiecesWhite)
+            {
+                int[] temp1 = (int[])item.Clone();
+
+                startingPositionX = item[1];
+                startingPositionY = item[0];
+                System.Console.WriteLine("-------------------------------------------------------------" + startingPositionX + " " + startingPositionY);
+
+                //((piece.pieceValues[movementPositionY, movementPositionX] == 0) && ((movementPositionY == startingPositionY + 1 && movementPositionX == startingPositionX + 1) || (movementPositionY == startingPositionY + 1 && movementPositionX == startingPositionX - 1)))
+
+                if ((startingPositionX + 1 == -1) || (startingPositionX + 1 == 8) || (startingPositionX - 1 == -1) || (startingPositionX - 1 == 8) || (startingPositionY + 1 == -1) || (startingPositionY + 1 == 8) || (startingPositionY - 1 == -1) || (startingPositionY - 1 == 8))
+                {
+
+
+                    //startingPositionX = 0;
+                    //startingPositionY = 0;
+                }
+                else if ((piece.pieceValues[startingPositionY, startingPositionX] == 1)  && (piece.pieceValues[startingPositionY + 1, startingPositionX + 1] == 0))
+                {
+
+                    int[] ints = new[] { (startingPositionY + 1), (startingPositionX + 1) };
+                    aiValidMoves.Add((int[])ints.Clone());
+
+                    //aiValidMoves.Add(item);
+                    //startingPositionX = 0;
+                    //startingPositionY = 0;
+                }
+                
+                else if ((piece.pieceValues[startingPositionY, startingPositionX] == 1) && (piece.pieceValues[startingPositionY + 1, startingPositionX - 1] == 0))
+                {
+                    int[] ints = new[] { (startingPositionY + 1), (startingPositionX - 1) };
+                    aiValidMoves.Add((int[])ints.Clone());
+                    //aiValidMoves.Add((int[])temp1.Clone());
+                    //aiValidMoves.Add(item);
+                    //startingPositionX = 0;
+                    //startingPositionY = 0;
+                }
+                
+            }
+
+            foreach (int[] item in aiValidMoves)
+            {
+                int[] temp2 = (int[])item.Clone();
+                int temp111 = item[0];
+                int temp222 = item[1];
+                //System.Console.WriteLine(item);
+                // Console.SetCursorPosition(0, 30);
+                System.Console.WriteLine("---------------------" + temp111 + " " + temp222);
+       
+            }
+            
+            delay.Delay(1);
+            dictionaryIndex++;
+            //int sizeOfList = aiValidMoves.Count;
+            int chosenMove = rnd.Next(aiValidMoves.Count);
+            int[] temp = (int[])aiValidMoves[chosenMove].Clone();
+            startingPositionX = temp[0];
+            startingPositionY = temp[1];
+            System.Console.WriteLine(chosenMove + " - " + temp[0] + " x " + temp[1]);
+            piece.pieceValues[startingPositionY, startingPositionX] = 0;
+            if ((piece.pieceValues[(startingPositionY + 1), (startingPositionX + 1)] == 0) && (chosenMove %2 != 0))
+            {
+                piece.pieceValues[(startingPositionY + 1), (startingPositionX + 1)] = 1;
+            }
+            if ((piece.pieceValues[(startingPositionY + 1), (startingPositionX - 1)] == 0) && (chosenMove % 2 == 0))
+            {
+                piece.pieceValues[(startingPositionY + 1), (startingPositionX - 1)] = 1;
+            }
+            
+            piece.moveList.Add(dictionaryIndex, (int[,])piece.pieceValues.Clone());
+            board.ReDrawBoard();
+            piece.SetPieces();
+            Console.SetCursorPosition(piece.piecePositionsX[startingPositionX + 1], piece.piecePositionsY[(startingPositionY + 1)]);
+            startingPositionX = 0;
+            startingPositionY = 0;
+            Array.Clear(aiPieceLocationsWhite, 0, aiPieceLocationsWhite.Length);
+            Array.Clear(temp, 0, temp.Length);
+            chosenMove = 0;
+            aiPiecesWhite.Clear();
+            aiValidMoves.Clear();
+            //Console.Clear();
+        }
+
+
+public void Changes(int[,] pieceValues, int movementPositionX, int movementPositionY, int holding, int pieceType, int turn)
         {
             Console.SetCursorPosition(0, 24);
             Console.ForegroundColor = ConsoleColor.Black;
