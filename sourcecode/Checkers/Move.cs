@@ -1,10 +1,10 @@
 ﻿// SET09117 2017-8 TR1 001 - Algorithms and Data Structures
 // Console Checkers
-// Version 0.7.0
+// Version 0.7.1
 // Alexander Barker 
 // 40333139
 // Created on 14th October 2017
-// Last Updated on 9th Novemeber 2017
+// Last Updated on 10th Novemeber 2017
 
 using System;
 using System.IO;
@@ -797,6 +797,7 @@ namespace Checkers
             {
                 if (player == 2)
                 {
+
                     var keyPress = Console.ReadKey(false).Key;
                     switch (keyPress)
                     {
@@ -1020,7 +1021,7 @@ namespace Checkers
                             break;
 
                         case ConsoleKey.S:
-
+                            Console.Clear();
                             break;
 
                         case ConsoleKey.Spacebar:
@@ -1151,23 +1152,12 @@ namespace Checkers
                 else if (player == 1)
                 {
                     PickAMove();
-                    
-                    player++;
-                    turn++;
+
                     valid = false;
                     validJump = false;
-                    gameData[0] = playerOneScore;
-                    gameData[1] = playerTwoScore;
-                    gameData[2] = turn;
-                    gameData[3] = player;
-                    gameData[4] = movementPositionX;
-                    gameData[5] = movementPositionY;
-                    piece.gameState.Add(dictionaryIndex, (int[])gameData.Clone());
-
                     board.ReDrawBoard();
                     piece.SetPieces();
                     Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
-                    
                 }
             }
         }
@@ -1175,13 +1165,12 @@ namespace Checkers
         public int[] aiPieceLocationsWhite = new int[2];
         public List<int[]> aiPiecesWhite = new List<int[]>();
         public List<int[]> aiValidMoves = new List<int[]>();
-
-        
+        public List<int[]> aiValidStartingPositions = new List<int[]>();
 
         public void PickAMove()
         {
             Random rnd = new Random();
-        
+
             for (int x = 0; x < 8; x++)
             {
                 for (int y = 0; y < 8; y++)
@@ -1191,8 +1180,8 @@ namespace Checkers
                         case 0:
                             break;
                         case 1:
-                            aiPieceLocationsWhite[0] = x;
-                            aiPieceLocationsWhite[1] = y;                          
+                            aiPieceLocationsWhite[1] = x;
+                            aiPieceLocationsWhite[0] = y;                          
                             aiPiecesWhite.Add((int[])aiPieceLocationsWhite.Clone());
                             //System.Console.WriteLine("----" + aiPieceLocationsWhite[0] + " " + aiPieceLocationsWhite[1]);
                             break;
@@ -1208,88 +1197,123 @@ namespace Checkers
                     }
                 }
             }
-
+            
             foreach (int[] item in aiPiecesWhite)
             {
                 int[] temp1 = (int[])item.Clone();
-
+                
                 startingPositionX = item[1];
                 startingPositionY = item[0];
-                System.Console.WriteLine("-------------------------------------------------------------" + startingPositionX + " " + startingPositionY);
-
-                //((piece.pieceValues[movementPositionY, movementPositionX] == 0) && ((movementPositionY == startingPositionY + 1 && movementPositionX == startingPositionX + 1) || (movementPositionY == startingPositionY + 1 && movementPositionX == startingPositionX - 1)))
+                //System.Console.WriteLine("\n---------------" + startingPositionX + " " + startingPositionY);
 
                 if ((startingPositionX + 1 == -1) || (startingPositionX + 1 == 8) || (startingPositionX - 1 == -1) || (startingPositionX - 1 == 8) || (startingPositionY + 1 == -1) || (startingPositionY + 1 == 8) || (startingPositionY - 1 == -1) || (startingPositionY - 1 == 8))
+                //if ((startingPositionX + 1 != 8) || (startingPositionX - 1 != -1)|| (startingPositionY + 1 != 8) || (startingPositionY - 1 != -1))
                 {
-
-
-                    //startingPositionX = 0;
-                    //startingPositionY = 0;
                 }
-                else if ((piece.pieceValues[startingPositionY, startingPositionX] == 1)  && (piece.pieceValues[startingPositionY + 1, startingPositionX + 1] == 0))
+                else
                 {
+                    if (piece.pieceValues[(startingPositionY + 1), (startingPositionX + 1)] == 0)
+                    {
+                        int[] ints2 = new[] { (startingPositionY), (startingPositionX) };
+                        aiValidStartingPositions.Add((int[])ints2.Clone());
 
-                    int[] ints = new[] { (startingPositionY + 1), (startingPositionX + 1) };
-                    aiValidMoves.Add((int[])ints.Clone());
+                        int[] ints = new[] { (startingPositionY + 1), (startingPositionX + 1) };
+                        aiValidMoves.Add((int[])ints.Clone());
+                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
+                        Array.Clear(ints2, 0, ints2.Length);
+                        Array.Clear(ints, 0, ints.Length);
+                    }
+                    else if (piece.pieceValues[startingPositionY + 1, startingPositionX - 1] == 0)
+                    {
+                        int[] ints3 = new[] { (startingPositionY), (startingPositionX) };
+                        aiValidStartingPositions.Add((int[])ints3.Clone());
 
-                    //aiValidMoves.Add(item);
-                    //startingPositionX = 0;
-                    //startingPositionY = 0;
+                        int[] ints1 = new[] { (startingPositionY + 1), (startingPositionX - 1) };
+                        aiValidMoves.Add((int[])ints1.Clone());
+                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
+                        Array.Clear(ints3, 0, ints3.Length);
+                        Array.Clear(ints1, 0, ints1.Length);
+                    }
                 }
-                
-                else if ((piece.pieceValues[startingPositionY, startingPositionX] == 1) && (piece.pieceValues[startingPositionY + 1, startingPositionX - 1] == 0))
-                {
-                    int[] ints = new[] { (startingPositionY + 1), (startingPositionX - 1) };
-                    aiValidMoves.Add((int[])ints.Clone());
-                    //aiValidMoves.Add((int[])temp1.Clone());
-                    //aiValidMoves.Add(item);
-                    //startingPositionX = 0;
-                    //startingPositionY = 0;
-                }
-                
+                Array.Clear(temp1, 0, temp1.Length);
+
             }
-
+            /*
             foreach (int[] item in aiValidMoves)
             {
                 int[] temp2 = (int[])item.Clone();
-                int temp111 = item[0];
-                int temp222 = item[1];
-                //System.Console.WriteLine(item);
-                // Console.SetCursorPosition(0, 30);
-                System.Console.WriteLine("---------------------" + temp111 + " " + temp222);
-       
+                int temp111 = temp2[1];
+                int temp222 = temp2[0];
+                //Console.SetCursorPosition(50, 40);
+                System.Console.WriteLine("--------------" + temp111 + " p " + temp222);    
             }
-            
+            */
             delay.Delay(1);
-            dictionaryIndex++;
-            //int sizeOfList = aiValidMoves.Count;
-            int chosenMove = rnd.Next(aiValidMoves.Count);
-            int[] temp = (int[])aiValidMoves[chosenMove].Clone();
-            startingPositionX = temp[0];
-            startingPositionY = temp[1];
-            System.Console.WriteLine(chosenMove + " - " + temp[0] + " x " + temp[1]);
-            piece.pieceValues[startingPositionY, startingPositionX] = 0;
-            if ((piece.pieceValues[(startingPositionY + 1), (startingPositionX + 1)] == 0) && (chosenMove %2 != 0))
-            {
-                piece.pieceValues[(startingPositionY + 1), (startingPositionX + 1)] = 1;
-            }
-            if ((piece.pieceValues[(startingPositionY + 1), (startingPositionX - 1)] == 0) && (chosenMove % 2 == 0))
-            {
-                piece.pieceValues[(startingPositionY + 1), (startingPositionX - 1)] = 1;
-            }
             
-            piece.moveList.Add(dictionaryIndex, (int[,])piece.pieceValues.Clone());
+            while (valid == false)
+            {
+                if (aiValidMoves.Count == 0)
+                {
+                    //PickAMove();
+                    System.Console.WriteLine("------VAILD MOVES COUNT HIT ZERO--------" + aiValidMoves.Count);
+                    break;
+                }
+                else
+                {
+                    int chosenMove = rnd.Next(aiValidMoves.Count);
+                    int[] temp = (int[])aiValidMoves[chosenMove].Clone();
+                    movementPositionX = temp[1];
+                    movementPositionY = temp[0];
+                    int[] temp2 = (int[])aiValidStartingPositions[chosenMove].Clone();
+                    startingPositionX = temp2[1];
+                    startingPositionY = temp2[0];
+
+                    pieceType = piece.pieceValues[startingPositionY, startingPositionX];
+
+                    //System.Console.WriteLine("\n" + aiValidStartingPositions.Count + " " + aiValidMoves.Count + " - " + chosenMove + " -start- " + temp2[1] + " x " + temp2[0] + " -move- " + temp[1] + " x " + temp[0]);
+
+                    valid = ValidateNormalMove(piece.pieceValues, player, pieceType, holding, playerOneScore, playerTwoScore, turn, movementPositionX, movementPositionY, startingPositionX, startingPositionY);
+
+                    if (player == 1 && valid == true)
+                    {
+                        dictionaryIndex++;
+                        player++;
+                        turn++;
+                        Console.SetCursorPosition(98, 21);
+                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.Write("<██>");
+                        Console.SetCursorPosition(98, 10);
+                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.Write("    ");
+                        pieceType = 0;
+                        piece.pieceValues[startingPositionY, startingPositionX] = 0;
+                        piece.moveList.Add(dictionaryIndex, (int[,])piece.pieceValues.Clone());
+                        gameData[0] = playerOneScore;
+                        gameData[1] = playerTwoScore;
+                        gameData[2] = turn;
+                        gameData[3] = player;
+                        gameData[4] = movementPositionX;
+                        gameData[5] = movementPositionY;
+                        piece.gameState.Add(dictionaryIndex, (int[])gameData.Clone());
+                        Array.Clear(temp, 0, temp.Length);
+                        chosenMove = 0;
+                        break;
+                    }
+                    else
+                    {
+                        valid = false;
+                    }
+                }
+            }
+
             board.ReDrawBoard();
             piece.SetPieces();
-            Console.SetCursorPosition(piece.piecePositionsX[startingPositionX + 1], piece.piecePositionsY[(startingPositionY + 1)]);
-            startingPositionX = 0;
-            startingPositionY = 0;
+            Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
+
             Array.Clear(aiPieceLocationsWhite, 0, aiPieceLocationsWhite.Length);
-            Array.Clear(temp, 0, temp.Length);
-            chosenMove = 0;
             aiPiecesWhite.Clear();
             aiValidMoves.Clear();
-            //Console.Clear();
+            aiValidStartingPositions.Clear();
         }
 
 
