@@ -1,10 +1,10 @@
 ﻿// SET09117 2017-8 TR1 001 - Algorithms and Data Structures
 // Console Checkers
-// Version 0.8.0
+// Version 0.8.5
 // Alexander Barker 
 // 40333139
 // Created on 14th October 2017
-// Last Updated on 12th Novemeber 2017
+// Last Updated on 13th Novemeber 2017
 
 using System;
 using System.IO;
@@ -71,7 +71,8 @@ namespace Checkers
             Console.SetCursorPosition(46, 18);
             Console.ForegroundColor = ConsoleColor.Black;
 
-            // Insert AI calls stuff here
+            Move move = new Move();
+            move.AllowCVCMovement();
 
             Console.ReadLine();
         }
