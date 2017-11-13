@@ -1,6 +1,6 @@
 ﻿// SET09117 2017-8 TR1 001 - Algorithms and Data Structures
 // Console Checkers
-// Version 0.8.5
+// Version 0.9.0
 // Alexander Barker 
 // 40333139
 // Created on 14th October 2017
@@ -21,7 +21,6 @@ namespace Checkers
         public int[] piecePositionsY = { 3, 6, 9, 12, 15, 18, 21, 24 };
 
         public Dictionary<int, int[,]> moveList = new Dictionary<int, int[,]>();
-        public Dictionary<int, int[,]> moveList1 = new Dictionary<int, int[,]>();
         public Dictionary<int, int[]> gameState = new Dictionary<int, int[]>();
 
         public Piece()

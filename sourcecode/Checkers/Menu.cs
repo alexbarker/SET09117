@@ -1,6 +1,6 @@
 ﻿// SET09117 2017-8 TR1 001 - Algorithms and Data Structures
 // Console Checkers
-// Version 0.8.5
+// Version 0.9.0
 // Alexander Barker 
 // 40333139
 // Created on 14th October 2017
@@ -65,6 +65,26 @@ namespace Checkers
             MenuSelection();
         }
 
+        public void LoadGameSelection()
+        {
+            Console.SetCursorPosition(0, 11);
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.WriteLine("                                                                                                                ");
+            Console.WriteLine("                                           ╔════════════════════════════════════════════════╗                   ");
+            Console.WriteLine("                                           ║                   Load Game                    ║                   ");
+            Console.WriteLine("                                           ╠═════╦══════════════════════════════════════════╣                   ");
+            Console.WriteLine("                                           ║  g  ║  Player Vs Player                        ║                   ");
+            Console.WriteLine("                                           ╠═════╬══════════════════════════════════════════╣                   ");
+            Console.WriteLine("                                           ║  h  ║  Player Vs Computer                      ║                   ");
+            Console.WriteLine("                                           ╠═════╬══════════════════════════════════════════╣                   ");
+            Console.WriteLine("                                           ║  f  ║  Back                                    ║                   ");
+            Console.WriteLine("                                           ╚═════╩══════════════════════════════════════════╝                   ");
+            Console.WriteLine("                                                                                                                ");
+            Console.WriteLine("                                                                                                                ");
+
+            MenuSelection();
+        }
+
         public void MenuSelection()
         {
             while (true)
@@ -77,7 +97,7 @@ namespace Checkers
                         break;
                     case ConsoleKey.B:
                         Game loadGame = new Game();
-                        loadGame.LoadGame();
+                        LoadGameSelection();
                         break;
 
                     case ConsoleKey.C:
@@ -98,6 +118,18 @@ namespace Checkers
                         Console.Clear();
                         Menu menu = new Menu();
                         menu.DrawTitle();
+                        break;
+
+                    case ConsoleKey.G:
+                        Console.Clear();
+                        Game loadPVPGame = new Game();
+                        loadPVPGame.LoadPVPGame();
+                        break;
+
+                    case ConsoleKey.H:
+                        Console.Clear();
+                        Game loadPVCGame = new Game();
+                        loadPVCGame.LoadPVCGame();
                         break;
 
                     case ConsoleKey.Q:

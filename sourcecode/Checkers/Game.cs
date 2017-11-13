@@ -1,6 +1,6 @@
 ﻿// SET09117 2017-8 TR1 001 - Algorithms and Data Structures
 // Console Checkers
-// Version 0.8.5
+// Version 0.9.0
 // Alexander Barker 
 // 40333139
 // Created on 14th October 2017
@@ -17,6 +17,7 @@ namespace Checkers
 {
     class Game
     {
+
         public void NewPVPGame()
         {
             Board board = new Board();
@@ -77,7 +78,7 @@ namespace Checkers
             Console.ReadLine();
         }
 
-        public void LoadGame()
+        public void LoadPVPGame()
         {
             Board board = new Board();
             board.DrawBoard();
@@ -91,12 +92,32 @@ namespace Checkers
             Console.SetCursorPosition(46, 18);
             Console.ForegroundColor = ConsoleColor.Black;
 
-            // insert load file code here
-            // Move move = new Move();
-            // move.LoadGameData();
-            // Ask user about game mode at some point
+            Move move = new Move();
+            move.loadFile = true;
+            move.AllowPVPMovement();
 
+            Console.ReadLine();
+        }
 
+        public void LoadPVCGame()
+        {
+            Board board = new Board();
+            board.DrawBoard();
+
+            Piece piece = new Piece();
+            piece.SetPieces();
+
+            Score scores = new Score();
+            scores.SetScores();
+
+            Console.SetCursorPosition(46, 18);
+            Console.ForegroundColor = ConsoleColor.Black;
+
+            Move move = new Move();
+            move.loadFile = true;
+            move.AllowPVCMovement();
+
+            Console.ReadLine();
         }
     }
 }
