@@ -1,10 +1,10 @@
 ﻿// SET09117 2017-8 TR1 001 - Algorithms and Data Structures
 // Console Checkers
-// Version 0.9.0
+// Version 0.9.1
 // Alexander Barker 
 // 40333139
 // Created on 14th October 2017
-// Last Updated on 13th Novemeber 2017
+// Last Updated on 14th Novemeber 2017
 
 using System;
 using System.Collections.Generic;
@@ -47,20 +47,20 @@ namespace Checkers
             Console.WriteLine("        (i) - Instant Replay              ║       ██████      ██████      ██████      ██████ ║         ║                     ║");
             Console.WriteLine("        (q) - Quit                        ║       ██████      ██████      ██████      ██████ ║         ║                     ║");
             Console.WriteLine("                                          ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
-            Console.WriteLine("                                          ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
             Console.WriteLine("          ╔═════════════════════╗         ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
-            Console.WriteLine("          ║    INSTRUCTIONS     ║         ║       ██████      ██████      ██████      ██████ ║         ╚═════════════════════╝");
-            Console.WriteLine("          ╚═════════════════════╝         ║       ██████      ██████      ██████      ██████ ║                                ");
-            Console.WriteLine("                                          ║       ██████      ██████      ██████      ██████ ║                PLAYER TWO      ");
-            Console.WriteLine("        - Use the Spacebar to pick up     ║ ██████      ██████      ██████      ██████       ║         ╔═════════════════════╗");
-            Console.WriteLine("          and drop a piece.               ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
+            Console.WriteLine("          ║    INSTRUCTIONS     ║         ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
+            Console.WriteLine("          ╚═════════════════════╝         ║       ██████      ██████      ██████      ██████ ║         ╚═════════════════════╝");
+            Console.WriteLine("                                          ║       ██████      ██████      ██████      ██████ ║                                ");
+            Console.WriteLine("        - Use the Spacebar to pick up     ║       ██████      ██████      ██████      ██████ ║                PLAYER TWO      ");
+            Console.WriteLine("          and drop a piece.               ║ ██████      ██████      ██████      ██████       ║         ╔═════════════════════╗");
             Console.WriteLine("        - Navigate using arrow keys.      ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
-            Console.WriteLine("        - No multi-jump rule.             ║       ██████      ██████      ██████      ██████ ║         ║                     ║");
-            Console.WriteLine("        - No force take rule.             ║       ██████      ██████      ██████      ██████ ║    <██> ║                     ║");
-            Console.WriteLine("        - Score 12 to win!                ║       ██████      ██████      ██████      ██████ ║         ║                     ║");
-            Console.WriteLine("                                          ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
-            Console.WriteLine("                                          ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
-            Console.WriteLine("                                          ║ ██████      ██████      ██████      ██████       ║         ╚═════════════════════╝");
+            Console.WriteLine("        - No multi-jump rule.             ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
+            Console.WriteLine("        - No force take rule.             ║       ██████      ██████      ██████      ██████ ║         ║                     ║");
+            Console.WriteLine("        - Score 12 to win!                ║       ██████      ██████      ██████      ██████ ║    <██> ║                     ║");
+            Console.WriteLine("                                          ║       ██████      ██████      ██████      ██████ ║         ║                     ║");
+            Console.WriteLine("          ╔═════════════════════╗         ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
+            Console.WriteLine("          ║                     ║         ║ ██████      ██████      ██████      ██████       ║         ║                     ║");
+            Console.WriteLine("          ╚═════════════════════╝         ║ ██████      ██████      ██████      ██████       ║         ╚═════════════════════╝");
             Console.WriteLine("                                          ╚══════════════════════════════════════════════════╝                                ");
             Console.WriteLine("                                                                                                                              ");
 

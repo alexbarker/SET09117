@@ -1,10 +1,10 @@
 ﻿// SET09117 2017-8 TR1 001 - Algorithms and Data Structures
 // Console Checkers
-// Version 0.9.0
+// Version 0.9.1
 // Alexander Barker 
 // 40333139
 // Created on 14th October 2017
-// Last Updated on 13th Novemeber 2017
+// Last Updated on 14th Novemeber 2017
 
 using System;
 using System.IO;

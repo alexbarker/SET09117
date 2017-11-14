@@ -1,10 +1,10 @@
 ﻿// SET09117 2017-8 TR1 001 - Algorithms and Data Structures
 // Console Checkers
-// Version 0.9.0
+// Version 0.9.1
 // Alexander Barker 
 // 40333139
 // Created on 14th October 2017
-// Last Updated on 13th Novemeber 2017
+// Last Updated on 14th Novemeber 2017
 
 using System;
 using System.IO;
@@ -425,6 +425,10 @@ namespace Checkers
         {
             if (loadFile == true)
             {
+                Console.SetCursorPosition(14, 24);
+                Console.ForegroundColor = ConsoleColor.DarkBlue;
+                Console.Write("   Loading...   ");
+
                 gameData[0] = playerOneScore;
                 gameData[1] = playerTwoScore;
                 gameData[2] = turn;
@@ -433,6 +437,11 @@ namespace Checkers
                 gameData[5] = movementPositionY;
                 piece.gameState.Add(0, (int[])gameData.Clone());
                 LoadFileData();
+
+                delay.Delay(1);
+                Console.SetCursorPosition(14, 24);
+                Console.Write("               ");
+                Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
             }
             else
             {
@@ -537,6 +546,10 @@ namespace Checkers
 
                         case ConsoleKey.U:
 
+                            Console.SetCursorPosition(14, 24);
+                            Console.ForegroundColor = ConsoleColor.DarkBlue;
+                            Console.Write("   Undo Move    ");
+
                             foreach (KeyValuePair<int, int[,]> pair in piece.moveList)
                             {
                                 if (piece.moveList.ContainsKey((dictionaryIndex - 1)) == true)
@@ -586,10 +599,18 @@ namespace Checkers
                             score.ScoreUpdater((player - 1), playerOneScore, playerTwoScore);
                             board.ReDrawBoard();
                             piece.SetPieces();
+
+                            delay.Delay(1);
+                            Console.SetCursorPosition(14, 24);
+                            Console.Write("                ");
                             Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                             break;
 
                         case ConsoleKey.R:
+
+                            Console.SetCursorPosition(14, 24);
+                            Console.ForegroundColor = ConsoleColor.DarkBlue;
+                            Console.Write("   Redo Move    ");
 
                             foreach (KeyValuePair<int, int[,]> pair in piece.moveList)
                             {
@@ -640,12 +661,20 @@ namespace Checkers
                             score.ScoreUpdater((player - 1), playerOneScore, playerTwoScore);
                             board.ReDrawBoard();
                             piece.SetPieces();
+
+                            delay.Delay(1);
+                            Console.SetCursorPosition(14, 24);
+                            Console.Write("                ");
                             Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                             break;
 
                         case ConsoleKey.I:
 
-                            foreach (KeyValuePair<int, int[,]> pair in piece.moveList)
+                        Console.SetCursorPosition(14, 24);
+                        Console.ForegroundColor = ConsoleColor.DarkBlue;
+                        Console.Write("  Replaying...  ");
+
+                        foreach (KeyValuePair<int, int[,]> pair in piece.moveList)
                             {
                                 piece.pieceValues = (int[,])piece.moveList[pair.Key].Clone();
                                 board.ReDrawBoard();
@@ -663,7 +692,6 @@ namespace Checkers
                                 score.ScoreUpdater((player - 1), playerOneScore, playerTwoScore);
 
                                 delay.Delay(1);
-                                //if (ConsoleKey.P: break;)
                             }
 
                             score.ScoreUpdater(player, playerOneScore, playerTwoScore);
@@ -671,11 +699,19 @@ namespace Checkers
                             score.ScoreUpdater((player - 1), playerOneScore, playerTwoScore);
                             board.ReDrawBoard();
                             piece.SetPieces();
+
+                            Console.SetCursorPosition(14, 24);
+                            Console.Write("                ");
                             Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                             break;
 
                         case ConsoleKey.S:
-                            using (StreamWriter outputFile1 = new StreamWriter(@".\\SaveMoveList.csv"))
+
+                        Console.SetCursorPosition(14, 24);
+                        Console.ForegroundColor = ConsoleColor.DarkBlue;
+                        Console.Write("   Saving...   ");
+
+                        using (StreamWriter outputFile1 = new StreamWriter(@".\\SaveMoveList.csv"))
                             {
                                 foreach (KeyValuePair<int, int[,]> pair in piece.moveList)
                                 {
@@ -691,6 +727,10 @@ namespace Checkers
                             }
                             board.ReDrawBoard();
                             piece.SetPieces();
+
+                            delay.Delay(1);
+                            Console.SetCursorPosition(14, 24);
+                            Console.Write("                ");
                             Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                             break;
 
@@ -757,7 +797,7 @@ namespace Checkers
                                         score.ScoreUpdater(player, playerOneScore, playerTwoScore);
                                         if (playerTwoScore == 12)
                                         {
-                                            Console.SetCursorPosition(62, 28);
+                                            Console.SetCursorPosition(14, 24);
                                             Console.ForegroundColor = ConsoleColor.DarkCyan;
                                             Console.Write("PLAYER TWO WINS!");
                                             piece.moveList.Add(dictionaryIndex, (int[,])piece.pieceValues.Clone());
@@ -801,7 +841,7 @@ namespace Checkers
                                         score.ScoreUpdater(player, playerOneScore, playerTwoScore);
                                         if (playerOneScore == 12)
                                         {
-                                            Console.SetCursorPosition(62, 28);
+                                            Console.SetCursorPosition(14, 24);
                                             Console.ForegroundColor = ConsoleColor.White;
                                             Console.Write("PLAYER ONE WINS!");
                                             piece.moveList.Add(dictionaryIndex, (int[,])piece.pieceValues.Clone());
@@ -904,6 +944,10 @@ namespace Checkers
         {
             if (loadFile == true)
             {
+                Console.SetCursorPosition(14, 24);
+                Console.ForegroundColor = ConsoleColor.DarkBlue;
+                Console.Write("   Loading...   ");
+
                 gameData[0] = playerOneScore;
                 gameData[1] = playerTwoScore;
                 gameData[2] = turn;
@@ -912,6 +956,11 @@ namespace Checkers
                 gameData[5] = movementPositionY;
                 piece.gameState.Add(0, (int[])gameData.Clone());
                 LoadFileData();
+
+                delay.Delay(1);
+                Console.SetCursorPosition(14, 24);
+                Console.Write("                ");
+                Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
             }
             else
             {
@@ -1019,19 +1068,23 @@ namespace Checkers
 
                         case ConsoleKey.U:
 
+                            Console.SetCursorPosition(14, 24);
+                            Console.ForegroundColor = ConsoleColor.DarkBlue;
+                            Console.Write("   Undo Move    ");
+
                             foreach (KeyValuePair<int, int[,]> pair in piece.moveList)
                             {
-                                if (piece.moveList.ContainsKey((dictionaryIndex - 1)) == true)
+                                if (piece.moveList.ContainsKey((dictionaryIndex - 2)) == true)
                                 {
-                                    piece.pieceValues = (int[,])piece.moveList[(dictionaryIndex - 1)].Clone();
+                                    piece.pieceValues = (int[,])piece.moveList[(dictionaryIndex - 2)].Clone();
                                 }
                             }
 
                             foreach (KeyValuePair<int, int[]> pair in piece.gameState)
                             {
-                                if (piece.gameState.ContainsKey((dictionaryIndex - 1)) == true)
+                                if (piece.gameState.ContainsKey((dictionaryIndex - 2)) == true)
                                 {
-                                    gameData = (int[])piece.gameState[(dictionaryIndex - 1)].Clone();
+                                    gameData = (int[])piece.gameState[(dictionaryIndex - 2)].Clone();
                                     playerOneScore = gameData[0];
                                     playerTwoScore = gameData[1];
                                     turn = gameData[2];
@@ -1060,6 +1113,7 @@ namespace Checkers
                                 Console.Write("<██>");
                             }
 
+                            dictionaryIndex++;
                             dictionaryIndex++;
                             piece.moveList.Add(dictionaryIndex, (int[,])piece.pieceValues.Clone());
                             piece.gameState.Add(dictionaryIndex, (int[])gameData.Clone());
@@ -1068,24 +1122,32 @@ namespace Checkers
                             score.ScoreUpdater((player - 1), playerOneScore, playerTwoScore);
                             board.ReDrawBoard();
                             piece.SetPieces();
+
+                            delay.Delay(1);
+                            Console.SetCursorPosition(14, 24);
+                            Console.Write("                ");
                             Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                             break;
 
                         case ConsoleKey.R:
 
+                            Console.SetCursorPosition(14, 24);
+                            Console.ForegroundColor = ConsoleColor.DarkBlue;
+                            Console.Write("   Redo Move    ");
+
                             foreach (KeyValuePair<int, int[,]> pair in piece.moveList)
                             {
-                                if (piece.moveList.ContainsKey(dictionaryIndex - 1) == true)
+                                if (piece.moveList.ContainsKey(dictionaryIndex - 2) == true)
                                 {
-                                    piece.pieceValues = (int[,])piece.moveList[dictionaryIndex - 1].Clone();
+                                    piece.pieceValues = (int[,])piece.moveList[dictionaryIndex - 2].Clone();
                                 }
                             }
 
                             foreach (KeyValuePair<int, int[]> pair in piece.gameState)
                             {
-                                if (piece.gameState.ContainsKey(dictionaryIndex - 1) == true)
+                                if (piece.gameState.ContainsKey(dictionaryIndex - 2) == true)
                                 {
-                                    gameData = (int[])piece.gameState[dictionaryIndex - 1].Clone();
+                                    gameData = (int[])piece.gameState[dictionaryIndex - 2].Clone();
                                     playerOneScore = gameData[0];
                                     playerTwoScore = gameData[1];
                                     turn = gameData[2];
@@ -1115,6 +1177,7 @@ namespace Checkers
                             }
 
                             dictionaryIndex++;
+                            dictionaryIndex++;
                             piece.moveList.Add(dictionaryIndex, (int[,])piece.pieceValues.Clone());
                             piece.gameState.Add((dictionaryIndex), (int[])gameData.Clone());
                             score.ScoreUpdater(player, playerOneScore, playerTwoScore);
@@ -1122,10 +1185,18 @@ namespace Checkers
                             score.ScoreUpdater((player - 1), playerOneScore, playerTwoScore);
                             board.ReDrawBoard();
                             piece.SetPieces();
+
+                            delay.Delay(1);
+                            Console.SetCursorPosition(14, 24);
+                            Console.Write("                ");
                             Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                             break;
 
                         case ConsoleKey.I:
+
+                            Console.SetCursorPosition(14, 24);
+                            Console.ForegroundColor = ConsoleColor.DarkBlue;
+                            Console.Write("  Replaying...   ");
 
                             foreach (KeyValuePair<int, int[,]> pair in piece.moveList)
                             {
@@ -1152,10 +1223,18 @@ namespace Checkers
                             score.ScoreUpdater((player - 1), playerOneScore, playerTwoScore);
                             board.ReDrawBoard();
                             piece.SetPieces();
+
+                            Console.SetCursorPosition(14, 24);
+                            Console.Write("                ");
                             Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                             break;
 
                         case ConsoleKey.S:
+
+                            Console.SetCursorPosition(14, 24);
+                            Console.ForegroundColor = ConsoleColor.DarkBlue;
+                            Console.Write("   Saving...    ");
+
                             using (StreamWriter outputFile3 = new StreamWriter(@".\\SaveMoveList.csv"))
                             {
                                 foreach (KeyValuePair<int, int[,]> pair in piece.moveList)
@@ -1172,6 +1251,10 @@ namespace Checkers
                             }
                             board.ReDrawBoard();
                             piece.SetPieces();
+
+                            delay.Delay(1);
+                            Console.SetCursorPosition(14, 24);
+                            Console.Write("                ");
                             Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                             break;
 
@@ -1227,7 +1310,7 @@ namespace Checkers
                                         score.ScoreUpdater(player, playerOneScore, playerTwoScore);
                                         if (playerTwoScore == 12)
                                         {
-                                            Console.SetCursorPosition(62, 28);
+                                            Console.SetCursorPosition(14, 24);
                                             Console.ForegroundColor = ConsoleColor.DarkCyan;
                                             Console.Write("PLAYER TWO WINS!");
                                             piece.moveList.Add(dictionaryIndex, (int[,])piece.pieceValues.Clone());
@@ -1811,14 +1894,14 @@ namespace Checkers
             }
             */
 
-            delay.Delay(1);
+            //delay.Delay(1);
 
             while (valid == false)
             {                                
                 if (aiValidWhiteMoves.Count == 0 && aiValidWhiteJumpMoves.Count == 0)
                 {
-                    Console.SetCursorPosition(90, 27);
-                    System.Console.WriteLine("------VAILD MOVES COUNT HIT ZERO------");
+                    Console.SetCursorPosition(14, 24);
+                    System.Console.WriteLine(" NO MOVES LEFT!");
                     player = 2;
                     break;
                 }
@@ -1945,7 +2028,7 @@ namespace Checkers
                             score.ScoreUpdater(player, playerOneScore, playerTwoScore);
                             if (playerOneScore == 12)
                             {
-                                Console.SetCursorPosition(62, 28);
+                                Console.SetCursorPosition(14, 24);
                                 Console.ForegroundColor = ConsoleColor.White;
                                 Console.Write("PLAYER ONE WINS!");
                                 player++;
@@ -2010,7 +2093,7 @@ namespace Checkers
                             score.ScoreUpdater(player, playerOneScore, playerTwoScore);
                             if (playerOneScore == 12)
                             {
-                                Console.SetCursorPosition(62, 28);
+                                Console.SetCursorPosition(14, 24);
                                 Console.ForegroundColor = ConsoleColor.White;
                                 Console.Write("PLAYER ONE WINS!");
                                 player++;
@@ -2204,7 +2287,7 @@ namespace Checkers
                         Array.Clear(ints2, 0, ints2.Length);
                         Array.Clear(ints, 0, ints.Length);
                     }
-                    if ((piece.pieceValues[startingPositionY, startingPositionX] == 4) && (startingPositionX > 0 && startingPositionX < 7 && startingPositionY > 0 && startingPositionY <= 7) && (piece.pieceValues[(startingPositionY + 1), (startingPositionX - 1)] == 0))
+                    if ((piece.pieceValues[startingPositionY, startingPositionX] == 4) && (startingPositionX > 0 && startingPositionX < 7 && startingPositionY > 0 && startingPositionY < 7) && (piece.pieceValues[(startingPositionY + 1), (startingPositionX - 1)] == 0))
                     {
                         int[] ints2 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidBlackStartingPositions.Add((int[])ints2.Clone());
@@ -2370,7 +2453,7 @@ namespace Checkers
 
                         //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                     }
-                    if ((piece.pieceValues[startingPositionY, startingPositionX] == 4) && ((startingPositionY == 0 || startingPositionY == 1) && startingPositionX > 1 && startingPositionX < 6) && ((piece.pieceValues[(startingPositionY + 1), (startingPositionX - 1)] == 1) || (piece.pieceValues[(startingPositionY + 1), (startingPositionX - 1)] == 3)) && (piece.pieceValues[(startingPositionY + 2), (startingPositionX - 2)] == 0))
+                    if ((piece.pieceValues[startingPositionY, startingPositionX] == 4) && ((startingPositionY == 0 || startingPositionY == 1) && startingPositionX > 1 && startingPositionX <= 7) && ((piece.pieceValues[(startingPositionY + 1), (startingPositionX - 1)] == 1) || (piece.pieceValues[(startingPositionY + 1), (startingPositionX - 1)] == 3)) && (piece.pieceValues[(startingPositionY + 2), (startingPositionX - 2)] == 0))
                     {
                         int[] ints3 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidBlackJumpStartingPositions.Add((int[])ints3.Clone());
@@ -2511,15 +2594,15 @@ namespace Checkers
             }
             */
 
-            delay.Delay(1);
+            //delay.Delay(1);
 
             while (valid == false)
             {
                 if (aiValidBlackMoves.Count == 0 && aiValidBlackJumpMoves.Count == 0)
                 {
-                    Console.SetCursorPosition(90, 27);
-                    System.Console.WriteLine("------VAILD MOVES COUNT HIT ZERO------");
-                    player = 2;
+                    Console.SetCursorPosition(14, 24);
+                    System.Console.WriteLine(" NO MOVES LEFT!");
+                    player = 1;
                     break;
                 }
 
@@ -2645,7 +2728,7 @@ namespace Checkers
                             score.ScoreUpdater(player, playerOneScore, playerTwoScore);
                             if (playerTwoScore == 12)
                             {
-                                Console.SetCursorPosition(62, 28);
+                                Console.SetCursorPosition(14, 24);
                                 Console.ForegroundColor = ConsoleColor.DarkCyan;
                                 Console.Write("PLAYER TWO WINS!");
                                 piece.pieceValues[startingPositionY, startingPositionX] = 0;
@@ -2709,7 +2792,7 @@ namespace Checkers
                             score.ScoreUpdater(player, playerOneScore, playerTwoScore);
                             if (playerTwoScore == 12)
                             {
-                                Console.SetCursorPosition(62, 28);
+                                Console.SetCursorPosition(14, 24);
                                 Console.ForegroundColor = ConsoleColor.DarkCyan;
                                 Console.Write("PLAYER TWO WINS!");
                                 piece.pieceValues[startingPositionY, startingPositionX] = 0;
