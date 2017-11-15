@@ -1,3 +1,0 @@
-Your submission must contain all of the sourcecode 
-required to rebuild your executable as well as clear 
-and detailed instructions for performing that process.

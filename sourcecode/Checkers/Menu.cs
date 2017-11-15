@@ -9,7 +9,7 @@ namespace Checkers
     /// <summary>
     /// SET09117 2017-8 TR1 001 - Algorithms and Data Structures
     /// Console Checkers
-    /// Version 0.9.2
+    /// Version 1.0.0
     /// Alexander Barker 
     /// 40333139
     /// Created on 14th October 2017
@@ -27,7 +27,7 @@ namespace Checkers
         public void DrawTitle()
         {
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("Version 0.9.2                                                                                                         Alex Barker - 2017");
+            Console.WriteLine("Version 1.0.0                                                                                                         Alex Barker - 2017");
             Console.WriteLine("                                                                                                                                  ");
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine("                            .oooooo.   oooo                            oooo                                                       ");
