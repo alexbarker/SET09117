@@ -1,12 +1,4 @@
-﻿// SET09117 2017-8 TR1 001 - Algorithms and Data Structures
-// Console Checkers
-// Version 0.9.1
-// Alexander Barker 
-// 40333139
-// Created on 14th October 2017
-// Last Updated on 14th Novemeber 2017
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,11 +6,32 @@ using System.Threading.Tasks;
 
 namespace Checkers
 {
+    /// <summary>
+    /// SET09117 2017-8 TR1 001 - Algorithms and Data Structures
+    /// Console Checkers
+    /// Version 0.9.2
+    /// Alexander Barker 
+    /// 40333139
+    /// Created on 14th October 2017
+    /// Last Updated on 15th November 2017
+    /// </summary>
+    /// <summary>
+    /// Board.cs - This file will draw a the board design and re-draw squares as required.
+    /// </summary>
+
     public class Board
-    {     
+    {
+        /// <summary>
+        /// Initializes a multi-dimentional array for re-drawing the board.
+        /// </summary>
         public int[,] squares = new int[8, 8];
         Piece piece = new Piece();
 
+        /// <summary>
+        /// Populates the 2d array with board design data.
+        /// 0 - Black square.
+        /// 1 - White square.
+        /// </summary>
         public Board()
         {
             squares = new int[,]{ { 0, 1, 0, 1, 0, 1, 0, 1 },
@@ -31,6 +44,9 @@ namespace Checkers
                                   { 1, 0, 1, 0, 1, 0, 1, 0 } };
         }
 
+        /// <summary>
+        /// This function draws the design and starting conditions for a game of checkers, including; Ledgend, Instructions, Game Board and Score. 
+        /// </summary>
         public void DrawBoard()
         {
             Console.Clear();
@@ -66,17 +82,17 @@ namespace Checkers
 
             //-----------------------------------------------------------------------//
 
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.White;                           // Draws the player name and colour for player one.
             Console.SetCursorPosition(104, 5);
             Console.Write("██    PLAYER ONE");
 
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.ForegroundColor = ConsoleColor.DarkCyan;                        // Draws the player name and colour for player two.
             Console.SetCursorPosition(104, 16);
             Console.Write("██    PLAYER TWO");
 
             //-----------------------------------------------------------------------//
 
-            for (int z = 0; z < 8; z++)
+            for (int z = 0; z < 8; z++)                                             // Fills in the white squares to the starting board.
             {
                 for (int y = 0; y < 8; y++)
                 {
@@ -98,6 +114,9 @@ namespace Checkers
          return;
         }
 
+        /// <summary>
+        /// This function will re-draw black and white square after each move to ensure there are no graphical errors.
+        /// </summary>
         public void ReDrawBoard()
         {
             for (int z = 0; z < 8; z++)
@@ -111,7 +130,7 @@ namespace Checkers
                             {
                                 Console.SetCursorPosition((piece.piecePositionsX[z] - 2), ((piece.piecePositionsY[y] - 1) + x));
                                 Console.ForegroundColor = ConsoleColor.White;
-                                Console.Write("██████");
+                                Console.Write("██████");                                    // White squares.
                             }
                             break;
                         case 1:
@@ -119,7 +138,7 @@ namespace Checkers
                             {
                                 Console.SetCursorPosition((piece.piecePositionsX[z] - 2), ((piece.piecePositionsY[y] - 1) + x));
                                 Console.ForegroundColor = ConsoleColor.Black;
-                                Console.Write("██████");
+                                Console.Write("██████");                                    // Black squares.
                             }
                             break;
                         default:

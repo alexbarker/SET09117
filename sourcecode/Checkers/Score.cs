@@ -1,12 +1,4 @@
-﻿// SET09117 2017-8 TR1 001 - Algorithms and Data Structures
-// Console Checkers
-// Version 0.9.1
-// Alexander Barker 
-// 40333139
-// Created on 14th October 2017
-// Last Updated on 14th Novemeber 2017
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,12 +6,31 @@ using System.Threading.Tasks;
 
 namespace Checkers
 {
+    /// <summary>
+    /// SET09117 2017-8 TR1 001 - Algorithms and Data Structures
+    /// Console Checkers
+    /// Version 0.9.2
+    /// Alexander Barker 
+    /// 40333139
+    /// Created on 14th October 2017
+    /// Last Updated on 15th November 2017
+    /// </summary>
+    /// <summary>
+    /// Score.cs - This file stores the score designs and returns the required design.
+    /// </summary>
+
     class Score
     {
+        /// <summary>
+        /// This function is responsible for selecting the required score design based on the current game scores.
+        /// </summary>
+        /// <param name="player">Sets the current player.</param>
+        /// <param name="playerOneScore">Sets the current P1 score.</param>
+        /// <param name="playerTwoScore">Sets the current P2 score.</param>
         public void ScoreUpdater(int player, int playerOneScore, int playerTwoScore)
         {
 
-            string[] zero = new string[]  {"  .oooo.     .oooo.  ",
+            string[] zero = new string[]  {"  .oooo.     .oooo.  ",     // String array to store each score design.
                                            " d8P'`Y8b   d8P'`Y8b ",
                                            "888    888 888    888",
                                            "888    888 888    888",
@@ -124,7 +135,8 @@ namespace Checkers
                                            "   o888o  8888888888 " };
             if (player == 1)
             {
-                switch (playerOneScore)
+                // Selects and displays the correct score desing based on player one's score.
+                switch (playerOneScore)                             
                 {
                     case 0:
                         for (int i = 0; i < 7; i++)
@@ -234,6 +246,7 @@ namespace Checkers
             }
             else
             {
+                // Selects and displays the correct score desing based on player two's score.
                 switch (playerTwoScore)
                 {
                     case 0:
@@ -344,6 +357,7 @@ namespace Checkers
             }
         }
 
+        // Displays the starting score designs.
         public void SetScores()
         {
             string[] zerozero = new string[] {"  .oooo.     .oooo.  ",

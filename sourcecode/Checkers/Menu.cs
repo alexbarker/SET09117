@@ -1,12 +1,4 @@
-﻿// SET09117 2017-8 TR1 001 - Algorithms and Data Structures
-// Console Checkers
-// Version 0.9.1
-// Alexander Barker 
-// 40333139
-// Created on 14th October 2017
-// Last Updated on 14th Novemeber 2017
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,12 +6,28 @@ using System.Threading.Tasks;
 
 namespace Checkers
 {
+    /// <summary>
+    /// SET09117 2017-8 TR1 001 - Algorithms and Data Structures
+    /// Console Checkers
+    /// Version 0.9.2
+    /// Alexander Barker 
+    /// 40333139
+    /// Created on 14th October 2017
+    /// Last Updated on 15th November 2017
+    /// </summary>
+    /// <summary>
+    /// Menu.cs - This file contains the main menu of the application. Displays title screen and menus based on user choice.
+    /// </summary> 
+    
     class Menu
     {
+        /// <summary>
+        /// This function will draw the title screen and main menu.
+        /// </summary> 
         public void DrawTitle()
         {
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("                                                                                                               40333139 Alex Barker 2017");
+            Console.WriteLine("Version 0.9.2                                                                                                         Alex Barker - 2017");
             Console.WriteLine("                                                                                                                                  ");
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine("                            .oooooo.   oooo                            oooo                                                       ");
@@ -45,6 +53,9 @@ namespace Checkers
             MenuSelection();
         }
 
+        /// <summary>
+        /// This function will draw the new game menu.
+        /// </summary> 
         public void NewGameSelection()
         {
             Console.SetCursorPosition(0, 11);
@@ -65,6 +76,9 @@ namespace Checkers
             MenuSelection();
         }
 
+        /// <summary>
+        /// This function will draw the load game menu.
+        /// </summary> 
         public void LoadGameSelection()
         {
             Console.SetCursorPosition(0, 11);
@@ -85,54 +99,58 @@ namespace Checkers
             MenuSelection();
         }
 
+        /// <summary>
+        /// This function will take the user input and proceed to the relevent function.
+        /// </summary> 
         public void MenuSelection()
         {
-            while (true)
+            while (true)            // Will wait for keypress signal via the keyboard.
             {
                 var keyPress = Console.ReadKey(false).Key;
                 switch (keyPress)
                 {
-                    case ConsoleKey.A:
+                    case ConsoleKey.A:                              // "a" will display the new game menu.
                         NewGameSelection();
                         break;
-                    case ConsoleKey.B:
+
+                    case ConsoleKey.B:                              // "b" will call LoadGameSelection() within the Game class.
                         Game loadGame = new Game();
                         LoadGameSelection();
                         break;
 
-                    case ConsoleKey.C:
+                    case ConsoleKey.C:                              // "c" will call startPVPGame.NewPVPGame() within the Game class.
                         Game startPVPGame = new Game();
                         startPVPGame.NewPVPGame();
                         break;
-                    case ConsoleKey.D:
+
+                    case ConsoleKey.D:                              // "d" will call startPVCGame.NewPVCGame() within the Game class.
                         Game startPVCGame = new Game();
                         startPVCGame.NewPVCGame();
                         break;
 
-                    case ConsoleKey.E:
+                    case ConsoleKey.E:                              // "e" will call startCVCGame.NewCVCGame() within the Game class.        
                         Game startCVCGame = new Game();
                         startCVCGame.NewCVCGame();
                         break;
 
-                    case ConsoleKey.F:
+                    case ConsoleKey.F:                              // "f" will clear the console re-draw the main title.
                         Console.Clear();
-                        Menu menu = new Menu();
-                        menu.DrawTitle();
+                        DrawTitle();
                         break;
 
-                    case ConsoleKey.G:
+                    case ConsoleKey.G:                              // "g" will call loadPVPGame.LoadPVPGame() within the Game class.
                         Console.Clear();
                         Game loadPVPGame = new Game();
                         loadPVPGame.LoadPVPGame();
                         break;
 
-                    case ConsoleKey.H:
+                    case ConsoleKey.H:                              // "h" will call loadPVCGame.LoadPVCGame() within the Game class.
                         Console.Clear();
                         Game loadPVCGame = new Game();
                         loadPVCGame.LoadPVCGame();
                         break;
 
-                    case ConsoleKey.Q:
+                    case ConsoleKey.Q:                              // "q" Will shut down the application.
                         Environment.Exit(0);
                         break;
                 }

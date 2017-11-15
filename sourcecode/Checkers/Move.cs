@@ -1,32 +1,39 @@
-﻿// SET09117 2017-8 TR1 001 - Algorithms and Data Structures
-// Console Checkers
-// Version 0.9.1
-// Alexander Barker 
-// 40333139
-// Created on 14th October 2017
-// Last Updated on 14th Novemeber 2017
-
-using System;
+﻿using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Checkers
 {
+    /// <summary>
+    /// SET09117 2017-8 TR1 001 - Algorithms and Data Structures
+    /// Console Checkers
+    /// Version 0.9.2
+    /// Alexander Barker 
+    /// 40333139
+    /// Created on 14th October 2017
+    /// Last Updated on 15th November 2017
+    /// </summary>
+    /// <summary>
+    /// Move.cs - This file deals with all code related to piece movement, validation, boundary checks and implements all game modes.
+    /// </summary>
+
     class Move
     {
+        // Make available public data from other classes.
         Score score = new Score();
         Piece piece = new Piece();
         Board board = new Board();
         Game game = new Game();
         Program delay = new Program();
 
+        // Set up the arrays used flatten multi-dimensional arrays.
         public int[] gameData = new int[6];
         public int[] replayGameData = new int[6];
 
+        // Initialze the variables for tracking piece movement and game data.
         public int movementPositionX = 2;
         public int movementPositionY = 5;
         public int startingPositionX = 0;
@@ -39,12 +46,29 @@ namespace Checkers
         public int playerTwoScore = 0;
         public int dictionaryIndex = 1;
 
+        // Initialze the boolean variables for validation and load file decision.
         bool valid = false;
         bool validJump = false;
         public bool loadFile = false;
 
+        /// <summary>
+        /// Validation function for normal (non-jump) moves.
+        /// </summary>
+        /// <param name="pieceValues">Passes in the current board.</param>
+        /// <param name="player">Gets the current player.</param>
+        /// <param name="pieceType">Gets the current piece type.</param>
+        /// <param name="holding">Gets the current holding status.</param>
+        /// <param name="playerOneScore">Passes in the current P1 score.</param>
+        /// <param name="playerTwoScore">Passes in the current P2 score.</param>
+        /// <param name="turn">Gets the turn.</param>
+        /// <param name="movementPositionX">Gets the destination X-coordinate.</param>
+        /// <param name="movementPositionY">Gets the destination Y-coordinate.</param>
+        /// <param name="startingPositionX">Gets the starting X-coordinate.</param>
+        /// <param name="startingPositionY">Gets the starting Y-coordinate.</param>
+        /// <returns>Returns a boolean for vaild</returns>
         public bool ValidateNormalMove(int[,] pieceValues, int player, int pieceType, int holding, int playerOneScore, int playerTwoScore, int turn, int movementPositionX, int movementPositionY, int startingPositionX, int startingPositionY)
         {
+            // Returns a true/false value based on the the current piece type if the movement choice is within or outside the required range.
             switch (pieceType)
             {
                 case 1:
@@ -57,7 +81,7 @@ namespace Checkers
                         piece.SetPieces();
                         Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
 
-                        if (movementPositionY == 7)
+                        if (movementPositionY == 7)                     // If the piece hits the bottom row, make it a king piece.
                         {
                             pieceType = 3;
                             piece.pieceValues[movementPositionY, movementPositionX] = pieceType;
@@ -132,8 +156,24 @@ namespace Checkers
             return valid;
         }
 
+        /// <summary>
+        /// Validation function for jump moves.
+        /// </summary>
+        /// <param name="pieceValues">Passes in the current board.</param>
+        /// <param name="player">Gets the current player.</param>
+        /// <param name="pieceType">Gets the current piece type.</param>
+        /// <param name="holding">Gets the current holding status.</param>
+        /// <param name="playerOneScore">Passes in the current P1 score.</param>
+        /// <param name="playerTwoScore">Passes in the current P2 score.</param>
+        /// <param name="turn">Gets the turn.</param>
+        /// <param name="movementPositionX">Gets the destination X-coordinate.</param>
+        /// <param name="movementPositionY">Gets the destination Y-coordinate.</param>
+        /// <param name="startingPositionX">Gets the starting X-coordinate.</param>
+        /// <param name="startingPositionY">Gets the starting Y-coordinate.</param>
+        /// <returns>Returns a boolean for vaildJump</returns>     
         public bool ValidateJumpMove(int[,] pieceValues, int player, int pieceType, int holding, int playerOneScore, int playerTwoScore, int turn, int movementPositionX, int movementPositionY, int startingPositionX, int startingPositionY)
         {
+            // Checks to see if the current piece movement will be out of range.
             if ((movementPositionX + 1 == -1) || (movementPositionX + 1 == 8) || (movementPositionX - 1 == -1) || (movementPositionX - 1 == 8) || (movementPositionY + 1 == -1) || (movementPositionY + 1 == 8) || (movementPositionY - 1 == -1) || (movementPositionY - 1 == 8))
             {
                 validJump = false;
@@ -141,6 +181,7 @@ namespace Checkers
             }
             else
             {
+                // Returns a true/false value based on the the current piece type if the movement choice is within or outside the required range.
                 switch (pieceType)
                 {
                     case 1:
@@ -153,7 +194,7 @@ namespace Checkers
                             board.ReDrawBoard();
                             piece.SetPieces();
                             Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[(movementPositionY)]);
-                            if (movementPositionY + 1 == 7)
+                            if (movementPositionY + 1 == 7)             // If the piece jumps to the bottom row, make it a king piece.
                             {
                                 pieceType = 3;
                                 piece.pieceValues[movementPositionY + 1, movementPositionX + 1] = pieceType;
@@ -332,17 +373,21 @@ namespace Checkers
             }
         }
 
+        /// <summary>
+        /// The LoadFileData() function will open a Streamreader for saved moves and game states.
+        /// The loaded data will then be used to re-draw the board and update with matching game data.
+        /// </summary>
         public void LoadFileData()
         {
             using (StreamReader sr1 = new StreamReader(@".\\SaveMoveList.csv"))
             {
 
-                string file = System.IO.File.ReadAllText(@".\\SaveMoveList.csv");           
+                string file = System.IO.File.ReadAllText(@".\\SaveMoveList.csv");   // Reads the whole save file.
                 file = file.Replace('\n', '\r');
                 string[] lines = file.Split(new char[] { '\r' }, StringSplitOptions.RemoveEmptyEntries);
 
                 int[,] tempBoard = new int[8, 8];
-                var lineCount = File.ReadLines(@".\\SaveMoveList.csv").Count();
+                var lineCount = File.ReadLines(@".\\SaveMoveList.csv").Count();     // Counts the number of lines in the save file.
                 string line;
                 int moveCount = 0;
                 while ((line = sr1.ReadLine()) != null && moveCount != lineCount)
@@ -350,7 +395,7 @@ namespace Checkers
 
                         int[] tempPieceValue = line.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
                         int counter = 0;
-                        while (counter < 64)
+                        while (counter < 64)                                        // Collects all values for one board per line.
                         {
                             for (int j = 0; j < 8; j++)
                             {
@@ -365,7 +410,7 @@ namespace Checkers
                         {
                             piece.moveList.Add(moveCount, (int[,])tempBoard.Clone());
                         }
-                        piece.moveList[moveCount] = (int[,])tempBoard.Clone();
+                        piece.moveList[moveCount] = (int[,])tempBoard.Clone();      // Adds the board data to the board dictionary.
                         moveCount++;
                 }
             }
@@ -402,9 +447,9 @@ namespace Checkers
                 }                
             }
             
-            dictionaryIndex = (piece.moveList.Count - 1);
+            dictionaryIndex = (piece.moveList.Count - 1);                               // Calculates the required dictionary index value.
 
-            gameData = (int[])piece.gameState[dictionaryIndex].Clone();
+            gameData = (int[])piece.gameState[dictionaryIndex].Clone();                 // Copies the top game state.
             playerOneScore = gameData[0];
             playerTwoScore = gameData[1];
             turn = gameData[2];
@@ -412,22 +457,26 @@ namespace Checkers
             movementPositionX = gameData[4];
             movementPositionY = gameData[5];
 
-            score.ScoreUpdater(player, playerOneScore, playerTwoScore);
+            score.ScoreUpdater(player, playerOneScore, playerTwoScore);                 // Updates the scores.
             score.ScoreUpdater((player + 1), playerOneScore, playerTwoScore);
             score.ScoreUpdater((player - 1), playerOneScore, playerTwoScore);
 
-            piece.pieceValues = (int[,])piece.moveList[dictionaryIndex].Clone();
+            piece.pieceValues = (int[,])piece.moveList[dictionaryIndex].Clone();        // Copies the top board.
             board.ReDrawBoard();
             piece.SetPieces();
         }
 
+        /// <summary>
+        /// The AllowPVPMovement() function will provide the user with the ability to perform all accepted inputs via the keyboard.
+        /// This functions sets up a match between two human players.
+        /// </summary>
         public void AllowPVPMovement()
         {
-            if (loadFile == true)
+            if (loadFile == true)                                               // Checks for a save file based on users menu choice.
             {
                 Console.SetCursorPosition(14, 24);
                 Console.ForegroundColor = ConsoleColor.DarkBlue;
-                Console.Write("   Loading...   ");
+                Console.Write("   Loading...   ");                              // Provides feedback to the user.
 
                 gameData[0] = playerOneScore;
                 gameData[1] = playerTwoScore;
@@ -438,13 +487,14 @@ namespace Checkers
                 piece.gameState.Add(0, (int[])gameData.Clone());
                 LoadFileData();
 
-                delay.Delay(1);
+                delay.Delay(10);
                 Console.SetCursorPosition(14, 24);
                 Console.Write("               ");
                 Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
             }
             else
             {
+                // Initialze data structures for start of game.
                 Console.SetCursorPosition(piece.piecePositionsX[2], piece.piecePositionsY[5]);
                 piece.moveList.Add(0, (int[,])piece.pieceValues.Clone());
                 piece.moveList.Add(1, (int[,])piece.pieceValues.Clone());
@@ -458,12 +508,13 @@ namespace Checkers
                 piece.gameState.Add(1, (int[])gameData.Clone());
             }
 
+            // Keeps listening for keypresses until user choses to exit.
                 while (true)
                 {
                     var keyPress = Console.ReadKey(false).Key;
                     switch (keyPress)
                     {
-                        case ConsoleKey.UpArrow:
+                        case ConsoleKey.UpArrow:                        // Move the cursor up.
 
                             movementPositionX--;
                             movementPositionY--;
@@ -481,7 +532,7 @@ namespace Checkers
                             }
                             break;
 
-                        case ConsoleKey.DownArrow:
+                        case ConsoleKey.DownArrow:                      // Move the cursor down.
 
                             movementPositionX++;
                             movementPositionY++;
@@ -499,7 +550,7 @@ namespace Checkers
                             }
                             break;
 
-                        case ConsoleKey.RightArrow:
+                        case ConsoleKey.RightArrow:                     // Move the cursor right.
 
                             movementPositionX = movementPositionX + 2;
                             board.ReDrawBoard();
@@ -515,7 +566,7 @@ namespace Checkers
                             }
                             break;
 
-                        case ConsoleKey.LeftArrow:
+                        case ConsoleKey.LeftArrow:                      // Move the cursoe left.
 
                             movementPositionX = movementPositionX - 2;
                             board.ReDrawBoard();
@@ -537,18 +588,18 @@ namespace Checkers
                             Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                             break;
 
-                        case ConsoleKey.Q:
+                        case ConsoleKey.Q:                              // Returns to the main menu.
 
                             Console.Clear();
                             Menu menu = new Menu();
                             menu.DrawTitle();
                             break;
 
-                        case ConsoleKey.U:
+                        case ConsoleKey.U:                              // Undo move and load in previous state.
 
                             Console.SetCursorPosition(14, 24);
                             Console.ForegroundColor = ConsoleColor.DarkBlue;
-                            Console.Write("   Undo Move    ");
+                            Console.Write("   Undo Move    ");          // Provides user feedback.
 
                             foreach (KeyValuePair<int, int[,]> pair in piece.moveList)
                             {
@@ -600,17 +651,17 @@ namespace Checkers
                             board.ReDrawBoard();
                             piece.SetPieces();
 
-                            delay.Delay(1);
+                            delay.Delay(10);
                             Console.SetCursorPosition(14, 24);
                             Console.Write("                ");
                             Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                             break;
 
-                        case ConsoleKey.R:
+                        case ConsoleKey.R:                                      // Redo move and reload board state and game state.
 
                             Console.SetCursorPosition(14, 24);
                             Console.ForegroundColor = ConsoleColor.DarkBlue;
-                            Console.Write("   Redo Move    ");
+                            Console.Write("   Redo Move    ");                  // Provides user feedback.
 
                             foreach (KeyValuePair<int, int[,]> pair in piece.moveList)
                             {
@@ -634,7 +685,7 @@ namespace Checkers
                                 }
                             }
 
-                            if (player == 2)
+                            if (player == 2)                                            // Display the turn tracker based on player.
                             {
                                 Console.SetCursorPosition(98, 21);
                                 Console.ForegroundColor = ConsoleColor.Black;
@@ -662,17 +713,17 @@ namespace Checkers
                             board.ReDrawBoard();
                             piece.SetPieces();
 
-                            delay.Delay(1);
+                            delay.Delay(10);
                             Console.SetCursorPosition(14, 24);
                             Console.Write("                ");
                             Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                             break;
 
-                        case ConsoleKey.I:
+                        case ConsoleKey.I:                                         // Takes all saved moves with game states and re-displays each turn.
 
                         Console.SetCursorPosition(14, 24);
                         Console.ForegroundColor = ConsoleColor.DarkBlue;
-                        Console.Write("  Replaying...  ");
+                        Console.Write("  Replaying...  ");                         // Provide user feedback.
 
                         foreach (KeyValuePair<int, int[,]> pair in piece.moveList)
                             {
@@ -691,7 +742,7 @@ namespace Checkers
                                 score.ScoreUpdater((player + 1), playerOneScore, playerTwoScore);
                                 score.ScoreUpdater((player - 1), playerOneScore, playerTwoScore);
 
-                                delay.Delay(1);
+                                delay.Delay(6);
                             }
 
                             score.ScoreUpdater(player, playerOneScore, playerTwoScore);
@@ -705,22 +756,23 @@ namespace Checkers
                             Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                             break;
 
-                        case ConsoleKey.S:
+                        // Opens up a Streamwriter for game boards and game states.
+                        case ConsoleKey.S:                                             
 
                         Console.SetCursorPosition(14, 24);
                         Console.ForegroundColor = ConsoleColor.DarkBlue;
-                        Console.Write("   Saving...   ");
+                        Console.Write("   Saving...   ");                       // Provides user feedback.
 
-                        using (StreamWriter outputFile1 = new StreamWriter(@".\\SaveMoveList.csv"))
+                        using (StreamWriter outputFile1 = new StreamWriter(@".\\SaveMoveList.csv"))         // Creates a .CSV file for board data.
                             {
-                                foreach (KeyValuePair<int, int[,]> pair in piece.moveList)
+                                foreach (KeyValuePair<int, int[,]> pair in piece.moveList)                  // Splits data by "," 64 per board.
                                 {
-                                    outputFile1.WriteLine(String.Join(",", pair.Value.Cast<int>()));
+                                    outputFile1.WriteLine(String.Join(",", pair.Value.Cast<int>()));        
                                 }
                             }
-                            using (StreamWriter outputFile2 = new StreamWriter(@".\\SaveGameData.csv"))
+                            using (StreamWriter outputFile2 = new StreamWriter(@".\\SaveGameData.csv"))     // Creates a .CSV file for game state data.
                             {
-                                foreach (KeyValuePair<int, int[]> pair in piece.gameState)
+                                foreach (KeyValuePair<int, int[]> pair in piece.gameState)                  // Splits data by "," 6 per game state.
                                 {
                                     outputFile2.WriteLine(String.Join(",", pair.Value.Cast<int>()));
                                 }
@@ -728,15 +780,18 @@ namespace Checkers
                             board.ReDrawBoard();
                             piece.SetPieces();
 
-                            delay.Delay(1);
+                            delay.Delay(10);
                             Console.SetCursorPosition(14, 24);
                             Console.Write("                ");
                             Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                             break;
 
+                        // The spacebar provides the user a way to pick up and place pieces by using the current cursor position
+                        // cross-referenced with the game board data to identify piece picked/dropped.
                         case ConsoleKey.Spacebar:
 
-                            if (holding == 0)
+                            // This will prevent the user from picking up an empty piece.
+                            if (holding == 0)                                       
                             {
                                 if (piece.pieceValues[movementPositionY, movementPositionX] == 0)
                                 {
@@ -744,6 +799,7 @@ namespace Checkers
                                     piece.SetPieces();
                                     Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                                 }
+                                // This will check if the correct piece was chosen based on turn and piece type.
                                 else if ((turn % 2 == 0) && (piece.pieceValues[movementPositionY, movementPositionX] % 2 == 0))
                                 {
                                     holding++;
@@ -769,6 +825,7 @@ namespace Checkers
                             }
                             else if (holding == 1)
                             {
+                                // This will prevent the user from placing a piece on top of thier own piece.
                                 if (startingPositionY == movementPositionY && startingPositionX == movementPositionX)
                                 {
                                     piece.pieceValues[movementPositionY, movementPositionX] = pieceType;
@@ -779,6 +836,7 @@ namespace Checkers
                                     holding--;
                                     break;
                                 }
+                                // This will prevent the player from dropping a piece too far away from their starting position.
                                 if ((pieceType == piece.pieceValues[movementPositionY, movementPositionX]) || (pieceType == pieceType + 2))
                                 {
                                     board.ReDrawBoard();
@@ -790,6 +848,7 @@ namespace Checkers
                                     valid = ValidateNormalMove(piece.pieceValues, player, pieceType, holding, playerOneScore, playerTwoScore, turn, movementPositionX, movementPositionY, startingPositionX, startingPositionY);
                                     validJump = ValidateJumpMove(piece.pieceValues, player, pieceType, holding, playerOneScore, playerTwoScore, turn, movementPositionX, movementPositionY, startingPositionX, startingPositionY);
 
+                                    // This will update the game logic and display if user input is accepted.
                                     if (player == 2 && validJump == true)
                                     {
                                         dictionaryIndex++;
@@ -797,7 +856,7 @@ namespace Checkers
                                         score.ScoreUpdater(player, playerOneScore, playerTwoScore);
                                         if (playerTwoScore == 12)
                                         {
-                                            Console.SetCursorPosition(14, 24);
+                                            Console.SetCursorPosition(14, 24);                          // Checks for win conditions.
                                             Console.ForegroundColor = ConsoleColor.DarkCyan;
                                             Console.Write("PLAYER TWO WINS!");
                                             piece.moveList.Add(dictionaryIndex, (int[,])piece.pieceValues.Clone());
@@ -816,7 +875,7 @@ namespace Checkers
                                         holding--;
                                         turn++;
                                         Console.SetCursorPosition(98, 21);
-                                        Console.ForegroundColor = ConsoleColor.Black;
+                                        Console.ForegroundColor = ConsoleColor.Black;           // Switches the turn indicator.
                                         Console.Write("    ");
                                         Console.SetCursorPosition(98, 10);
                                         Console.ForegroundColor = ConsoleColor.Black;
@@ -827,7 +886,7 @@ namespace Checkers
                                         piece.moveList.Add(dictionaryIndex, (int[,])piece.pieceValues.Clone());
                                         gameData[0] = playerOneScore;
                                         gameData[1] = playerTwoScore;
-                                        gameData[2] = turn;
+                                        gameData[2] = turn;                                     // Updates data structures for board and game state.
                                         gameData[3] = player;
                                         gameData[4] = movementPositionX;
                                         gameData[5] = movementPositionY;
@@ -940,6 +999,9 @@ namespace Checkers
                 }            
         }
 
+        /// <summary>
+        /// The AllowPVCMovement() function sets up a game between the player and the computer.
+        /// </summary>
         public void AllowPVCMovement()
         {
             if (loadFile == true)
@@ -957,7 +1019,7 @@ namespace Checkers
                 piece.gameState.Add(0, (int[])gameData.Clone());
                 LoadFileData();
 
-                delay.Delay(1);
+                delay.Delay(10);
                 Console.SetCursorPosition(14, 24);
                 Console.Write("                ");
                 Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
@@ -979,7 +1041,7 @@ namespace Checkers
 
             while (true)
             {
-                if (player == 2)
+                if (player == 2)                            // Allows the user to play the game as player two.
                 {
 
                     var keyPress = Console.ReadKey(false).Key;
@@ -1123,7 +1185,7 @@ namespace Checkers
                             board.ReDrawBoard();
                             piece.SetPieces();
 
-                            delay.Delay(1);
+                            delay.Delay(10);
                             Console.SetCursorPosition(14, 24);
                             Console.Write("                ");
                             Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
@@ -1186,7 +1248,7 @@ namespace Checkers
                             board.ReDrawBoard();
                             piece.SetPieces();
 
-                            delay.Delay(1);
+                            delay.Delay(10);
                             Console.SetCursorPosition(14, 24);
                             Console.Write("                ");
                             Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
@@ -1215,7 +1277,7 @@ namespace Checkers
                                 score.ScoreUpdater((player + 1), playerOneScore, playerTwoScore);
                                 score.ScoreUpdater((player - 1), playerOneScore, playerTwoScore);
 
-                                delay.Delay(1);
+                                delay.Delay(6);
                             }
 
                             score.ScoreUpdater(player, playerOneScore, playerTwoScore);
@@ -1252,7 +1314,7 @@ namespace Checkers
                             board.ReDrawBoard();
                             piece.SetPieces();
 
-                            delay.Delay(1);
+                            delay.Delay(10);
                             Console.SetCursorPosition(14, 24);
                             Console.Write("                ");
                             Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
@@ -1396,6 +1458,9 @@ namespace Checkers
             }
         }
 
+        /// <summary>
+        /// The AllowCVCMovement() function sets up a game between two computer controlled players via the AI functions.
+        /// </summary>
         public void AllowCVCMovement()
         {
             Console.SetCursorPosition(6, 5);
@@ -1418,9 +1483,10 @@ namespace Checkers
             piece.gameState.Add(0, (int[])gameData.Clone());
             piece.gameState.Add(1, (int[])gameData.Clone());
 
+            // Do this until user presses any key.
             while (!Console.KeyAvailable)
             {
-
+                // Chooses function based on current player.
                 if (player == 1)
                 {
                     PickAWhiteMove();
@@ -1442,13 +1508,15 @@ namespace Checkers
                     Console.SetCursorPosition(piece.piecePositionsX[movementPositionX], piece.piecePositionsY[movementPositionY]);
                 }
 
-                if (playerOneScore == 12 || playerTwoScore == 12)
+                if (playerOneScore == 12 || playerTwoScore == 12)           // Ends the match if win conditions are met.
                 {
-                    delay.Delay(3);
+                    Console.SetCursorPosition(10, 27);
+                    //System.Console.WriteLine(turn);
+                    delay.Delay(30);
                     break;
                 }
             }
-            Console.Clear();
+            Console.Clear();                                                // Returns to main menu.
             Menu menu = new Menu();
             menu.DrawTitle();
         }
@@ -1461,6 +1529,11 @@ namespace Checkers
         public List<int[]> aiValidWhiteJumpStartingPositions = new List<int[]>();
         public List<int[]> removeWhiteTakenPiece = new List<int[]>();
 
+        /// <summary>
+        /// The PickAWhiteMove() function sets up the AI for a white piece moves. 
+        /// Collects all valid normal moves and jump moves.
+        /// Used for PvC and CvC modes. 
+        /// </summary>
         public void PickAWhiteMove()
         {
             Random rnd = new Random();
@@ -1496,14 +1569,13 @@ namespace Checkers
                 }
             }
 
+            // Finds and stores all white pieces on the board.
             foreach (int[] item in aiPiecesWhite)
             {
                 int[] temp1 = (int[])item.Clone();
 
                 startingPositionX = item[1];
                 startingPositionY = item[0];
-                //System.Console.WriteLine("\n---------------" + startingPositionX + " " + startingPositionY);
-                //System.Console.WriteLine("- " + piece.pieceValues[startingPositionY, startingPositionX]);
 
                 if ((startingPositionX + 1 == -1) || (startingPositionX + 1 == 8) || (startingPositionX - 1 == -1) || (startingPositionX - 1 == 8) || (startingPositionY + 1 == -1) || (startingPositionY + 1 == 8) || (startingPositionY - 1 == -1) || (startingPositionY - 1 == 8))
                 {
@@ -1511,21 +1583,17 @@ namespace Checkers
                     {
                         int[] ints2 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidWhiteStartingPositions.Add((int[])ints2.Clone());
-                        //System.Console.WriteLine("a " + piece.pieceValues[startingPositionY, startingPositionX]);
                         int[] ints = new[] { (startingPositionY + 1), (startingPositionX + 1) };
                         aiValidWhiteMoves.Add((int[])ints.Clone());
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                         Array.Clear(ints2, 0, ints2.Length);
-                        Array.Clear(ints, 0, ints.Length);
+                        Array.Clear(ints, 0, ints.Length);                  // Dumps the arrays.
                     }
                     if ((startingPositionY == 0 && startingPositionX > 0 && startingPositionX <= 7) && (piece.pieceValues[(startingPositionY + 1), (startingPositionX - 1)] == 0))
                     {
                         int[] ints2 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidWhiteStartingPositions.Add((int[])ints2.Clone());
-                        //System.Console.WriteLine("b " + piece.pieceValues[startingPositionY, startingPositionX]);
                         int[] ints = new[] { (startingPositionY + 1), (startingPositionX - 1) };
                         aiValidWhiteMoves.Add((int[])ints.Clone());
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                         Array.Clear(ints2, 0, ints2.Length);
                         Array.Clear(ints, 0, ints.Length);
                     }
@@ -1533,10 +1601,8 @@ namespace Checkers
                     {
                         int[] ints2 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidWhiteStartingPositions.Add((int[])ints2.Clone());
-                        //System.Console.WriteLine("c " + piece.pieceValues[startingPositionY, startingPositionX]);
                         int[] ints = new[] { (startingPositionY + 1), (startingPositionX + 1) };
                         aiValidWhiteMoves.Add((int[])ints.Clone());
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                         Array.Clear(ints2, 0, ints2.Length);
                         Array.Clear(ints, 0, ints.Length);
                     }
@@ -1544,24 +1610,20 @@ namespace Checkers
                     {
                         int[] ints2 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidWhiteStartingPositions.Add((int[])ints2.Clone());
-                        //System.Console.WriteLine("d " + piece.pieceValues[startingPositionY, startingPositionX]);
                         int[] ints = new[] { (startingPositionY + 1), (startingPositionX - 1) };
                         aiValidWhiteMoves.Add((int[])ints.Clone());
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                         Array.Clear(ints2, 0, ints2.Length);
                         Array.Clear(ints, 0, ints.Length);
                     }
                     //-------------------------------------------------------------//
-                    //-----------------------King Stuff----------------------------//
-                    //------------------------------------------------------------//
+                    //-----------------------King Logic----------------------------//
+                    //-------------------------------------------------------------//
                     if ((piece.pieceValues[startingPositionY, startingPositionX] == 3) && (startingPositionY == 7 && startingPositionX > 0 && startingPositionX < 7) && (piece.pieceValues[(startingPositionY - 1), (startingPositionX - 1)] == 0))
                     {
                         int[] ints2 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidWhiteStartingPositions.Add((int[])ints2.Clone());
-                        //System.Console.WriteLine("AAA " + piece.pieceValues[startingPositionY, startingPositionX]);
                         int[] ints = new[] { (startingPositionY - 1), (startingPositionX - 1) };
                         aiValidWhiteMoves.Add((int[])ints.Clone());
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                         Array.Clear(ints2, 0, ints2.Length);
                         Array.Clear(ints, 0, ints.Length);
                     }
@@ -1569,10 +1631,8 @@ namespace Checkers
                     {
                         int[] ints2 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidWhiteStartingPositions.Add((int[])ints2.Clone());
-                        //System.Console.WriteLine("BBB " + piece.pieceValues[startingPositionY, startingPositionX]);
                         int[] ints = new[] { (startingPositionY - 1), (startingPositionX + 1) };
                         aiValidWhiteMoves.Add((int[])ints.Clone());
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                         Array.Clear(ints2, 0, ints2.Length);
                         Array.Clear(ints, 0, ints.Length);
                     }
@@ -1580,10 +1640,8 @@ namespace Checkers
                     {
                         int[] ints2 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidWhiteStartingPositions.Add((int[])ints2.Clone());
-                        //System.Console.WriteLine("CCC " + piece.pieceValues[startingPositionY, startingPositionX]);
                         int[] ints = new[] { (startingPositionY - 1), (startingPositionX - 1) };
                         aiValidWhiteMoves.Add((int[])ints.Clone());
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                         Array.Clear(ints2, 0, ints2.Length);
                         Array.Clear(ints, 0, ints.Length);
                     }
@@ -1591,10 +1649,8 @@ namespace Checkers
                     {
                         int[] ints2 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidWhiteStartingPositions.Add((int[])ints2.Clone());
-                        //System.Console.WriteLine("DDD " + piece.pieceValues[startingPositionY, startingPositionX]);
                         int[] ints = new[] { (startingPositionY - 1), (startingPositionX + 1) };
                         aiValidWhiteMoves.Add((int[])ints.Clone());
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                         Array.Clear(ints2, 0, ints2.Length);
                         Array.Clear(ints, 0, ints.Length);
                     }
@@ -1605,10 +1661,8 @@ namespace Checkers
                     {
                         int[] ints3 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidWhiteStartingPositions.Add((int[])ints3.Clone());
-                        //System.Console.WriteLine("e " + piece.pieceValues[startingPositionY, startingPositionX]);
                         int[] ints1 = new[] { (startingPositionY - 1), (startingPositionX - 1) };
                         aiValidWhiteMoves.Add((int[])ints1.Clone());
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                         Array.Clear(ints3, 0, ints3.Length);
                         Array.Clear(ints1, 0, ints1.Length);
                     }
@@ -1616,10 +1670,8 @@ namespace Checkers
                     {
                         int[] ints3 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidWhiteStartingPositions.Add((int[])ints3.Clone());
-                        //System.Console.WriteLine("f " + piece.pieceValues[startingPositionY, startingPositionX]);
                         int[] ints1 = new[] { (startingPositionY - 1), (startingPositionX + 1) };
                         aiValidWhiteMoves.Add((int[])ints1.Clone());
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                         Array.Clear(ints3, 0, ints3.Length);
                         Array.Clear(ints1, 0, ints1.Length);
                     }
@@ -1627,10 +1679,8 @@ namespace Checkers
                     {
                         int[] ints2 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidWhiteStartingPositions.Add((int[])ints2.Clone());
-                        //System.Console.WriteLine("g " + piece.pieceValues[startingPositionY, startingPositionX]);
                         int[] ints = new[] { (startingPositionY + 1), (startingPositionX + 1) };
                         aiValidWhiteMoves.Add((int[])ints.Clone());
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                         Array.Clear(ints2, 0, ints2.Length);
                         Array.Clear(ints, 0, ints.Length);
                     }
@@ -1638,10 +1688,8 @@ namespace Checkers
                     {
                         int[] ints3 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidWhiteStartingPositions.Add((int[])ints3.Clone());
-                        //System.Console.WriteLine("h " + piece.pieceValues[startingPositionY, startingPositionX]);
                         int[] ints1 = new[] { (startingPositionY + 1), (startingPositionX - 1) };
                         aiValidWhiteMoves.Add((int[])ints1.Clone());
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                         Array.Clear(ints3, 0, ints3.Length);
                         Array.Clear(ints1, 0, ints1.Length);
                     }
@@ -1650,26 +1698,24 @@ namespace Checkers
             }
 
             //-----------------------------------------------------------------------------------------------------------------------//
-            //------------------------------------jump stuff-------------------------------------------------------------------------//
+            //--------------------------------------------Jump Logic-----------------------------------------------------------------//
             //-----------------------------------------------------------------------------------------------------------------------//
 
+            // For every piece find and store each valid normal move.
             foreach (int[] item in aiPiecesWhite)
             {
                 int[] temp1 = (int[])item.Clone();
 
                 startingPositionX = item[1];
                 startingPositionY = item[0];
-                //System.Console.WriteLine("\n---------------" + startingPositionX + " " + startingPositionY);
 
                 if ((startingPositionX + 2 == -2) || (startingPositionX + 2 == -1) || (startingPositionX + 2 == 9) || (startingPositionX + 2 == 8) || (startingPositionX - 2 == -2) || (startingPositionX - 2 == -1) || (startingPositionX - 2 == 9) || (startingPositionX - 2 == 8) || (startingPositionY + 2 == -2) || (startingPositionY + 2 == -1) || (startingPositionY + 2 == 9) || (startingPositionY + 2 == 8) || (startingPositionY - 2 == -2) || (startingPositionY - 2 == -1) || (startingPositionY - 2 == 8) || (startingPositionY - 2 == 9))
-                //if ((startingPositionX + 1 != 8) || (startingPositionX - 1 != -1)|| (startingPositionY + 1 != 8) || (startingPositionY - 1 != -1))
                 {
                     if (((startingPositionY == 0 || startingPositionY == 1) && startingPositionX >= 0 && startingPositionX < 6) && ((piece.pieceValues[(startingPositionY + 1), (startingPositionX + 1)] == 2) || (piece.pieceValues[(startingPositionY + 1), (startingPositionX + 1)] == 4)) && (piece.pieceValues[(startingPositionY + 2), (startingPositionX + 2)] == 0))
                     {
                         int[] ints1 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidWhiteJumpStartingPositions.Add((int[])ints1.Clone());
                         Array.Clear(ints1, 0, ints1.Length);
-                        //System.Console.WriteLine("a " + piece.pieceValues[startingPositionY, startingPositionX]);
 
                         int[] removeTakenPiece1 = new[] { (startingPositionY + 1), (startingPositionX + 1) };
                         removeWhiteTakenPiece.Add((int[])removeTakenPiece1.Clone());
@@ -1679,14 +1725,12 @@ namespace Checkers
                         aiValidWhiteJumpMoves.Add((int[])ints2.Clone());                                               
                         Array.Clear(ints2, 0, ints2.Length);
 
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                     }
                     if (((startingPositionY == 0 || startingPositionY == 1) && startingPositionX > 1 && startingPositionX <= 7) && ((piece.pieceValues[(startingPositionY + 1), (startingPositionX - 1)] == 2) || (piece.pieceValues[(startingPositionY + 1), (startingPositionX - 1)] == 4)) && (piece.pieceValues[(startingPositionY + 2), (startingPositionX - 2)] == 0))
                     {
                         int[] ints3 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidWhiteJumpStartingPositions.Add((int[])ints3.Clone());
                         Array.Clear(ints3, 0, ints3.Length);
-                        //System.Console.WriteLine("b " + piece.pieceValues[startingPositionY, startingPositionX]);
 
                         int[] removeTakenPiece2 = new[] { (startingPositionY + 1), (startingPositionX - 1) };
                         removeWhiteTakenPiece.Add((int[])removeTakenPiece2.Clone());
@@ -1696,14 +1740,12 @@ namespace Checkers
                         aiValidWhiteJumpMoves.Add((int[])ints4.Clone());                                              
                         Array.Clear(ints4, 0, ints4.Length);
 
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                     }
                     if (((startingPositionX == 0 || startingPositionX == 1) && startingPositionY >= 0 && startingPositionY < 6) && ((piece.pieceValues[(startingPositionY + 1), (startingPositionX + 1)] == 2) || (piece.pieceValues[(startingPositionY + 1), (startingPositionX + 1)] == 4)) && (piece.pieceValues[(startingPositionY + 2), (startingPositionX + 2)] == 0))
                     {
                         int[] ints5 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidWhiteJumpStartingPositions.Add((int[])ints5.Clone());
                         Array.Clear(ints5, 0, ints5.Length);
-                        //System.Console.WriteLine("c " + piece.pieceValues[startingPositionY, startingPositionX]);
 
                         int[] removeTakenPiece3 = new[] { (startingPositionY + 1), (startingPositionX + 1) };
                         removeWhiteTakenPiece.Add((int[])removeTakenPiece3.Clone());
@@ -1713,15 +1755,12 @@ namespace Checkers
                         aiValidWhiteJumpMoves.Add((int[])ints6.Clone());                        
                         Array.Clear(ints6, 0, ints6.Length);
 
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
-
                     }
                     if (((startingPositionX == 7 || startingPositionX == 6) && startingPositionY >= 0 && startingPositionY < 6) && ((piece.pieceValues[(startingPositionY + 1), (startingPositionX - 1)] == 2) || (piece.pieceValues[(startingPositionY + 1), (startingPositionX - 1)] == 4)) && (piece.pieceValues[(startingPositionY + 2), (startingPositionX - 2)] == 0))
                     {
                         int[] ints7 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidWhiteJumpStartingPositions.Add((int[])ints7.Clone());
                         Array.Clear(ints7, 0, ints7.Length);
-                        //System.Console.WriteLine("d " + piece.pieceValues[startingPositionY, startingPositionX]);
 
                         int[] removeTakenPiece4 = new[] { (startingPositionY + 1), (startingPositionX - 1) };
                         removeWhiteTakenPiece.Add((int[])removeTakenPiece4.Clone());
@@ -1731,17 +1770,15 @@ namespace Checkers
                         aiValidWhiteJumpMoves.Add((int[])ints8.Clone());
                         Array.Clear(ints8, 0, ints8.Length);
 
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                     }
                     //-------------------------------------------------------------//
-                    //-----------------------King Stuff----------------------------//
-                    //------------------------------------------------------------//
-                    if ((piece.pieceValues[startingPositionY, startingPositionX] == 3) && ((startingPositionY == 7 || startingPositionY == 6) && startingPositionX > 1 && startingPositionX < 6) && ((piece.pieceValues[(startingPositionY - 1), (startingPositionX - 1)] == 2) || (piece.pieceValues[(startingPositionY - 1), (startingPositionX - 1)] == 4)) && (piece.pieceValues[(startingPositionY - 2), (startingPositionX - 2)] == 0))
+                    //-----------------------King Logic----------------------------//
+                    //--------------------------------------------- ---------------//
+                    if ((piece.pieceValues[startingPositionY, startingPositionX] == 3) && ((startingPositionY <= 7 && startingPositionY >= 2) && startingPositionX > 1 && startingPositionX <= 6) && ((piece.pieceValues[(startingPositionY - 1), (startingPositionX - 1)] == 2) || (piece.pieceValues[(startingPositionY - 1), (startingPositionX - 1)] == 4)) && (piece.pieceValues[(startingPositionY - 2), (startingPositionX - 2)] == 0))
                     {
                         int[] ints1 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidWhiteJumpStartingPositions.Add((int[])ints1.Clone());
                         Array.Clear(ints1, 0, ints1.Length);
-                        //System.Console.WriteLine("AAA " + piece.pieceValues[startingPositionY, startingPositionX]);
 
                         int[] removeTakenPiece1 = new[] { (startingPositionY - 1), (startingPositionX - 1) };
                         removeWhiteTakenPiece.Add((int[])removeTakenPiece1.Clone());
@@ -1751,14 +1788,12 @@ namespace Checkers
                         aiValidWhiteJumpMoves.Add((int[])ints2.Clone());
                         Array.Clear(ints2, 0, ints2.Length);
 
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                     }
-                    if ((piece.pieceValues[startingPositionY, startingPositionX] == 3) && ((startingPositionY == 7 || startingPositionY == 6) && startingPositionX > 1 && startingPositionX < 6) && ((piece.pieceValues[(startingPositionY - 1), (startingPositionX + 1)] == 2) || (piece.pieceValues[(startingPositionY - 1), (startingPositionX + 1)] == 4)) && (piece.pieceValues[(startingPositionY - 2), (startingPositionX + 2)] == 0))
+                    if ((piece.pieceValues[startingPositionY, startingPositionX] == 3) && ((startingPositionY <= 7 && startingPositionY >= 2) && startingPositionX >= 0 && startingPositionX < 6) && ((piece.pieceValues[(startingPositionY - 1), (startingPositionX + 1)] == 2) || (piece.pieceValues[(startingPositionY - 1), (startingPositionX + 1)] == 4)) && (piece.pieceValues[(startingPositionY - 2), (startingPositionX + 2)] == 0))
                     {
                         int[] ints3 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidWhiteJumpStartingPositions.Add((int[])ints3.Clone());
                         Array.Clear(ints3, 0, ints3.Length);
-                        //System.Console.WriteLine("BBB " + piece.pieceValues[startingPositionY, startingPositionX]);
 
                         int[] removeTakenPiece2 = new[] { (startingPositionY - 1), (startingPositionX + 1) };
                         removeWhiteTakenPiece.Add((int[])removeTakenPiece2.Clone());
@@ -1768,14 +1803,12 @@ namespace Checkers
                         aiValidWhiteJumpMoves.Add((int[])ints4.Clone());
                         Array.Clear(ints4, 0, ints4.Length);
 
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                     }
                     if ((piece.pieceValues[startingPositionY, startingPositionX] == 3) && ((startingPositionX == 0 || startingPositionX == 1) && startingPositionY >= 0 && startingPositionY < 7) && ((piece.pieceValues[(startingPositionY + 1), (startingPositionX + 1)] == 2) || (piece.pieceValues[(startingPositionY + 1), (startingPositionX + 1)] == 4)) && (piece.pieceValues[(startingPositionY + 2), (startingPositionX + 2)] == 0))
                     {
                         int[] ints5 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidWhiteJumpStartingPositions.Add((int[])ints5.Clone());
                         Array.Clear(ints5, 0, ints5.Length);
-                        //System.Console.WriteLine("CCC " + piece.pieceValues[startingPositionY, startingPositionX]);
 
                         int[] removeTakenPiece3 = new[] { (startingPositionY + 1), (startingPositionX + 1) };
                         removeWhiteTakenPiece.Add((int[])removeTakenPiece3.Clone());
@@ -1785,15 +1818,12 @@ namespace Checkers
                         aiValidWhiteJumpMoves.Add((int[])ints6.Clone());
                         Array.Clear(ints6, 0, ints6.Length);
 
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
-
                     }
                     if ((piece.pieceValues[startingPositionY, startingPositionX] == 3) && ((startingPositionX == 7 || startingPositionX == 6) && startingPositionY >= 0 && startingPositionY < 6) && ((piece.pieceValues[(startingPositionY + 1), (startingPositionX - 1)] == 2) || (piece.pieceValues[(startingPositionY + 1), (startingPositionX - 1)] == 4)) && (piece.pieceValues[(startingPositionY + 2), (startingPositionX - 2)] == 0))
                     {
                         int[] ints7 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidWhiteJumpStartingPositions.Add((int[])ints7.Clone());
                         Array.Clear(ints7, 0, ints7.Length);
-                        //System.Console.WriteLine("DDD " + piece.pieceValues[startingPositionY, startingPositionX]);
 
                         int[] removeTakenPiece4 = new[] { (startingPositionY + 1), (startingPositionX - 1) };
                         removeWhiteTakenPiece.Add((int[])removeTakenPiece4.Clone());
@@ -1803,9 +1833,7 @@ namespace Checkers
                         aiValidWhiteJumpMoves.Add((int[])ints8.Clone());
                         Array.Clear(ints8, 0, ints8.Length);
 
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                     }
-
 
                 }
                 else
@@ -1815,7 +1843,6 @@ namespace Checkers
                         int[] ints9 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidWhiteJumpStartingPositions.Add((int[])ints9.Clone());
                         Array.Clear(ints9, 0, ints9.Length);
-                        //System.Console.WriteLine("e " + piece.pieceValues[startingPositionY, startingPositionX]);
 
                         int[] removeTakenPiece5 = new[] { (startingPositionY - 1), (startingPositionX - 1) };
                         removeWhiteTakenPiece.Add((int[])removeTakenPiece5.Clone());
@@ -1825,14 +1852,12 @@ namespace Checkers
                         aiValidWhiteJumpMoves.Add((int[])ints10.Clone());
                         Array.Clear(ints10, 0, ints10.Length);
 
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                     }
                     if (((piece.pieceValues[startingPositionY, startingPositionX] == 3) && ((piece.pieceValues[(startingPositionY - 1), (startingPositionX + 1)] == 2) || (piece.pieceValues[(startingPositionY - 1), (startingPositionX + 1)] == 4)) && (piece.pieceValues[(startingPositionY - 2), (startingPositionX + 2)] == 0)))
                     {
                         int[] ints11 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidWhiteJumpStartingPositions.Add((int[])ints11.Clone());
                         Array.Clear(ints11, 0, ints11.Length);
-                        //System.Console.WriteLine("f " + piece.pieceValues[startingPositionY, startingPositionX]);
 
                         int[] removeTakenPiece6 = new[] { (startingPositionY - 1), (startingPositionX + 1) };
                         removeWhiteTakenPiece.Add((int[])removeTakenPiece6.Clone());
@@ -1847,7 +1872,6 @@ namespace Checkers
                         int[] ints9 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidWhiteJumpStartingPositions.Add((int[])ints9.Clone());
                         Array.Clear(ints9, 0, ints9.Length);
-                        //System.Console.WriteLine("g " + piece.pieceValues[startingPositionY, startingPositionX]);
 
                         int[] removeTakenPiece5 = new[] { (startingPositionY + 1), (startingPositionX + 1) };
                         removeWhiteTakenPiece.Add((int[])removeTakenPiece5.Clone());
@@ -1857,14 +1881,12 @@ namespace Checkers
                         aiValidWhiteJumpMoves.Add((int[])ints10.Clone());
                         Array.Clear(ints10, 0, ints10.Length);
 
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                     }
                     if (((piece.pieceValues[startingPositionY, startingPositionX] == 3) || (piece.pieceValues[startingPositionY, startingPositionX] == 1)) && ((piece.pieceValues[(startingPositionY + 1), (startingPositionX - 1)] == 2) || (piece.pieceValues[(startingPositionY + 1), (startingPositionX - 1)] == 4)) && (piece.pieceValues[(startingPositionY + 2), (startingPositionX - 2)] == 0))
                     {
                         int[] ints11 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidWhiteJumpStartingPositions.Add((int[])ints11.Clone());
                         Array.Clear(ints11, 0, ints11.Length);
-                        //System.Console.WriteLine("h " + piece.pieceValues[startingPositionY, startingPositionX]);
 
                         int[] removeTakenPiece6 = new[] { (startingPositionY + 1), (startingPositionX - 1) };
                         removeWhiteTakenPiece.Add((int[])removeTakenPiece6.Clone());
@@ -1874,7 +1896,6 @@ namespace Checkers
                         aiValidWhiteJumpMoves.Add((int[])ints12.Clone());
                         Array.Clear(ints12, 0, ints12.Length);
 
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                     }
                 }
                 startingPositionX = 0;
@@ -1882,48 +1903,35 @@ namespace Checkers
                 Array.Clear(temp1, 0, temp1.Length);
             }
            
-            /*
-            foreach (int[] item in aiValidMoves)
-            {
-                int[] temp2 = (int[])item.Clone();
-                int temp111 = temp2[1];
-                int temp222 = temp2[0];
-                //Console.SetCursorPosition(50, 40);
-                System.Console.WriteLine("--------------" + temp111 + " p " + temp222);
-                System.Console.WriteLine(" " + piece.pieceValues[temp222, temp111]);
-            }
-            */
-
-            //delay.Delay(1);
+            // This delay will determine how quickly the computer will take a turn.
+            delay.Delay(6);
 
             while (valid == false)
-            {                                
+            {   
+                // Checks if there are no valid moves or jumps on the board.
                 if (aiValidWhiteMoves.Count == 0 && aiValidWhiteJumpMoves.Count == 0)
                 {
-                    Console.SetCursorPosition(14, 24);
-                    System.Console.WriteLine(" NO MOVES LEFT!");
+                    Console.SetCursorPosition(14, 24);                          
+                    System.Console.WriteLine(" NO MOVES LEFT!");                // Provides user feedback.
                     player = 2;
                     break;
                 }
 
+                // If there are no valid jumps on the board, do a valid normal move.
                 if (aiValidWhiteJumpMoves.Count == 0)
                 {
-                    int chosenMove = rnd.Next(aiValidWhiteMoves.Count);
+                    int chosenMove = rnd.Next(aiValidWhiteMoves.Count);                     // Create a random number based the size of the current move list.
                     int[] temp = (int[])aiValidWhiteMoves[chosenMove].Clone();
                     movementPositionX = temp[1];
-                    movementPositionY = temp[0];
+                    movementPositionY = temp[0];                                            // Flatten the data.
                     int[] temp2 = (int[])aiValidWhiteStartingPositions[chosenMove].Clone();
                     startingPositionX = temp2[1];
                     startingPositionY = temp2[0];
 
                     pieceType = piece.pieceValues[startingPositionY, startingPositionX];
-                    //System.Console.WriteLine("\n" + aiValidStartingPositions.Count + " " + aiValidMoves.Count + " - " + chosenMove + " -start- " + temp2[1] + " x " + temp2[0] + " -move- " + temp[1] + " x " + temp[0]);
-                    //System.Console.WriteLine("XXX " + piece.pieceValues[startingPositionY, startingPositionX]);
-                    if (pieceType == 3)
-                    {
-                        //System.Console.WriteLine("Z3Z " + piece.pieceValues[startingPositionY, startingPositionX]);
-                        //System.Console.WriteLine("\n" + aiValidStartingPositions.Count + " " + aiValidMoves.Count + " - " + chosenMove + " -start- " + temp2[1] + " x " + temp2[0] + " -move- " + temp[1] + " x " + temp[0] + "----" + pieceType);
 
+                    if (pieceType == 3)                         // Do this for white kings.
+                    {
                         valid = ValidateNormalMove(piece.pieceValues, player, pieceType, holding, playerOneScore, playerTwoScore, turn, movementPositionX, movementPositionY, startingPositionX, startingPositionY);
 
                         if (player == 1 && valid == true)
@@ -1959,10 +1967,9 @@ namespace Checkers
                     }
                     else if (pieceType == 1)
                     {
-                        //System.Console.WriteLine("\n" + aiValidStartingPositions.Count + " " + aiValidMoves.Count + " - " + chosenMove + " -start- " + temp2[1] + " x " + temp2[0] + " -move- " + temp[1] + " x " + temp[0]);
-                        //System.Console.WriteLine("Y1Y " + piece.pieceValues[startingPositionY, startingPositionX]);
                         valid = ValidateNormalMove(piece.pieceValues, player, pieceType, holding, playerOneScore, playerTwoScore, turn, movementPositionX, movementPositionY, startingPositionX, startingPositionY);
 
+                        // Update game data based on valid conditions.
                         if (pieceType == 1 && player == 1 && valid == true)
                         {
                             dictionaryIndex++;
@@ -1996,6 +2003,7 @@ namespace Checkers
                     }
                 }
 
+                // Perform a valid jump move.
                 else if (aiValidWhiteJumpMoves.Count > 0)
                 {
                     int chosenMove4 = rnd.Next(aiValidWhiteJumpMoves.Count);
@@ -2014,12 +2022,10 @@ namespace Checkers
                     if (pieceType == 3)
                     {
                         movementPositionX = removeX;
-                        movementPositionY = removeY;
+                        movementPositionY = removeY;                    // Use this data to be accepted by the validation function.
                         validJump = ValidateJumpMove(piece.pieceValues, player, pieceType, holding, playerOneScore, playerTwoScore, turn, movementPositionX, movementPositionY, startingPositionX, startingPositionY);
                         movementPositionX = temp4[1];
                         movementPositionY = temp4[0];
-
-                        //System.Console.WriteLine("Z3Z " + piece.pieceValues[startingPositionY, startingPositionX]);
 
                         if (player == 1 && validJump == true)
                         {
@@ -2069,7 +2075,7 @@ namespace Checkers
                             Array.Clear(temp6, 0, temp4.Length);
                             chosenMove4 = 0;
                             validJump = false;
-                            valid = false;
+                            valid = false;                      // Dump temporary data.
                             break;
                         }
                         else
@@ -2079,7 +2085,6 @@ namespace Checkers
                     }
                     else if (pieceType == 1)
                     {
-                        //System.Console.WriteLine("\n" + aiValidJumpStartingPositions.Count + " " + aiValidJumpMoves.Count + " - " + chosenMove4 + " -start- " + temp5[1] + " x " + temp5[0] + " -move- " + temp4[1] + " x " + temp4[0]);
                         movementPositionX = removeX;
                         movementPositionY = removeY;
                         validJump = ValidateJumpMove(piece.pieceValues, player, pieceType, holding, playerOneScore, playerTwoScore, turn, movementPositionX, movementPositionY, startingPositionX, startingPositionY);
@@ -2166,6 +2171,11 @@ namespace Checkers
         public List<int[]> aiValidBlackJumpStartingPositions = new List<int[]>();
         public List<int[]> removeBlackTakenPiece = new List<int[]>();
 
+        /// <summary>
+        /// The PickABlackMove() function sets up the AI for a black piece moves. 
+        /// Collects all valid normal moves and jump moves.
+        /// Used for the CvC mode. 
+        /// </summary>
         public void PickABlackMove()
         {
             Random rnd = new Random();
@@ -2222,10 +2232,8 @@ namespace Checkers
                     {
                         int[] ints2 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidBlackStartingPositions.Add((int[])ints2.Clone());
-                        //System.Console.WriteLine("b " + piece.pieceValues[startingPositionY, startingPositionX]);
                         int[] ints = new[] { (startingPositionY - 1), (startingPositionX + 1) };
                         aiValidBlackMoves.Add((int[])ints.Clone());
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                         Array.Clear(ints2, 0, ints2.Length);
                         Array.Clear(ints, 0, ints.Length);
                     }
@@ -2233,10 +2241,8 @@ namespace Checkers
                     {
                         int[] ints2 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidBlackStartingPositions.Add((int[])ints2.Clone());
-                        //System.Console.WriteLine("c " + piece.pieceValues[startingPositionY, startingPositionX]);
                         int[] ints = new[] { (startingPositionY - 1), (startingPositionX - 1) };
                         aiValidBlackMoves.Add((int[])ints.Clone());
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                         Array.Clear(ints2, 0, ints2.Length);
                         Array.Clear(ints, 0, ints.Length);
                     }
@@ -2244,24 +2250,20 @@ namespace Checkers
                     {
                         int[] ints2 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidBlackStartingPositions.Add((int[])ints2.Clone());
-                        //System.Console.WriteLine("d " + piece.pieceValues[startingPositionY, startingPositionX]);
                         int[] ints = new[] { (startingPositionY - 1), (startingPositionX + 1) };
                         aiValidBlackMoves.Add((int[])ints.Clone());
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                         Array.Clear(ints2, 0, ints2.Length);
                         Array.Clear(ints, 0, ints.Length);
                     }
                     //-------------------------------------------------------------//
-                    //-----------------------King Stuff----------------------------//
-                    //------------------------------------------------------------//
+                    //-----------------------King Logic----------------------------//
+                    //------------------------------------------------ ------------//
                     if ((piece.pieceValues[startingPositionY, startingPositionX] == 4) && (startingPositionY == 0 && startingPositionX > 0 && startingPositionX < 7) && (piece.pieceValues[(startingPositionY + 1), (startingPositionX + 1)] == 0))
                     {
                         int[] ints2 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidBlackStartingPositions.Add((int[])ints2.Clone());
-                        //System.Console.WriteLine("AAA " + piece.pieceValues[startingPositionY, startingPositionX]);
                         int[] ints = new[] { (startingPositionY + 1), (startingPositionX + 1) };
                         aiValidBlackMoves.Add((int[])ints.Clone());
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                         Array.Clear(ints2, 0, ints2.Length);
                         Array.Clear(ints, 0, ints.Length);
                     }
@@ -2269,10 +2271,8 @@ namespace Checkers
                     {
                         int[] ints2 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidBlackStartingPositions.Add((int[])ints2.Clone());
-                        //System.Console.WriteLine("BBB " + piece.pieceValues[startingPositionY, startingPositionX]);
                         int[] ints = new[] { (startingPositionY + 1), (startingPositionX - 1) };
                         aiValidBlackMoves.Add((int[])ints.Clone());
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                         Array.Clear(ints2, 0, ints2.Length);
                         Array.Clear(ints, 0, ints.Length);
                     }
@@ -2280,10 +2280,8 @@ namespace Checkers
                     {
                         int[] ints2 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidBlackStartingPositions.Add((int[])ints2.Clone());
-                        //System.Console.WriteLine("CCC " + piece.pieceValues[startingPositionY, startingPositionX]);
                         int[] ints = new[] { (startingPositionY + 1), (startingPositionX + 1) };
                         aiValidBlackMoves.Add((int[])ints.Clone());
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                         Array.Clear(ints2, 0, ints2.Length);
                         Array.Clear(ints, 0, ints.Length);
                     }
@@ -2291,10 +2289,8 @@ namespace Checkers
                     {
                         int[] ints2 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidBlackStartingPositions.Add((int[])ints2.Clone());
-                        //System.Console.WriteLine("DDD " + piece.pieceValues[startingPositionY, startingPositionX]);
                         int[] ints = new[] { (startingPositionY + 1), (startingPositionX - 1) };
                         aiValidBlackMoves.Add((int[])ints.Clone());
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                         Array.Clear(ints2, 0, ints2.Length);
                         Array.Clear(ints, 0, ints.Length);
                     }
@@ -2305,10 +2301,8 @@ namespace Checkers
                     {
                         int[] ints3 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidBlackStartingPositions.Add((int[])ints3.Clone());
-                        //System.Console.WriteLine("e " + piece.pieceValues[startingPositionY, startingPositionX]);
                         int[] ints1 = new[] { (startingPositionY + 1), (startingPositionX + 1) };
                         aiValidBlackMoves.Add((int[])ints1.Clone());
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                         Array.Clear(ints3, 0, ints3.Length);
                         Array.Clear(ints1, 0, ints1.Length);
                     }
@@ -2316,10 +2310,8 @@ namespace Checkers
                     {
                         int[] ints3 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidBlackStartingPositions.Add((int[])ints3.Clone());
-                        //System.Console.WriteLine("f " + piece.pieceValues[startingPositionY, startingPositionX]);
                         int[] ints1 = new[] { (startingPositionY + 1), (startingPositionX - 1) };
                         aiValidBlackMoves.Add((int[])ints1.Clone());
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                         Array.Clear(ints3, 0, ints3.Length);
                         Array.Clear(ints1, 0, ints1.Length);
                     }
@@ -2327,10 +2319,8 @@ namespace Checkers
                     {
                         int[] ints2 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidBlackStartingPositions.Add((int[])ints2.Clone());
-                        //System.Console.WriteLine("g " + piece.pieceValues[startingPositionY, startingPositionX]);
                         int[] ints = new[] { (startingPositionY - 1), (startingPositionX - 1) };
                         aiValidBlackMoves.Add((int[])ints.Clone());
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                         Array.Clear(ints2, 0, ints2.Length);
                         Array.Clear(ints, 0, ints.Length);
                     }
@@ -2338,10 +2328,8 @@ namespace Checkers
                     {
                         int[] ints3 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidBlackStartingPositions.Add((int[])ints3.Clone());
-                        //System.Console.WriteLine("h " + piece.pieceValues[startingPositionY, startingPositionX]);
                         int[] ints1 = new[] { (startingPositionY - 1), (startingPositionX + 1) };
                         aiValidBlackMoves.Add((int[])ints1.Clone());
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                         Array.Clear(ints3, 0, ints3.Length);
                         Array.Clear(ints1, 0, ints1.Length);
                     }
@@ -2350,7 +2338,7 @@ namespace Checkers
             }
 
             //-----------------------------------------------------------------------------------------------------------------------//
-            //------------------------------------jump stuff-------------------------------------------------------------------------//
+            //-----------------------------------------Jump Logic--------------------------------------------------------------------//
             //-----------------------------------------------------------------------------------------------------------------------//
 
             foreach (int[] item in aiPiecesBlack)
@@ -2359,17 +2347,14 @@ namespace Checkers
 
                 startingPositionX = item[1];
                 startingPositionY = item[0];
-                //System.Console.WriteLine("\n---------------" + startingPositionX + " " + startingPositionY);
 
                 if ((startingPositionX + 2 == -2) || (startingPositionX + 2 == -1) || (startingPositionX + 2 == 9) || (startingPositionX + 2 == 8) || (startingPositionX - 2 == -2) || (startingPositionX - 2 == -1) || (startingPositionX - 2 == 9) || (startingPositionX - 2 == 8) || (startingPositionY + 2 == -2) || (startingPositionY + 2 == -1) || (startingPositionY + 2 == 9) || (startingPositionY + 2 == 8) || (startingPositionY - 2 == -2) || (startingPositionY - 2 == -1) || (startingPositionY - 2 == 8) || (startingPositionY - 2 == 9))
-                //if ((startingPositionX + 1 != 8) || (startingPositionX - 1 != -1)|| (startingPositionY + 1 != 8) || (startingPositionY - 1 != -1))
                 {
                     if (((startingPositionY > 1 && startingPositionY <= 7) && startingPositionX > 1 && startingPositionX < 6) && ((piece.pieceValues[(startingPositionY - 1), (startingPositionX - 1)] == 1) || (piece.pieceValues[(startingPositionY - 1), (startingPositionX - 1)] == 3)) && (piece.pieceValues[(startingPositionY - 2), (startingPositionX - 2)] == 0))
                     {
                         int[] ints1 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidBlackJumpStartingPositions.Add((int[])ints1.Clone());
                         Array.Clear(ints1, 0, ints1.Length);
-                        //System.Console.WriteLine("a " + piece.pieceValues[startingPositionY, startingPositionX]);
 
                         int[] removeBlackTakenPiece1 = new[] { (startingPositionY - 1), (startingPositionX - 1) };
                         removeBlackTakenPiece.Add((int[])removeBlackTakenPiece1.Clone());
@@ -2379,14 +2364,12 @@ namespace Checkers
                         aiValidBlackJumpMoves.Add((int[])ints2.Clone());
                         Array.Clear(ints2, 0, ints2.Length);
 
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                     }
                     if (((startingPositionY > 1 && startingPositionY <= 7) && startingPositionX >= 1 && startingPositionX < 6) && ((piece.pieceValues[(startingPositionY - 1), (startingPositionX + 1)] == 1) || (piece.pieceValues[(startingPositionY - 1), (startingPositionX + 1)] == 3)) && (piece.pieceValues[(startingPositionY - 2), (startingPositionX + 2)] == 0))
                     {
                         int[] ints3 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidBlackJumpStartingPositions.Add((int[])ints3.Clone());
                         Array.Clear(ints3, 0, ints3.Length);
-                        //System.Console.WriteLine("b " + piece.pieceValues[startingPositionY, startingPositionX]);
 
                         int[] removeBlackTakenPiece2 = new[] { (startingPositionY - 1), (startingPositionX + 1) };
                         removeBlackTakenPiece.Add((int[])removeBlackTakenPiece2.Clone());
@@ -2396,14 +2379,12 @@ namespace Checkers
                         aiValidBlackJumpMoves.Add((int[])ints4.Clone());
                         Array.Clear(ints4, 0, ints4.Length);
 
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                     }
                     if (((startingPositionX > 1 && startingPositionX <= 7) && startingPositionY > 1 && startingPositionY <= 7) && ((piece.pieceValues[(startingPositionY - 1), (startingPositionX - 1)] == 1) || (piece.pieceValues[(startingPositionY - 1), (startingPositionX - 1)] == 3)) && (piece.pieceValues[(startingPositionY - 2), (startingPositionX - 2)] == 0))
                     {
                         int[] ints5 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidBlackJumpStartingPositions.Add((int[])ints5.Clone());
                         Array.Clear(ints5, 0, ints5.Length);
-                        //System.Console.WriteLine("c " + piece.pieceValues[startingPositionY, startingPositionX]);
 
                         int[] removeBlackTakenPiece3 = new[] { (startingPositionY - 1), (startingPositionX - 1) };
                         removeBlackTakenPiece.Add((int[])removeBlackTakenPiece3.Clone());
@@ -2413,15 +2394,12 @@ namespace Checkers
                         aiValidBlackJumpMoves.Add((int[])ints6.Clone());
                         Array.Clear(ints6, 0, ints6.Length);
 
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
-
                     }
                     if (((startingPositionX >= 0 && startingPositionX <= 5) && startingPositionY > 1 && startingPositionY <= 7) && ((piece.pieceValues[(startingPositionY - 1), (startingPositionX + 1)] == 1) || (piece.pieceValues[(startingPositionY - 1), (startingPositionX + 1)] == 3)) && (piece.pieceValues[(startingPositionY - 2), (startingPositionX + 2)] == 0))
                     {
                         int[] ints7 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidBlackJumpStartingPositions.Add((int[])ints7.Clone());
                         Array.Clear(ints7, 0, ints7.Length);
-                        //System.Console.WriteLine("d " + piece.pieceValues[startingPositionY, startingPositionX]);
 
                         int[] removeBlackTakenPiece4 = new[] { (startingPositionY - 1), (startingPositionX + 1) };
                         removeBlackTakenPiece.Add((int[])removeBlackTakenPiece4.Clone());
@@ -2431,17 +2409,15 @@ namespace Checkers
                         aiValidBlackJumpMoves.Add((int[])ints8.Clone());
                         Array.Clear(ints8, 0, ints8.Length);
 
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                     }
                     //-------------------------------------------------------------//
-                    //-----------------------King Stuff----------------------------//
-                    //------------------------------------------------------------//
+                    //-----------------------King Logic----------------------------//
+                    //-------------------------------------------------------------//
                     if ((piece.pieceValues[startingPositionY, startingPositionX] == 4) && ((startingPositionY == 0 || startingPositionY == 1) && startingPositionX > 1 && startingPositionX < 6) && ((piece.pieceValues[(startingPositionY + 1), (startingPositionX + 1)] == 1) || (piece.pieceValues[(startingPositionY + 1), (startingPositionX + 1)] == 3)) && (piece.pieceValues[(startingPositionY + 2), (startingPositionX + 2)] == 0))
                     {
                         int[] ints1 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidBlackJumpStartingPositions.Add((int[])ints1.Clone());
                         Array.Clear(ints1, 0, ints1.Length);
-                        //System.Console.WriteLine("AAA " + piece.pieceValues[startingPositionY, startingPositionX]);
 
                         int[] removeBlackTakenPiece1 = new[] { (startingPositionY + 1), (startingPositionX + 1) };
                         removeBlackTakenPiece.Add((int[])removeBlackTakenPiece1.Clone());
@@ -2451,14 +2427,12 @@ namespace Checkers
                         aiValidBlackJumpMoves.Add((int[])ints2.Clone());
                         Array.Clear(ints2, 0, ints2.Length);
 
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                     }
                     if ((piece.pieceValues[startingPositionY, startingPositionX] == 4) && ((startingPositionY == 0 || startingPositionY == 1) && startingPositionX > 1 && startingPositionX <= 7) && ((piece.pieceValues[(startingPositionY + 1), (startingPositionX - 1)] == 1) || (piece.pieceValues[(startingPositionY + 1), (startingPositionX - 1)] == 3)) && (piece.pieceValues[(startingPositionY + 2), (startingPositionX - 2)] == 0))
                     {
                         int[] ints3 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidBlackJumpStartingPositions.Add((int[])ints3.Clone());
                         Array.Clear(ints3, 0, ints3.Length);
-                        //System.Console.WriteLine("BBB " + piece.pieceValues[startingPositionY, startingPositionX]);
 
                         int[] removeBlackTakenPiece2 = new[] { (startingPositionY + 1), (startingPositionX - 1) };
                         removeBlackTakenPiece.Add((int[])removeBlackTakenPiece2.Clone());
@@ -2468,14 +2442,12 @@ namespace Checkers
                         aiValidBlackJumpMoves.Add((int[])ints4.Clone());
                         Array.Clear(ints4, 0, ints4.Length);
 
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                     }
                     if ((piece.pieceValues[startingPositionY, startingPositionX] == 4) && ((startingPositionX > 1 && startingPositionX <= 7) && startingPositionY > 1 && startingPositionY < 7) && ((piece.pieceValues[(startingPositionY - 1), (startingPositionX - 1)] == 1) || (piece.pieceValues[(startingPositionY - 1), (startingPositionX - 1)] == 3)) && (piece.pieceValues[(startingPositionY - 2), (startingPositionX - 2)] == 0))
                     {
                         int[] ints5 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidBlackJumpStartingPositions.Add((int[])ints5.Clone());
                         Array.Clear(ints5, 0, ints5.Length);
-                        //System.Console.WriteLine("CCC " + piece.pieceValues[startingPositionY, startingPositionX]);
 
                         int[] removeBlackTakenPiece3 = new[] { (startingPositionY - 1), (startingPositionX - 1) };
                         removeBlackTakenPiece.Add((int[])removeBlackTakenPiece3.Clone());
@@ -2485,15 +2457,12 @@ namespace Checkers
                         aiValidBlackJumpMoves.Add((int[])ints6.Clone());
                         Array.Clear(ints6, 0, ints6.Length);
 
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
-
                     }
                     if ((piece.pieceValues[startingPositionY, startingPositionX] == 4) && ((startingPositionX >= 0 && startingPositionX < 6) && startingPositionY > 1 && startingPositionY < 6) && ((piece.pieceValues[(startingPositionY - 1), (startingPositionX + 1)] == 1) || (piece.pieceValues[(startingPositionY - 1), (startingPositionX + 1)] == 3)) && (piece.pieceValues[(startingPositionY - 2), (startingPositionX + 2)] == 0))
                     {
                         int[] ints7 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidBlackJumpStartingPositions.Add((int[])ints7.Clone());
                         Array.Clear(ints7, 0, ints7.Length);
-                        //System.Console.WriteLine("DDD " + piece.pieceValues[startingPositionY, startingPositionX]);
 
                         int[] removeBlackTakenPiece4 = new[] { (startingPositionY - 1), (startingPositionX + 1) };
                         removeBlackTakenPiece.Add((int[])removeBlackTakenPiece4.Clone());
@@ -2503,9 +2472,7 @@ namespace Checkers
                         aiValidBlackJumpMoves.Add((int[])ints8.Clone());
                         Array.Clear(ints8, 0, ints8.Length);
 
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                     }
-
 
                 }
                 else
@@ -2515,7 +2482,6 @@ namespace Checkers
                         int[] ints9 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidBlackJumpStartingPositions.Add((int[])ints9.Clone());
                         Array.Clear(ints9, 0, ints9.Length);
-                        //System.Console.WriteLine("e " + piece.pieceValues[startingPositionY, startingPositionX]);
 
                         int[] removeBlackTakenPiece5 = new[] { (startingPositionY + 1), (startingPositionX + 1) };
                         removeBlackTakenPiece.Add((int[])removeBlackTakenPiece5.Clone());
@@ -2525,14 +2491,12 @@ namespace Checkers
                         aiValidBlackJumpMoves.Add((int[])ints10.Clone());
                         Array.Clear(ints10, 0, ints10.Length);
 
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                     }
                     if (((piece.pieceValues[startingPositionY, startingPositionX] == 4) && ((piece.pieceValues[(startingPositionY + 1), (startingPositionX - 1)] == 1) || (piece.pieceValues[(startingPositionY + 1), (startingPositionX - 1)] == 3)) && (piece.pieceValues[(startingPositionY + 2), (startingPositionX - 2)] == 0)))
                     {
                         int[] ints11 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidBlackJumpStartingPositions.Add((int[])ints11.Clone());
                         Array.Clear(ints11, 0, ints11.Length);
-                        //System.Console.WriteLine("f " + piece.pieceValues[startingPositionY, startingPositionX]);
 
                         int[] removeBlackTakenPiece6 = new[] { (startingPositionY + 1), (startingPositionX - 1) };
                         removeBlackTakenPiece.Add((int[])removeBlackTakenPiece6.Clone());
@@ -2547,7 +2511,6 @@ namespace Checkers
                         int[] ints9 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidBlackJumpStartingPositions.Add((int[])ints9.Clone());
                         Array.Clear(ints9, 0, ints9.Length);
-                        //System.Console.WriteLine("g " + piece.pieceValues[startingPositionY, startingPositionX]);
 
                         int[] removeBlackTakenPiece5 = new[] { (startingPositionY - 1), (startingPositionX - 1) };
                         removeBlackTakenPiece.Add((int[])removeBlackTakenPiece5.Clone());
@@ -2557,14 +2520,12 @@ namespace Checkers
                         aiValidBlackJumpMoves.Add((int[])ints10.Clone());
                         Array.Clear(ints10, 0, ints10.Length);
 
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                     }
                     if (((piece.pieceValues[startingPositionY, startingPositionX] == 4) || (piece.pieceValues[startingPositionY, startingPositionX] == 2)) && ((piece.pieceValues[(startingPositionY - 1), (startingPositionX + 1)] == 1) || (piece.pieceValues[(startingPositionY - 1), (startingPositionX + 1)] == 3)) && (piece.pieceValues[(startingPositionY - 2), (startingPositionX + 2)] == 0))
                     {
                         int[] ints11 = new[] { (startingPositionY), (startingPositionX) };
                         aiValidBlackJumpStartingPositions.Add((int[])ints11.Clone());
                         Array.Clear(ints11, 0, ints11.Length);
-                        //System.Console.WriteLine("h " + piece.pieceValues[startingPositionY, startingPositionX]);
 
                         int[] removeBlackTakenPiece6 = new[] { (startingPositionY - 1), (startingPositionX + 1) };
                         removeBlackTakenPiece.Add((int[])removeBlackTakenPiece6.Clone());
@@ -2574,7 +2535,6 @@ namespace Checkers
                         aiValidBlackJumpMoves.Add((int[])ints12.Clone());
                         Array.Clear(ints12, 0, ints12.Length);
 
-                        //System.Console.WriteLine("\n----------------------------" + startingPositionX + " " + startingPositionY);
                     }
                 }
                 startingPositionX = 0;
@@ -2582,19 +2542,7 @@ namespace Checkers
                 Array.Clear(temp1, 0, temp1.Length);
             }
 
-            /*
-            foreach (int[] item in aiValidMoves)
-            {
-                int[] temp2 = (int[])item.Clone();
-                int temp111 = temp2[1];
-                int temp222 = temp2[0];
-                //Console.SetCursorPosition(50, 40);
-                System.Console.WriteLine("--------------" + temp111 + " p " + temp222);
-                System.Console.WriteLine(" " + piece.pieceValues[temp222, temp111]);
-            }
-            */
-
-            //delay.Delay(1);
+            delay.Delay(6);
 
             while (valid == false)
             {
@@ -2617,12 +2565,8 @@ namespace Checkers
                     startingPositionY = temp2[0];
 
                     pieceType = piece.pieceValues[startingPositionY, startingPositionX];
-                    //System.Console.WriteLine("\n" + aiValidStartingPositions.Count + " " + aiValidMoves.Count + " - " + chosenMove + " -start- " + temp2[1] + " x " + temp2[0] + " -move- " + temp[1] + " x " + temp[0]);
-                    //System.Console.WriteLine("XXX " + piece.pieceValues[startingPositionY, startingPositionX]);
                     if (pieceType == 4)
                     {
-                        //System.Console.WriteLine("Z3Z " + piece.pieceValues[startingPositionY, startingPositionX]);
-                        //System.Console.WriteLine("\n" + aiValidStartingPositions.Count + " " + aiValidMoves.Count + " - " + chosenMove + " -start- " + temp2[1] + " x " + temp2[0] + " -move- " + temp[1] + " x " + temp[0] + "----" + pieceType);
 
                         valid = ValidateNormalMove(piece.pieceValues, player, pieceType, holding, playerOneScore, playerTwoScore, turn, movementPositionX, movementPositionY, startingPositionX, startingPositionY);
 
@@ -2659,8 +2603,6 @@ namespace Checkers
                     }
                     else if (pieceType == 2)
                     {
-                        //System.Console.WriteLine("\n" + aiValidStartingPositions.Count + " " + aiValidMoves.Count + " - " + chosenMove + " -start- " + temp2[1] + " x " + temp2[0] + " -move- " + temp[1] + " x " + temp[0]);
-                        //System.Console.WriteLine("Y1Y " + piece.pieceValues[startingPositionY, startingPositionX]);
                         valid = ValidateNormalMove(piece.pieceValues, player, pieceType, holding, playerOneScore, playerTwoScore, turn, movementPositionX, movementPositionY, startingPositionX, startingPositionY);
 
                         if (pieceType == 2 && player == 2 && valid == true)
@@ -2719,8 +2661,6 @@ namespace Checkers
                         movementPositionX = temp4[1];
                         movementPositionY = temp4[0];
 
-                        //System.Console.WriteLine("Z3Z " + piece.pieceValues[startingPositionY, startingPositionX]);
-
                         if (player == 2 && validJump == true)
                         {
                             dictionaryIndex++;
@@ -2778,7 +2718,6 @@ namespace Checkers
                     }
                     else if (pieceType == 2)
                     {
-                        //System.Console.WriteLine("\n" + aiValidJumpStartingPositions.Count + " " + aiValidJumpMoves.Count + " - " + chosenMove4 + " -start- " + temp5[1] + " x " + temp5[0] + " -move- " + temp4[1] + " x " + temp4[0]);
                         movementPositionX = removeX;
                         movementPositionY = removeY;
                         validJump = ValidateJumpMove(piece.pieceValues, player, pieceType, holding, playerOneScore, playerTwoScore, turn, movementPositionX, movementPositionY, startingPositionX, startingPositionY);
@@ -2856,13 +2795,25 @@ namespace Checkers
             removeBlackTakenPiece.Clear();
         }
 
+        /// <summary>
+        /// The Changes() function provides the devloper with debug information based on the game data produced.
+        /// </summary>
+        /// <param name="pieceValues">Passes in the current board.</param>
+        /// <param name="movementPositionX">Gets the current X-coordinate.</param>
+        /// <param name="movementPositionY">Gets the current Y-coordinate.</param>
+        /// <param name="holding">Gets the current holding status.</param>
+        /// <param name="pieceType">Gets the current piece type.</param>
+        /// <param name="turn">Gets the current turn.</param>
+        /// <returns>Outputs the data to the console.</returns>
         public void Changes(int[,] pieceValues, int movementPositionX, int movementPositionY, int holding, int pieceType, int turn)
         {
             Console.SetCursorPosition(0, 24);
             Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine("\n\n");
+            // Outputs live data to the console.
             Console.WriteLine("x" + movementPositionX + " y" + movementPositionY + " Holding:" + holding + " PieceType:" + pieceType + " Player:" + player + " s1:" + playerOneScore + " s2:" + playerTwoScore + "  " + "Turn: " + turn);
 
+            // Draws the board by value.
             for (int x = 0; x < 8; x++)
             {
                 for (int y = 0; y < 8; y++)
@@ -2896,6 +2847,7 @@ namespace Checkers
                 Console.Write("\n");
             }
 
+            // Spits out every board for all moves stored.
             foreach (KeyValuePair<int, int[,]> pair in piece.moveList)
             {
                 Console.WriteLine(pair.Key);
@@ -2938,6 +2890,7 @@ namespace Checkers
                 }
             }
 
+            // Displays game state data to console
             foreach (KeyValuePair<int, int[]> pair in piece.gameState)
             {
                 int[] temp1 = new int[6];
