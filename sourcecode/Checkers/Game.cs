@@ -10,11 +10,11 @@ namespace Checkers
     /// <summary>
     /// SET09117 2017-8 TR1 001 - Algorithms and Data Structures
     /// Console Checkers
-    /// Version 1.0.0
+    /// Version 1.0.1
     /// Alexander Barker 
     /// 40333139
     /// Created on 14th October 2017
-    /// Last Updated on 15th November 2017
+    /// Last Updated on 16th November 2017
     /// </summary>
     /// <summary> 
     /// Game.cs - This file will take the users choice from the menu and initialize the coressponding game mode.

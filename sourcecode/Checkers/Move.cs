@@ -10,11 +10,11 @@ namespace Checkers
     /// <summary>
     /// SET09117 2017-8 TR1 001 - Algorithms and Data Structures
     /// Console Checkers
-    /// Version 1.0.0
+    /// Version 1.0.1
     /// Alexander Barker 
     /// 40333139
     /// Created on 14th October 2017
-    /// Last Updated on 15th November 2017
+    /// Last Updated on 16th November 2017
     /// </summary>
     /// <summary>
     /// Move.cs - This file deals with all code related to piece movement, validation, boundary checks and implements all game modes.
@@ -379,6 +379,8 @@ namespace Checkers
         /// </summary>
         public void LoadFileData()
         {
+            try
+            {       
             using (StreamReader sr1 = new StreamReader(@".\\SaveMoveList.csv"))
             {
 
@@ -415,27 +417,27 @@ namespace Checkers
                 }
             }
 
-            using (StreamReader sr2 = new StreamReader(@".\\SaveGameData.csv"))
-            {
-
-                string file = System.IO.File.ReadAllText(@".\\SaveGameData.csv");
-
-                file = file.Replace('\n', '\r');
-                string[] lines = file.Split(new char[] { '\r' }, StringSplitOptions.RemoveEmptyEntries);
-
-                var lineCount = File.ReadLines(@".\\SaveGameData.csv").Count();
-                string line;
-                int moveCount = 0;
-                while ((line = sr2.ReadLine()) != null && moveCount != lineCount)
+                using (StreamReader sr2 = new StreamReader(@".\\SaveGameData.csv"))
                 {
+
+                    string file = System.IO.File.ReadAllText(@".\\SaveGameData.csv");
+
+                    file = file.Replace('\n', '\r');
+                    string[] lines = file.Split(new char[] { '\r' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    var lineCount = File.ReadLines(@".\\SaveGameData.csv").Count();
+                    string line;
+                    int moveCount = 0;
+                    while ((line = sr2.ReadLine()) != null && moveCount != lineCount)
+                    {
                         int[] tempGameData = line.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
                         int counter = 0;
                         while (counter < 6)
                         {
                             for (int j = 0; j < 6; j++)
                             {
-                                    gameData[j] = tempGameData[counter];
-                                    counter++;
+                                gameData[j] = tempGameData[counter];
+                                counter++;
                             }
                         }
                         if (piece.gameState.ContainsKey(moveCount) != true)
@@ -443,27 +445,40 @@ namespace Checkers
                             piece.gameState.Add(moveCount, (int[])gameData.Clone());
                         }
                         piece.gameState[moveCount] = (int[])gameData.Clone();
-                        moveCount++;                 
-                }                
+                        moveCount++;
+                    }
+                }
+
+                dictionaryIndex = (piece.moveList.Count - 1);                               // Calculates the required dictionary index value.
+
+                gameData = (int[])piece.gameState[dictionaryIndex].Clone();                 // Copies the top game state.
+                playerOneScore = gameData[0];
+                playerTwoScore = gameData[1];
+                turn = gameData[2];
+                player = gameData[3];
+                movementPositionX = gameData[4];
+                movementPositionY = gameData[5];
+
+                score.ScoreUpdater(player, playerOneScore, playerTwoScore);                 // Updates the scores.
+                score.ScoreUpdater((player + 1), playerOneScore, playerTwoScore);
+                score.ScoreUpdater((player - 1), playerOneScore, playerTwoScore);
+
+                piece.pieceValues = (int[,])piece.moveList[dictionaryIndex].Clone();        // Copies the top board.
+                board.ReDrawBoard();
+                piece.SetPieces();
             }
-            
-            dictionaryIndex = (piece.moveList.Count - 1);                               // Calculates the required dictionary index value.
-
-            gameData = (int[])piece.gameState[dictionaryIndex].Clone();                 // Copies the top game state.
-            playerOneScore = gameData[0];
-            playerTwoScore = gameData[1];
-            turn = gameData[2];
-            player = gameData[3];
-            movementPositionX = gameData[4];
-            movementPositionY = gameData[5];
-
-            score.ScoreUpdater(player, playerOneScore, playerTwoScore);                 // Updates the scores.
-            score.ScoreUpdater((player + 1), playerOneScore, playerTwoScore);
-            score.ScoreUpdater((player - 1), playerOneScore, playerTwoScore);
-
-            piece.pieceValues = (int[,])piece.moveList[dictionaryIndex].Clone();        // Copies the top board.
-            board.ReDrawBoard();
-            piece.SetPieces();
+            // If no save files are detected, return to main menu.
+            catch (FileNotFoundException ex)                                                        
+            {
+                Console.SetCursorPosition(14, 26);
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("\n Save file not found! -  Returning to Main Menu... \n");
+                //Console.WriteLine(ex);
+                delay.Delay(20);
+                Console.Clear();
+                Menu menu = new Menu();
+                menu.DrawTitle();
+            }
         }
 
         /// <summary>

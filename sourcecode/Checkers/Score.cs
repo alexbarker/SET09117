@@ -9,11 +9,11 @@ namespace Checkers
     /// <summary>
     /// SET09117 2017-8 TR1 001 - Algorithms and Data Structures
     /// Console Checkers
-    /// Version 1.0.0
+    /// Version 1.0.1
     /// Alexander Barker 
     /// 40333139
     /// Created on 14th October 2017
-    /// Last Updated on 15th November 2017
+    /// Last Updated on 16th November 2017
     /// </summary>
     /// <summary>
     /// Score.cs - This file stores the score designs and returns the required design.
